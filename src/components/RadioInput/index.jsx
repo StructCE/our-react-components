@@ -1,15 +1,14 @@
-export function RadioInput({ children, id, style, value, ...props }) {
+export function RadioInput({ children, id, style, ...props }) {
   return (
     <>
       <input
         id={id}
-        value={value}
         {...props}
         style={{ appearance: "none", ...style }}
         type="radio"
       />
       <label htmlFor={id}>
-        {/* Icon instead of normal radio: */}
+        {/* Icon/visual instead of normal radio: */}
         {children}
       </label>
     </>
