@@ -28,37 +28,42 @@ export function RadioInputExample2() {
   return (
     <form id="form" onSubmit={handleSubmit}>
       <h1>Faça o pagamento</h1>
-      <h2>Escolha a forma de pagamento</h2>
-      <CustomRadio
-        name="paymentMethod"
-        value="card"
-        id="card"
-        checked={formInfo.paymentMethod === "card"}
-        onChange={handleChange}
-      >
-        No Cartão
-      </CustomRadio>
-      <CustomRadio
-        name="paymentMethod"
-        id="pix"
-        value="pix"
-        checked={formInfo.paymentMethod === "pix"}
-        onChange={handleChange}
-      >
-        No PIX
-      </CustomRadio>
-      <h2>Qual o valor?</h2>
-      <input
-        type="number"
-        name="value"
-        id="valueInput"
-        onChange={handleChange}
-        value={formInfo.value}
-        step={100}
-      />
-      {/* <label htmlFor="value" aria-controls="formValue">
-        Em centavos de real
-      </label> */}
+      <fieldset>
+        <legend>Escolha a forma de pagamento</legend>
+        <CustomRadio
+          name="paymentMethod"
+          value="card"
+          id="card"
+          checked={formInfo.paymentMethod === "card"}
+          onChange={handleChange}
+        />
+        <label htmlFor="card">No Cartão</label>
+        <CustomRadio
+          name="paymentMethod"
+          id="pix"
+          value="pix"
+          checked={formInfo.paymentMethod === "pix"}
+          onChange={handleChange}
+        />
+        <label htmlFor="pix">No PIX</label>
+      </fieldset>
+      <br />
+      <fieldset>
+        <legend>Qual o valor?</legend>
+        <input
+          type="number"
+          name="value"
+          id="valueInput"
+          onChange={handleChange}
+          value={formInfo.value}
+          step={100}
+          min={100}
+        />
+        <label htmlFor="value" aria-controls="formValue">
+          Em centavos de real
+        </label>
+      </fieldset>
+      <br />
       <br />
       <button type="submit">Enviar form</button>
     </form>
