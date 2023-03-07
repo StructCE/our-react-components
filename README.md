@@ -17,14 +17,14 @@ Copiar e colar os arquivos desejados para o seu projeto.
 
 #### Começar pelo exemplo
 
-Quando se está fazendo features mais complexas, vale a pena começar por como se usa o componente. Por exemplo, você pode idealizar uma fábrica de formulário da seguinte maneira:
+Quando se está fazendo features mais complexas, vale a pena começar por como se usa o componente. Por exemplo, você pode idealizar uma fábrica de formulário da seguinte maneira (provavelmente consegue fazer melhor do que isto, inclusive):
 
 ```js
 import { FormFactory } from "";
 
 const userSchema = {
   name: {
-    type: "string", // input type, could be image, etc
+    type: "text", // input type, could be image, etc
     required: true,
   },
   age: {
@@ -32,16 +32,16 @@ const userSchema = {
     required: true,
   },
   email: {
-    type: "string",
+    type: "email",
     required: true,
   },
   password: {
-    type: "string",
+    type: "password",
     required: true,
     customValidation: (formInfo) => formInfo.password.length > 6,
   },
   passwordConfirmation: {
-    type: "string",
+    type: "password",
     required: true,
     customValidation: (formInfo) =>
       formInfo.password === formInfo.passwordConfirmation,
