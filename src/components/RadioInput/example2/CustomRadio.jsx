@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const Container = styled.div`
   input {
-    appearance: none;
+    display: none;
   }
   label {
     display: flex;

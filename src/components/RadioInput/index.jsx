@@ -4,7 +4,7 @@ export function RadioInput({ children, id, style, ...props }) {
       <input
         id={id}
         {...props}
-        style={{ appearance: "none", ...style }}
+        style={{ display: "none", ...style }}
         type="radio"
       />
       <label htmlFor={id}>
