@@ -19,6 +19,7 @@ const CustomRadioIcon = styled.div`
   border: black solid 2px;
   align-self: center;
 
+  /* desestruturando os props passado para o CustomRadioIcon, mudando estilo se estiver selecionado  */
   ${({ checked }) =>
     checked &&
     css`
@@ -27,6 +28,14 @@ const CustomRadioIcon = styled.div`
 `;
 
 // Copiando e modificando o RadioInput original:
+
+// Objetivo da mudança:
+// - Isolar a aparência do input radio no componente
+
+// Para isso, foi necessário:
+// - Criar um novo componente CustomRadio, que recebe os props do RadioInput original
+// - Desestruturar a propriedade "checked" do props, para que ele exista não só no input,
+//    mas também Icone customizado, que está controlando a aparência do input
 export function CustomRadio({ children, checked, id, ...props }) {
   return (
     <Container>

@@ -1,3 +1,12 @@
+// Proposta do exemplo:
+
+// - Pode ser usado o RadioInput original, pois:
+//   - A aparência dos radios é diferente para cada um dos inputs;
+//   - O highlight on select também é feito na página;
+//   - Todo o estado dos radios é gerenciado pela página, e não pelo componente;
+
+// - Criar uma página que permita o usuário escolher uma direção para mover o quadrado
+
 import { useState } from "react";
 import styled from "styled-components";
 import { RadioInput } from "..";
@@ -18,10 +27,17 @@ export function RadioInputExample() {
   const [currentPosition, setCurrentPosition] = useState(0);
 
   function handleSubmitMove(e) {
+    // prevenir o reload da página no "submit" (comportamento padrão do form)
     e.preventDefault();
 
-    // eslint-disable-next-line no-console
-    setCurrentPosition((prev) => prev + direction);
+    // passando uma função para o setState, garantimos que o valor atual que será usado
+    // para calcular o novo valor
+    setCurrentPosition(
+      (prevCurrentPosition) => prevCurrentPosition + direction
+    );
+
+    // usar "setCurrentPosition(currentPosition + direction);" não é boa prática, pois
+    // pode causar bugs
   }
 
   function handleChangeMove(e) {

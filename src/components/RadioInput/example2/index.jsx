@@ -1,3 +1,10 @@
+// Proposta do exemplo:
+
+// - O componente RadioInput deve ser modificado, pois:
+//  - A aparência dos radios é a mesma para cada um dos inputs, então o apropriado é isolar em um componente;
+
+// - Criar uma página que permita o usuário escolher uma forma de pagamento com os radios
+
 import { useState } from "react";
 import { CustomRadio } from "./CustomRadio";
 
@@ -8,7 +15,9 @@ export function RadioInputExample2() {
   });
 
   function handleChange(e) {
+    // Reutilizar o mesmo handler para todos os inputs, basta colocar em cada um deles o atributo "name"
     const { name, value } = e.target;
+    // Isso nem sempre pode ser feito
 
     if (Number.isNaN(Number(value))) {
       setFormInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
@@ -18,11 +27,10 @@ export function RadioInputExample2() {
   }
 
   function handleSubmit(e) {
+    // prevenir o reload da página no "submit" (comportamento padrão do form)
     e.preventDefault();
 
     // sendInformationToBackend();
-    // eslint-disable-next-line no-console
-    console.log(formInfo);
   }
 
   return (
