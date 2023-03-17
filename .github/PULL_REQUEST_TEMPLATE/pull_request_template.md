@@ -7,6 +7,7 @@ Closes #<número_da_issue>
 Ex:
 - exemplos;
 - acessibilidade para keyboard/leitor de tela;
+- dar merge da main para a branch atual;
 - etc; 
 
 ## Observações
