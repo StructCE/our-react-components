@@ -4,10 +4,10 @@ export function RadioInput({ children, id, style, ...props }) {
       <input
         id={id}
         {...props}
-        style={{ display: "none", ...style }}
+        style={{ appearance: "none", position: "absolute" }}
         type="radio"
       />
-      <label htmlFor={id}>
+      <label htmlFor={id} style={{ ...style }}>
         {/* Icon/visual instead of normal radio: */}
         {children}
       </label>

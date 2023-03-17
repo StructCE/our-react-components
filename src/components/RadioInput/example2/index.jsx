@@ -30,6 +30,9 @@ export function RadioInputExample2() {
     // prevenir o reload da página no "submit" (comportamento padrão do form)
     e.preventDefault();
 
+    // eslint-disable-next-line no-console
+    console.log(formInfo);
+
     // sendInformationToBackend();
   }
 
