@@ -1,7 +1,7 @@
-import { ButtonExample } from "./components/Button/example";
+import { RadioInputExample } from "./components/RadioInput/example";
 
 function App() {
-  return <ButtonExample />;
+  return <RadioInputExample />;
 }
 
 export default App;
