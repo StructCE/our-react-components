@@ -1,7 +1,7 @@
-import { ButtonExample } from "./components/Button/example";
+import { CarouselExample } from "./components/Carousel/example1";
 
 function App() {
-  return <ButtonExample />;
+  return <CarouselExample />;
 }
 
 export default App;
