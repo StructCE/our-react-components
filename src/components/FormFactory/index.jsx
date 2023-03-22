@@ -1,11 +1,15 @@
 import { useState } from "react";
 
 export function FormFactory(schema) {
-  const handleOnSubmit = (event, formInfo, ValidSubmit, InvalidSubmit) => {
+  const handleOnSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
     event.preventDefault();
 
+    // flag de validação:
+    // caso ela seja true, realiza o onValidSubmit
+    // caso ela seja false, realiza o onInvalidSubmit
     let valid = true;
 
+    // lógica para realizar a verificação de cada item do schema
     schema.forEach((item) => {
       if (item.customValidation) {
         if (!item.customValidation(formInfo)) {
@@ -15,16 +19,17 @@ export function FormFactory(schema) {
     });
 
     if (valid) {
-      ValidSubmit(formInfo);
+      onValidSubmit(formInfo);
     } else {
-      InvalidSubmit(formInfo);
+      onInvalidSubmit(formInfo);
     }
   };
 
   // eslint-disable-next-line func-names
-  return function ({ ValidSubmit, InvalidSubmit }) {
+  return function ({ onValidSubmit, onInvalidSubmit }) {
     const [formInfo, setFormInfo] = useState({});
 
+    // manipulação do onChange para alterar o formInfo, conforme os inputs são preenchidos
     const handleOnChangeFormInfo = (event, key) => {
       setFormInfo({ ...formInfo, [key]: event.target.value });
     };
@@ -32,11 +37,11 @@ export function FormFactory(schema) {
     return (
       <form
         onSubmit={(event) =>
-          handleOnSubmit(event, formInfo, ValidSubmit, InvalidSubmit)
+          handleOnSubmit(event, formInfo, onValidSubmit, onInvalidSubmit)
         }
       >
-        {/* <h1>Formulário</h1> */}
         {schema &&
+          // para cada item do schema, é gerado um input
           schema.map((item) => {
             const { field } = item;
 
