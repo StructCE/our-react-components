@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function FormFactory(schema, ...props) {
+export function FormFactory(schema, ...args) {
   // formInfo: informações salvas ao preencher o form
   const handleOnSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
     event.preventDefault();
@@ -13,7 +13,7 @@ export function FormFactory(schema, ...props) {
     // lógica para realizar a verificação de cada item do schema
     schema.forEach((item) => {
       if (item.customValidation) {
-        if (!item.customValidation(formInfo, ...props)) {
+        if (!item.customValidation(formInfo, ...args)) {
           valid = false;
         }
       }
@@ -44,16 +44,15 @@ export function FormFactory(schema, ...props) {
         {schema &&
           // para cada item do schema, é gerado um input
           schema.map((item) => {
-            const { field } = item;
+            const { field, required, ...attributes } = item;
 
             return (
               <input
                 key={field}
-                type={item.type}
-                placeholder={item.placeholder}
-                required={item.required ? "required" : ""}
+                required={required ? "required" : ""}
                 value={formInfo[field] ? formInfo[field] : ""}
                 onChange={(event) => handleOnChangeFormInfo(event, field)}
+                {...attributes}
               />
             );
           })}
