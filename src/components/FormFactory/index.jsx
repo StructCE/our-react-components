@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export function FormFactory(schema, ...props) {
+  // formInfo: informações salvas ao preencher o form
   const handleOnSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
     event.preventDefault();
 
@@ -26,12 +27,12 @@ export function FormFactory(schema, ...props) {
   };
 
   // eslint-disable-next-line func-names
-  return function ({ onValidSubmit, onInvalidSubmit, buttonValue }) {
+  return function ({ onValidSubmit, onInvalidSubmit, buttonContent }) {
     const [formInfo, setFormInfo] = useState({});
 
     // manipulação do onChange para alterar o formInfo, conforme os inputs são preenchidos
-    const handleOnChangeFormInfo = (event, key) => {
-      setFormInfo({ ...formInfo, [key]: event.target.value });
+    const handleOnChangeFormInfo = (event, field) => {
+      setFormInfo({ ...formInfo, [field]: event.target.value });
     };
 
     return (
@@ -56,7 +57,7 @@ export function FormFactory(schema, ...props) {
               />
             );
           })}
-        <button type="submit">{buttonValue}</button>
+        <button type="submit">{buttonContent}</button>
       </form>
     );
   };
