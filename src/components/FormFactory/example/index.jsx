@@ -3,59 +3,67 @@ import { useState } from "react";
 import { FormFactory } from "../index";
 import { FormStyled, PageLayout } from "./styles";
 
-const registerSchema = [
-  {
-    field: "name",
-    placeholder: "name",
-    type: "text", // input type, could be image, etc
-    required: true,
-  },
-  {
-    field: "email",
-    placeholder: "email",
-    type: "email",
-    required: true,
-  },
-  {
-    field: "age",
-    placeholder: "age",
-    type: "number",
-    required: false,
-  },
-  {
-    field: "password",
-    placeholder: "password",
-    type: "password",
-    required: true,
-    customValidation: (formInfo) => formInfo.password.length > 6,
-  },
-  {
-    field: "passwordConfirmation",
-    placeholder: "repeat password",
-    type: "password",
-    required: true,
-    customValidation: (formInfo) =>
-      formInfo.password === formInfo.passwordConfirmation,
-  },
-];
-
-const loginSchema = [
-  {
-    field: "email",
-    placeholder: "email",
-    type: "email",
-    required: true,
-  },
-  {
-    field: "password",
-    placeholder: "password",
-    type: "password",
-    required: true,
-    customValidation: (formInfo) => formInfo.password.length > 6,
-  },
-];
-
 export function FormFactoryExample() {
+  const [userData, setUserData] = useState({
+    name: "Fulano",
+    email: "fulano@fulano",
+    age: 300,
+    password: "senha12",
+  });
+
+  const registerSchema = [
+    {
+      field: "name",
+      placeholder: "name",
+      type: "text", // input type, could be image, etc
+      required: true,
+    },
+    {
+      field: "email",
+      placeholder: "email",
+      type: "email",
+      required: true,
+    },
+    {
+      field: "age",
+      placeholder: "age",
+      type: "number",
+      required: false,
+    },
+    {
+      field: "password",
+      placeholder: "password",
+      type: "password",
+      required: true,
+      customValidation: (formInfo) => formInfo.password.length > 6,
+    },
+    {
+      field: "passwordConfirmation",
+      placeholder: "repeat password",
+      type: "password",
+      required: true,
+      customValidation: (formInfo) =>
+        formInfo.password === formInfo.passwordConfirmation,
+    },
+  ];
+
+  const loginSchema = [
+    {
+      field: "email",
+      placeholder: "email",
+      type: "email",
+      required: true,
+      customValidation: (formInfo) => formInfo.email === userData.email,
+    },
+    {
+      field: "password",
+      placeholder: "password",
+      type: "password",
+      required: true,
+      customValidation: (formInfo) => formInfo.password === userData.password,
+    },
+  ];
+
   const RegisterForm = FormFactory(registerSchema);
   const LoginForm = FormFactory(loginSchema);
 
@@ -67,8 +75,11 @@ export function FormFactoryExample() {
         <h1>Registre-se</h1>
         <FormStyled>
           <RegisterForm
-            // eslint-disable-next-line no-console
-            onValidSubmit={(formInfo) => console.log(formInfo)}
+            onValidSubmit={(formInfo) => {
+              setUserData(formInfo);
+              // eslint-disable-next-line no-alert
+              alert("registrado com sucesso");
+            }}
             // eslint-disable-next-line no-alert
             onInvalidSubmit={() => alert("não deu bom")}
             buttonValue="Registrar"
@@ -83,11 +94,12 @@ export function FormFactoryExample() {
         <h1>Entrar</h1>
         <FormStyled>
           <LoginForm
-            // eslint-disable-next-line no-console
-            onValidSubmit={(formInfo) => console.log(formInfo)}
+            // eslint-disable-next-line no-alert
+            onValidSubmit={() => alert("logado com sucesso")}
             // eslint-disable-next-line no-alert
             onInvalidSubmit={() => alert("não deu bom")}
             buttonValue="Entrar"
+            userData={userData}
           />
         </FormStyled>
         <button type="button" onClick={() => setValidSection("register")}>
