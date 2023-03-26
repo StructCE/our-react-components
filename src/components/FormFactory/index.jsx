@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function FormFactory(schema) {
+export function FormFactory(schema, ...props) {
   const handleOnSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
     event.preventDefault();
 
@@ -12,7 +12,7 @@ export function FormFactory(schema) {
     // lógica para realizar a verificação de cada item do schema
     schema.forEach((item) => {
       if (item.customValidation) {
-        if (!item.customValidation(formInfo)) {
+        if (!item.customValidation(formInfo, ...props)) {
           valid = false;
         }
       }
