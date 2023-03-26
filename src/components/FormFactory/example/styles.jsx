@@ -30,13 +30,13 @@ export const PageLayout = styled.section`
   display: flex;
   background-color: white;
 
-  .invalidSection {
-    display: none;
+  .validSection {
+    display: flex;
   }
 
   section {
     margin: auto;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     padding: 0 3.5rem 1.5rem 3.5rem;

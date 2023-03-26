@@ -63,7 +63,7 @@ export function FormFactoryExample() {
 
   return (
     <PageLayout>
-      <section className={validSection === "register" ? "" : "invalidSection"}>
+      <section className={validSection === "register" ? "validSection" : ""}>
         <h1>Registre-se</h1>
         <FormStyled>
           <RegisterForm
@@ -79,7 +79,7 @@ export function FormFactoryExample() {
         </button>
       </section>
 
-      <section className={validSection === "enter" ? "" : "invalidSection"}>
+      <section className={validSection === "enter" ? "validSection" : ""}>
         <h1>Entrar</h1>
         <FormStyled>
           <LoginForm
