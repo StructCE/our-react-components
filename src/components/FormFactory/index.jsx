@@ -26,7 +26,7 @@ export function FormFactory(schema) {
   };
 
   // eslint-disable-next-line func-names
-  return function ({ onValidSubmit, onInvalidSubmit }) {
+  return function ({ onValidSubmit, onInvalidSubmit, buttonValue }) {
     const [formInfo, setFormInfo] = useState({});
 
     // manipulação do onChange para alterar o formInfo, conforme os inputs são preenchidos
@@ -56,7 +56,7 @@ export function FormFactory(schema) {
               />
             );
           })}
-        <button type="submit">Enviar</button>
+        <button type="submit">{buttonValue}</button>
       </form>
     );
   };
