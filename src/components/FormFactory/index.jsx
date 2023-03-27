@@ -44,16 +44,20 @@ export function FormFactory(schema, ...args) {
         {schema &&
           // para cada item do schema, é gerado um input
           schema.map((item) => {
-            const { field, required, ...attributes } = item;
+            const { field, required, label, ...attributes } = item;
+            delete attributes.customValidation;
 
             return (
-              <input
-                key={field}
-                required={required ? "required" : ""}
-                value={formInfo[field] ? formInfo[field] : ""}
-                onChange={(event) => handleOnChangeFormInfo(event, field)}
-                {...attributes}
-              />
+              <>
+                {label && <label htmlFor={field}>{label}</label>}
+                <input
+                  id={field}
+                  required={required ? "required" : ""}
+                  value={formInfo[field] ? formInfo[field] : ""}
+                  onChange={(event) => handleOnChangeFormInfo(event, field)}
+                  {...attributes}
+                />
+              </>
             );
           })}
         <button type="submit">{buttonContent}</button>

@@ -4,8 +4,8 @@ export const FormStyled = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     > input {
+      align-self: center;
       width: 10rem;
       height: 2rem;
       border: none;
@@ -17,6 +17,7 @@ export const FormStyled = styled.div`
       margin-top: 0.5rem;
     }
     > button {
+      align-self: center;
       width: 4rem;
       height: 2rem;
       margin: 1rem;
@@ -30,13 +31,9 @@ export const PageLayout = styled.section`
   display: flex;
   background-color: white;
 
-  .validSection {
-    display: flex;
-  }
-
   section {
     margin: auto;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 3.5rem 1.5rem 3.5rem;

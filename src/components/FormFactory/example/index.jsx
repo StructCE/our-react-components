@@ -83,40 +83,44 @@ export function FormFactoryExample() {
 
   return (
     <PageLayout>
-      <section className={validSection === "register" ? "validSection" : ""}>
-        <h1>Registre-se</h1>
-        <FormStyled>
-          <RegisterForm
-            onValidSubmit={(formInfo) => {
-              setUsersData([...usersData, formInfo]);
+      {validSection === "register" && (
+        <section>
+          <h1>Registre-se</h1>
+          <FormStyled>
+            <RegisterForm
+              onValidSubmit={(formInfo) => {
+                setUsersData([...usersData, formInfo]);
+                // eslint-disable-next-line no-alert
+                alert("registrado com sucesso");
+              }}
               // eslint-disable-next-line no-alert
-              alert("registrado com sucesso");
-            }}
-            // eslint-disable-next-line no-alert
-            onInvalidSubmit={() => alert("não deu bom")}
-            buttonContent="Registrar"
-          />
-        </FormStyled>
-        <button type="button" onClick={() => setValidSection("enter")}>
-          Já tenho registro
-        </button>
-      </section>
+              onInvalidSubmit={() => alert("não deu bom")}
+              buttonContent="Registrar"
+            />
+          </FormStyled>
+          <button type="button" onClick={() => setValidSection("enter")}>
+            Já tenho registro
+          </button>
+        </section>
+      )}
 
-      <section className={validSection === "enter" ? "validSection" : ""}>
-        <h1>Entrar</h1>
-        <FormStyled>
-          <LoginForm
-            // eslint-disable-next-line no-alert
-            onValidSubmit={() => alert("logado com sucesso")}
-            // eslint-disable-next-line no-alert
-            onInvalidSubmit={() => alert("não deu bom")}
-            buttonContent="Entrar"
-          />
-        </FormStyled>
-        <button type="button" onClick={() => setValidSection("register")}>
-          Ainda não sou registrado
-        </button>
-      </section>
+      {validSection === "enter" && (
+        <section>
+          <h1>Entrar</h1>
+          <FormStyled>
+            <LoginForm
+              // eslint-disable-next-line no-alert
+              onValidSubmit={() => alert("logado com sucesso")}
+              // eslint-disable-next-line no-alert
+              onInvalidSubmit={() => alert("não deu bom")}
+              buttonContent="Entrar"
+            />
+          </FormStyled>
+          <button type="button" onClick={() => setValidSection("register")}>
+            Ainda não sou registrado
+          </button>
+        </section>
+      )}
     </PageLayout>
   );
 }
