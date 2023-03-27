@@ -60,7 +60,7 @@ export function FormFactory(schema, ...args) {
               </div>
             );
           })}
-        <button type="submit">{buttonContent}</button>
+        {buttonContent && <button type="submit">{buttonContent}</button>}
       </form>
     );
   };
