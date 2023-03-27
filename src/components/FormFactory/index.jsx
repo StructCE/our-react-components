@@ -48,7 +48,7 @@ export function FormFactory(schema, ...args) {
             delete attributes.customValidation;
 
             return (
-              <>
+              <div key={field}>
                 {label && <label htmlFor={field}>{label}</label>}
                 <input
                   id={field}
@@ -57,7 +57,7 @@ export function FormFactory(schema, ...args) {
                   onChange={(event) => handleOnChangeFormInfo(event, field)}
                   {...attributes}
                 />
-              </>
+              </div>
             );
           })}
         <button type="submit">{buttonContent}</button>
