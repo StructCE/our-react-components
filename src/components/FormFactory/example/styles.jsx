@@ -4,20 +4,21 @@ export const FormStyled = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    > input {
-      align-self: center;
-      width: 10rem;
-      height: 2rem;
-      border: none;
-      border-radius: 5px;
-      outline: none;
-      padding: 0.5rem;
+    align-items: center;
+    > div {
+      > input {
+        width: 10rem;
+        height: 2rem;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        padding: 0.5rem;
+      }
     }
-    > input + input {
+    > div + div {
       margin-top: 0.5rem;
     }
     > button {
-      align-self: center;
       width: 4rem;
       height: 2rem;
       margin: 1rem;
