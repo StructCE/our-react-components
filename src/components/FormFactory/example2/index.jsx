@@ -63,33 +63,56 @@ const addFormSchema = [
 
 export function FormFactoryExample2() {
   const [formSchema, setFormSchema] = useState([]);
-  const UserForm = FormFactory(formSchema);
+  const [formData, setFormData] = useState({});
+
+  const Form = FormFactory(formSchema);
   const AddFormForm = FormFactory(addFormSchema);
 
   return (
     <>
-      <h1>Seu formulário</h1>
-      <UserForm />
-      <h1>Adicione um input ao seu formulário</h1>
-      <AddFormForm
-        buttonContent="Adicionar"
-        // eslint-disable-next-line no-alert
-        onValidSubmit={(formInfo) =>
-          setFormSchema([
-            ...formSchema,
-            {
-              field: formInfo.newField,
-              placeholder: formInfo.newPlaceholder,
-              required: ["y", "Y", "yes", "Yes"].includes(formInfo.newRequired),
-              type: formInfo.newType,
-              label: formInfo.newLabel,
-              alt: formInfo.newAlt,
-            },
-          ])
-        }
-        // eslint-disable-next-line no-alert
-        onInvalidSubmit={() => alert("não deu bom")}
-      />
+      <div>
+        <h1>Seu formulário</h1>
+        <Form
+          buttonContent="Exibir"
+          onValidSubmit={(formInfo) => {
+            setFormData(formInfo);
+          }}
+        />
+      </div>
+
+      <div>
+        <h1>Adicione um input ao seu formulário</h1>
+        <AddFormForm
+          buttonContent="Adicionar"
+          // eslint-disable-next-line no-alert
+          onValidSubmit={(formInfo) =>
+            setFormSchema([
+              ...formSchema,
+              {
+                field: formInfo.newField,
+                placeholder: formInfo.newPlaceholder,
+                required: ["y", "Y", "yes", "Yes"].includes(
+                  formInfo.newRequired
+                ),
+                type: formInfo.newType,
+                label: formInfo.newLabel,
+                alt: formInfo.newAlt,
+              },
+            ])
+          }
+          // eslint-disable-next-line no-alert
+          onInvalidSubmit={() => alert("não deu bom")}
+        />
+      </div>
+
+      <div>
+        {formData &&
+          Object.keys(formData).map((key) => (
+            <p>
+              {key}: {formData[key]}
+            </p>
+          ))}
+      </div>
     </>
   );
 }
