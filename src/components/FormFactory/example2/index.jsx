@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FormFactory } from "..";
 import { AddFormForm } from "./addFormSchema";
+import { AddFormLayout, FormDataLayout, FormLayout } from "./styles";
 
 export function FormFactoryExample2() {
   const [formSchema, setFormSchema] = useState([]);
@@ -10,7 +11,7 @@ export function FormFactoryExample2() {
 
   return (
     <>
-      <div>
+      <FormLayout>
         <h1>Seu formulário</h1>
         <Form
           buttonContent="Exibir"
@@ -18,9 +19,9 @@ export function FormFactoryExample2() {
             setFormData(formInfo);
           }}
         />
-      </div>
+      </FormLayout>
 
-      <div>
+      <AddFormLayout>
         <h1>Adicione um input ao seu formulário</h1>
         <AddFormForm
           buttonContent="Adicionar"
@@ -42,16 +43,17 @@ export function FormFactoryExample2() {
           // eslint-disable-next-line no-alert
           onInvalidSubmit={() => alert("não deu bom")}
         />
-      </div>
+      </AddFormLayout>
 
-      <div>
+      <FormDataLayout>
+        <h1>Informações do Form</h1>
         {formData &&
           Object.keys(formData).map((key) => (
             <p>
               {key}: {formData[key]}
             </p>
           ))}
-      </div>
+      </FormDataLayout>
     </>
   );
 }
