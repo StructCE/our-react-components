@@ -13,7 +13,7 @@ import { AddFormLayout, FormDataLayout, FormLayout } from "./styles";
 
 export function FormFactoryExample2() {
   const [formSchema, setFormSchema] = useState([]);
-  const [formData, setFormData] = useState({ aa: "a", bb: "b" });
+  const [formData, setFormData] = useState({});
 
   const Form = FormFactory(formSchema);
 
