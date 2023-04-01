@@ -1,3 +1,11 @@
+// este exemplo baseia-se em uma página onde você consegue ir criando seu próprio form.
+
+// é um exemplo bastante útil para enteder, de forma dinâmica, a criação de um schema
+// e sua utilização na chamada de uma FormFactory.
+
+// Você preenche o AddForm, para adicionar um item ao schema do Form,
+// e, para cada vez que o Form é preenchido, você pode exibir os dados submetidos.
+
 import { useState } from "react";
 import { FormFactory } from "..";
 import { AddFormForm } from "./AddFormForm";
@@ -5,7 +13,7 @@ import { AddFormLayout, FormDataLayout, FormLayout } from "./styles";
 
 export function FormFactoryExample2() {
   const [formSchema, setFormSchema] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ aa: "a", bb: "b" });
 
   const Form = FormFactory(formSchema);
 

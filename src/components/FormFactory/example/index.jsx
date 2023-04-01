@@ -1,6 +1,6 @@
 // A proposta deste exemplo é uma página de cadastro e login de usuário
 //  Você tem a opção de registrar um novo usuário e, caso já tenha registrado algum, você
-//  pode ir para a página de login e logar com os devidos email e senha do usuário cadastrado
+//  pode ir para a sessão de login e logar com os devidos email e senha do usuário cadastrado
 // obs.: a lista de usuários reseta ao reiniciar a página
 
 import { useState } from "react";

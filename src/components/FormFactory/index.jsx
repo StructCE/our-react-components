@@ -1,16 +1,23 @@
+// Forma de uso:
+//  -> construa um schema para a FormFactory. Será um array de objetos, onde cada
+//  objeto será um label + input do form (ver exemplo 2 para entender como montar o schema)
+//  -> chame a função FormFactory, passando como argumentos o schema e possíveis dados
+//  para serem utilizados nos customValidation's, se existirem. Lembre-se que o formInfo
+//  são os dados do form construídos dentro da própria FormFactory:
+//    const SeuForm = FormFactory(schema, ...args)
+//  -> agora basta chamar o componente SeuForm na sua página:
+//    <SeuForm buttonContent="" onValidSubmit={function} onInvalidSubmit={function}/>
+
 import { useState } from "react";
 
 export function FormFactory(schema, ...args) {
-  // formInfo: informações salvas ao preencher o form
   const handleOnSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
     event.preventDefault();
 
-    // flag de validação:
-    // caso ela seja true, realiza o onValidSubmit
-    // caso ela seja false, realiza o onInvalidSubmit
+    // caso valid seja true, realiza o onValidSubmit
+    // caso valid seja false, realiza o onInvalidSubmit
     let valid = true;
 
-    // lógica para realizar a verificação de cada item do schema
     schema.forEach((item) => {
       if (item.customValidation) {
         if (!item.customValidation(formInfo, ...args)) {
@@ -28,10 +35,10 @@ export function FormFactory(schema, ...args) {
 
   // eslint-disable-next-line func-names
   return function ({ onValidSubmit, onInvalidSubmit, buttonContent }) {
+    // formInfo: objeto que contém as informações preenchidas no form {field: value}
     const [formInfo, setFormInfo] = useState({});
 
-    // manipulação do onChange para alterar o formInfo, conforme os inputs são preenchidos
-    const handleOnChangeFormInfo = (event, field) => {
+    const handleOnChange = (event, field) => {
       setFormInfo({ ...formInfo, [field]: event.target.value });
     };
 
@@ -42,7 +49,7 @@ export function FormFactory(schema, ...args) {
         }
       >
         {schema &&
-          // para cada item do schema, é gerado um input
+          // para cada item do schema, é gerada uma div com label e input
           schema.map((item) => {
             const { field, required, label, ...attributes } = item;
             delete attributes.customValidation;
@@ -54,7 +61,7 @@ export function FormFactory(schema, ...args) {
                   id={field}
                   required={required ? "required" : ""}
                   value={formInfo[field] ? formInfo[field] : ""}
-                  onChange={(event) => handleOnChangeFormInfo(event, field)}
+                  onChange={(event) => handleOnChange(event, field)}
                   {...attributes}
                 />
               </div>
