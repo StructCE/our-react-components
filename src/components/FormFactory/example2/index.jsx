@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormFactory } from "..";
-import { AddFormForm } from "./addFormSchema";
+import { AddFormForm } from "./AddFormForm";
 import { AddFormLayout, FormDataLayout, FormLayout } from "./styles";
 
 export function FormFactoryExample2() {
