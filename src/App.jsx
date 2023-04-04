@@ -1,4 +1,4 @@
-import { CarouselExample } from "./components/Carousel/example1";
+import { CarouselExample } from "./components/Carousel/example/index";
 
 function App() {
   return <CarouselExample />;
