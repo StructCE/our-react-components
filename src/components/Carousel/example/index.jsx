@@ -32,6 +32,16 @@ const Container = styled.div`
     top: 50%;
     left: 45%;
   }
+
+  .button {
+    border-radius: 50%;
+    border: 3px solid #f1f1f1;
+    margin: 0 5px;
+    background: #f1f1f1;
+  }
+  .button.active {
+    background: rgb(32, 32, 32);
+  }
 `;
 
 export function CarouselExample() {
