@@ -37,7 +37,7 @@ export function FormFactoryExample2() {
             setFormSchema([
               ...formSchema,
               {
-                field: formInfo.newField,
+                fieldName: formInfo.newField,
                 placeholder: formInfo.newPlaceholder,
                 required: ["y", "Y", "yes", "Yes"].includes(
                   formInfo.newRequired
