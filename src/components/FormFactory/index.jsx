@@ -11,7 +11,7 @@
 import { useState } from "react";
 
 export function FormFactory(schema) {
-  const handleOnSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
+  const handleSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
     event.preventDefault();
 
     const errors = [];
@@ -43,7 +43,7 @@ export function FormFactory(schema) {
     return (
       <form
         onSubmit={(event) =>
-          handleOnSubmit(event, formInfo, onValidSubmit, onInvalidSubmit)
+          handleSubmit(event, formInfo, onValidSubmit, onInvalidSubmit)
         }
       >
         {schema &&
