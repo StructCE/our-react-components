@@ -4,55 +4,69 @@
 // obs.: a lista de usuários reseta ao reiniciar a página
 
 import { useState } from "react";
-import { FormFactory } from "../index";
 import { FormStyled, PageLayout } from "./styles";
-import { registerSchema, loginSchema } from "./schemas";
+import { RegisterForm, LoginForm } from "./schemas";
+import { useApiSimulator } from "./utils";
 
 export function FormFactoryExample() {
-  const [usersData, setUsersData] = useState([]);
-
-  const RegisterForm = FormFactory(registerSchema, usersData);
-  const LoginForm = FormFactory(loginSchema, usersData);
+  // simulando api
+  const api = useApiSimulator();
 
   // estado para definir qual sessão (register ou login) será exibida na página
-  const [validSection, setValidSection] = useState("register");
+  const [isRegistering, setIsRegistering] = useState(true);
 
   return (
     <PageLayout>
-      {validSection === "register" && (
+      {isRegistering && (
         <section>
           <h1>Registre-se</h1>
           <FormStyled>
             <RegisterForm
-              onValidSubmit={(formInfo) => {
-                setUsersData([...usersData, formInfo]);
-                // eslint-disable-next-line no-alert
-                alert("registrado com sucesso");
+              onValidSubmit={({ formInfo }) => {
+                api
+                  .post("/users/create", { user: formInfo })
+                  // eslint-disable-next-line no-alert
+                  .then(() => alert("registrado com sucesso"))
+                  // eslint-disable-next-line no-alert
+                  .catch((er) => alert(er));
               }}
               // eslint-disable-next-line no-alert
-              onInvalidSubmit={() => alert("não deu bom")}
+              onInvalidSubmit={({ errors }) => {
+                // eslint-disable-next-line no-alert
+                errors.map((error) => alert(error));
+              }}
               buttonContent="Registrar"
             />
           </FormStyled>
-          <button type="button" onClick={() => setValidSection("enter")}>
+          <button type="button" onClick={() => setIsRegistering(false)}>
             Já tenho registro
           </button>
         </section>
       )}
 
-      {validSection === "enter" && (
+      {!isRegistering && (
         <section>
           <h1>Entrar</h1>
           <FormStyled>
             <LoginForm
               // eslint-disable-next-line no-alert
-              onValidSubmit={() => alert("logado com sucesso")}
+              onValidSubmit={({ formInfo }) => {
+                api
+                  .get("/users/login", { user: formInfo })
+                  // eslint-disable-next-line no-alert
+                  .then(() => alert("logado com sucesso"))
+                  // eslint-disable-next-line no-alert
+                  .catch((er) => alert(er));
+              }}
               // eslint-disable-next-line no-alert
-              onInvalidSubmit={() => alert("não deu bom")}
+              onInvalidSubmit={({ errors }) => {
+                // eslint-disable-next-line no-alert
+                errors.map((error) => alert(error));
+              }}
               buttonContent="Entrar"
             />
           </FormStyled>
-          <button type="button" onClick={() => setValidSection("register")}>
+          <button type="button" onClick={() => setIsRegistering(true)}>
             Ainda não sou registrado
           </button>
         </section>

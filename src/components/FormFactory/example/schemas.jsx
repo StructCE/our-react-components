@@ -1,64 +1,65 @@
+import { FormFactory } from "..";
+
 export const registerSchema = [
   {
-    field: "name",
+    fieldName: "name",
     placeholder: "name",
     type: "text", // input type, could be image, etc
     required: true,
   },
   {
-    field: "email",
+    fieldName: "email",
     placeholder: "email",
     type: "email",
     required: true,
-    customValidation: (formInfo, usersData) => {
-      // verifica se o email já está cadastrado
-      const user = usersData.find(
-        (element) => element.email === formInfo.email
-      );
-      return !user;
-    },
   },
   {
-    field: "age",
+    fieldName: "age",
     placeholder: "age",
     type: "number",
     required: false,
   },
   {
-    field: "password",
+    fieldName: "password",
     placeholder: "password",
     type: "password",
     required: true,
-    customValidation: (formInfo) => formInfo.password.length > 6,
+    customValidation: ({ formInfo }) => {
+      // eslint-disable-next-line no-console
+      if (formInfo.password.length > 5) {
+        return { valid: true };
+      }
+      return { error: "a senha deve possuir mais de 5 caracteres" };
+    },
   },
   {
-    field: "passwordConfirmation",
+    fieldName: "passwordConfirmation",
     placeholder: "repeat password",
     type: "password",
     required: true,
-    customValidation: (formInfo) =>
-      formInfo.password === formInfo.passwordConfirmation,
+    customValidation: ({ formInfo }) => {
+      if (formInfo.password === formInfo.passwordConfirmation) {
+        return { valid: true };
+      }
+      return { error: "por favor, repita a senha corretamente" };
+    },
   },
 ];
 
 export const loginSchema = [
   {
-    field: "email",
+    fieldName: "email",
     placeholder: "email",
     type: "email",
     required: true,
   },
   {
-    field: "password",
+    fieldName: "password",
     placeholder: "password",
     type: "password",
     required: true,
-    customValidation: (formInfo, usersData) => {
-      // verifica se a senha está correta para o email preenchido
-      const user = usersData.find(
-        (element) => element.email === formInfo.email
-      );
-      return user ? user.password === formInfo.password : false;
-    },
   },
 ];
+
+export const RegisterForm = FormFactory(registerSchema);
+export const LoginForm = FormFactory(loginSchema);
