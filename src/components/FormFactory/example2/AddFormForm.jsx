@@ -3,7 +3,7 @@ import { FormFactory } from "..";
 const addFormSchema = [
   {
     field: "newField",
-    placeholder: "field",
+    placeholder: "field name",
     required: true,
     label: "Campo que representa o input",
   },
