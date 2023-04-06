@@ -33,11 +33,11 @@ export function FormFactory(schema) {
 
   // eslint-disable-next-line func-names
   return function ({ onValidSubmit, onInvalidSubmit, buttonContent }) {
-    // formInfo: objeto que contém as informações preenchidas no form {field: value}
+    // formInfo: objeto que contém as informações preenchidas no form {fieldName: value}
     const [formInfo, setFormInfo] = useState({});
 
-    const handleChange = (event, field) => {
-      setFormInfo({ ...formInfo, [field]: event.target.value });
+    const handleChange = (event, fieldName) => {
+      setFormInfo({ ...formInfo, [fieldName]: event.target.value });
     };
 
     return (
@@ -49,17 +49,17 @@ export function FormFactory(schema) {
         {schema &&
           // para cada item do schema, é gerada uma div com label e input
           schema.map((item) => {
-            const { field, required, label, ...attributes } = item;
+            const { fieldName, required, label, ...attributes } = item;
             delete attributes.customValidation;
 
             return (
-              <div key={field}>
-                {label && <label htmlFor={field}>{label}</label>}
+              <div key={fieldName}>
+                {label && <label htmlFor={fieldName}>{label}</label>}
                 <input
-                  id={field}
+                  id={fieldName}
                   required={required}
-                  value={formInfo[field] || ""}
-                  onChange={(event) => handleChange(event, field)}
+                  value={formInfo[fieldName] || ""}
+                  onChange={(event) => handleChange(event, fieldName)}
                   {...attributes}
                 />
               </div>
