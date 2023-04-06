@@ -23,7 +23,7 @@ export function FormFactoryExample2() {
         <h1>Seu formulário</h1>
         <Form
           buttonContent="Exibir"
-          onValidSubmit={(formInfo) => {
+          onValidSubmit={({ formInfo }) => {
             setFormData(formInfo);
           }}
         />
@@ -33,7 +33,7 @@ export function FormFactoryExample2() {
         <h1>Adicione um input ao seu formulário</h1>
         <AddFormForm
           buttonContent="Adicionar"
-          onValidSubmit={(formInfo) =>
+          onValidSubmit={({ formInfo }) =>
             setFormSchema([
               ...formSchema,
               {
@@ -48,8 +48,10 @@ export function FormFactoryExample2() {
               },
             ])
           }
-          // eslint-disable-next-line no-alert
-          onInvalidSubmit={() => alert("não deu bom")}
+          onInvalidSubmit={({ errors }) => {
+            // eslint-disable-next-line no-alert
+            errors.map((error) => alert(error));
+          }}
         />
       </AddFormLayout>
 
@@ -57,7 +59,7 @@ export function FormFactoryExample2() {
         <h1>Informações do Form</h1>
         {formData &&
           Object.keys(formData).map((key) => (
-            <p>
+            <p key={key}>
               {key}: {formData[key]}
             </p>
           ))}

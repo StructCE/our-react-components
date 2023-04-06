@@ -18,13 +18,15 @@ const addFormSchema = [
     placeholder: "required",
     required: false,
     label: "Este input é obrigatório? (y/n)",
-    customValidation: (formInfo) => {
-      if (formInfo.newRequired) {
-        return ["y", "Y", "yes", "Yes", "n", "N", "no", "No"].includes(
+    customValidation: ({ formInfo }) => {
+      if (
+        ["y", "Y", "yes", "Yes", "n", "N", "no", "No", undefined, ""].includes(
           formInfo.newRequired
-        );
+        )
+      ) {
+        return { valid: true };
       }
-      return true;
+      return { error: "resposta ao campo required não válida" };
     },
   },
   {
@@ -32,18 +34,22 @@ const addFormSchema = [
     placeholder: "type",
     required: false,
     label: "Tipo do input",
-    customValidation: (formInfo) => {
-      if (formInfo.newType) {
-        return [
+    customValidation: ({ formInfo }) => {
+      if (
+        [
           "text",
           "number",
           "file",
           "email",
           "password",
           "image",
-        ].includes(formInfo.newType);
+          undefined,
+          "",
+        ].includes(formInfo.newType)
+      ) {
+        return { valid: true };
       }
-      return true;
+      return { error: "tipo de input não válido" };
     },
   },
   {

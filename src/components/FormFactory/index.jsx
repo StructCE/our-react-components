@@ -14,22 +14,20 @@ export function FormFactory(schema) {
   const handleOnSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
     event.preventDefault();
 
-    // caso valid seja true, realiza o onValidSubmit
-    // caso valid seja false, realiza o onInvalidSubmit
-    let valid = true;
-
+    const errors = [];
     schema.forEach((item) => {
       if (item.customValidation) {
-        if (!item.customValidation(formInfo)) {
-          valid = false;
+        const { valid, error } = item.customValidation({ formInfo });
+        if (!valid) {
+          errors.push(error);
         }
       }
     });
 
-    if (valid) {
-      onValidSubmit(formInfo);
+    if (errors.length === 0) {
+      onValidSubmit({ formInfo });
     } else {
-      onInvalidSubmit(formInfo);
+      onInvalidSubmit({ formInfo, errors });
     }
   };
 
