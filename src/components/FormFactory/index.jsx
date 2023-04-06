@@ -57,8 +57,8 @@ export function FormFactory(schema) {
                 {label && <label htmlFor={field}>{label}</label>}
                 <input
                   id={field}
-                  required={required ? "required" : ""}
-                  value={formInfo[field] ? formInfo[field] : ""}
+                  required={required}
+                  value={formInfo[field] || ""}
                   onChange={(event) => handleChange(event, field)}
                   {...attributes}
                 />
