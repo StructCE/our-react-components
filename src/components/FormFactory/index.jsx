@@ -36,7 +36,7 @@ export function FormFactory(schema) {
     // formInfo: objeto que contém as informações preenchidas no form {field: value}
     const [formInfo, setFormInfo] = useState({});
 
-    const handleOnChange = (event, field) => {
+    const handleChange = (event, field) => {
       setFormInfo({ ...formInfo, [field]: event.target.value });
     };
 
@@ -59,7 +59,7 @@ export function FormFactory(schema) {
                   id={field}
                   required={required ? "required" : ""}
                   value={formInfo[field] ? formInfo[field] : ""}
-                  onChange={(event) => handleOnChange(event, field)}
+                  onChange={(event) => handleChange(event, field)}
                   {...attributes}
                 />
               </div>
