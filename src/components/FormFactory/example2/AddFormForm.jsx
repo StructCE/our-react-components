@@ -2,19 +2,19 @@ import { FormFactory } from "..";
 
 const addFormSchema = [
   {
-    field: "newField",
+    fieldName: "newField",
     placeholder: "field name",
     required: true,
     label: "Campo que representa o input",
   },
   {
-    field: "newPlaceholder",
+    fieldName: "newPlaceholder",
     placeholder: "placeholder",
     required: false,
     label: "Placeholder do input",
   },
   {
-    field: "newRequired",
+    fieldName: "newRequired",
     placeholder: "required",
     required: false,
     label: "Este input é obrigatório? (y/n)",
@@ -30,7 +30,7 @@ const addFormSchema = [
     },
   },
   {
-    field: "newType",
+    fieldName: "newType",
     placeholder: "type",
     required: false,
     label: "Tipo do input",
@@ -53,13 +53,13 @@ const addFormSchema = [
     },
   },
   {
-    field: "newLabel",
+    fieldName: "newLabel",
     placeholder: "label",
     required: false,
     label: "Label que acompanhará o input",
   },
   {
-    field: "newAlt",
+    fieldName: "newAlt",
     placeholder: "alt",
     required: false,
     label: "É um input image? Digite seu alt",
