@@ -10,7 +10,7 @@
 
 import { useState } from "react";
 
-export function FormFactory(schema, ...args) {
+export function FormFactory(schema) {
   const handleOnSubmit = (event, formInfo, onValidSubmit, onInvalidSubmit) => {
     event.preventDefault();
 
@@ -20,7 +20,7 @@ export function FormFactory(schema, ...args) {
 
     schema.forEach((item) => {
       if (item.customValidation) {
-        if (!item.customValidation(formInfo, ...args)) {
+        if (!item.customValidation(formInfo)) {
           valid = false;
         }
       }
