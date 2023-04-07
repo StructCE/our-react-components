@@ -1,4 +1,12 @@
-// Comentar como usar
+// Forma de uso:
+// -> Construa um schema para o Carousel. Seu schema deve conter um Array de
+// objetos em que cada objeto contenha uma image, a qual irá compor o seu
+// carrosel.
+// -> Chame a função Carousel passando como argumento seu schema criado, de
+// forma que a propriedade image do seu objeto contenha a url da própria
+// imagem.
+// -> Agora basta estilizar o carrosel do seu jeito.
+
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "./svgs";
 
@@ -6,7 +14,7 @@ export function Carousel({ schema }) {
   const [currentPosition, setCurrentPosition] = useState(0);
 
   function changePosition(i) {
-    if (i > schema.length) {
+    if (i >= schema.length) {
       return;
     }
 

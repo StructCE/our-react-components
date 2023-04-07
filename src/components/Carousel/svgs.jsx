@@ -1,3 +1,7 @@
+// svgs from:
+// https://lucide.dev/icon/arrow-left
+// https://lucide.dev/icon/arrow-right
+
 export function ArrowLeft({ ...props }) {
   return (
     <svg
