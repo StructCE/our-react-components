@@ -4,28 +4,32 @@
 // e sua utilização na chamada de uma FormFactory.
 
 // Você preenche o AddForm, para adicionar um item ao schema do Form,
-// e, para cada vez que o Form é preenchido, você pode exibir os dados submetidos.
 
 import { useState } from "react";
-import { FormFactory } from "..";
 import { AddFormForm } from "./AddFormForm";
-import { AddFormLayout, FormDataLayout, FormLayout } from "./styles";
+import { AddFormLayout, FormCodeLayout, FormLayout } from "./styles";
+import { FormFactory } from "..";
 
 export function FormFactoryExample2() {
   const [formSchema, setFormSchema] = useState([]);
-  const [formData, setFormData] = useState({});
 
   const Form = FormFactory(formSchema);
+
+  const codeFormLines = [
+    `const schema = ${JSON.stringify(formSchema, null, 4)}`,
+    "",
+    "export const Form = FormFactory(schema)",
+  ];
 
   return (
     <>
       <FormLayout>
         <h1>Seu formulário</h1>
         <Form
-          buttonContent="Exibir"
-          onValidSubmit={({ formInfo }) => {
-            setFormData(formInfo);
-          }}
+          onValidSubmit={() =>
+            // eslint-disable-next-line no-alert
+            alert("enviado")
+          }
         />
       </FormLayout>
 
@@ -55,15 +59,10 @@ export function FormFactoryExample2() {
         />
       </AddFormLayout>
 
-      <FormDataLayout>
-        <h1>Informações do Form</h1>
-        {formData &&
-          Object.keys(formData).map((key) => (
-            <p key={key}>
-              {key}: {formData[key]}
-            </p>
-          ))}
-      </FormDataLayout>
+      <FormCodeLayout>
+        <h1>Código do seu formulário</h1>
+        <pre>{codeFormLines.join("\n")}</pre>
+      </FormCodeLayout>
     </>
   );
 }
