@@ -46,20 +46,7 @@ export const registerSchema = [
   },
 ];
 
-export const loginSchema = [
-  {
-    fieldName: "email",
-    placeholder: "email",
-    type: "email",
-    required: true,
-  },
-  {
-    fieldName: "password",
-    placeholder: "password",
-    type: "password",
-    required: true,
-  },
-];
+const loginSchema = registerSchema.filter( (field) => ["email", "password"].includes(field.fieldName) )
 
 export const RegisterForm = FormFactory(registerSchema);
 export const LoginForm = FormFactory(loginSchema);
