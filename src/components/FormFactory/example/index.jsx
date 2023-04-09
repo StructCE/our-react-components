@@ -30,7 +30,6 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              // eslint-disable-next-line no-alert
               onInvalidSubmit={({ errors }) => {
                 // eslint-disable-next-line no-alert
                 errors.map((error) => alert(error));
@@ -49,7 +48,6 @@ export function FormFactoryExample() {
           <h1>Entrar</h1>
           <FormStyled>
             <LoginForm
-              // eslint-disable-next-line no-alert
               onValidSubmit={({ formInfo }) => {
                 api
                   .get("/users/login", { user: formInfo })
@@ -58,7 +56,6 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              // eslint-disable-next-line no-alert
               onInvalidSubmit={({ errors }) => {
                 // eslint-disable-next-line no-alert
                 errors.map((error) => alert(error));

@@ -19,6 +19,7 @@ export function useApiSimulator() {
           }
         }, 1000);
       }),
+
     get: (route, data) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
