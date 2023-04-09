@@ -5,7 +5,7 @@
 
 import { useState } from "react";
 import { FormStyled, PageLayout } from "./styles";
-import { RegisterForm, LoginForm } from "./schemas";
+import { RegisterForm, LoginForm } from "./forms";
 import { useApiSimulator } from "./utils";
 
 export function FormFactoryExample() {
