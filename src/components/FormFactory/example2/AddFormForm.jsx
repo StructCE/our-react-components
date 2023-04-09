@@ -43,6 +43,13 @@ const addFormSchema = [
           "email",
           "password",
           "image",
+          "color",
+          "date",
+          "datetime-local",
+          "month",
+          "tel",
+          "time",
+          "week",
           undefined,
           "",
         ].includes(formInfo.newType)
