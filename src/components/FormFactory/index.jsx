@@ -65,7 +65,7 @@ export function FormFactory(schema) {
               </div>
             );
           })}
-        {buttonContent && <button type="submit">{buttonContent}</button>}
+        <button type="submit">{buttonContent || "Enviar"}</button>
       </form>
     );
   };
