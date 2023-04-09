@@ -1,12 +1,26 @@
 // Forma de uso:
 //  -> construa um schema para a FormFactory. Será um array de objetos, onde cada
-//  objeto será um label + input do form (ver exemplo 2 para entender como montar o schema)
-//  -> chame a função FormFactory, passando como argumentos o schema e possíveis dados
-//  para serem utilizados nos customValidation's, se existirem. Lembre-se que o formInfo
-//  são os dados do form construídos dentro da própria FormFactory:
-//    const SeuForm = FormFactory(schema, ...args)
+//  objeto será um label + input do form. Lembre-se que o formInfo são os dados
+//  do form construídos dentro da própria FormFactory:
+//    const schema = {
+//      {
+//        fieldName,
+//        required,
+//        label,
+//        placeholder,
+//        customValidation: function ({ formInfo }),
+//        ...attributes,
+//      },
+//      {...}
+//    }
+//  -> chame a função FormFactory, passando como argumento o schema:
+//      const SeuForm = FormFactory(schema)
 //  -> agora basta chamar o componente SeuForm na sua página:
-//    <SeuForm buttonContent="" onValidSubmit={function} onInvalidSubmit={function}/>
+//      <SeuForm
+//        buttonContent=""
+//        onValidSubmit={ function ({ formInfo }) }
+//        onInvalidSubmit={ function ({ formInfo, errors }) }
+//      />
 
 import { useState } from "react";
 
