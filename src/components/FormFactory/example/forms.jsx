@@ -1,6 +1,6 @@
 import { FormFactory } from "..";
 
-export const registerSchema = [
+const registerSchema = [
   {
     fieldName: "name",
     placeholder: "name",
@@ -46,7 +46,10 @@ export const registerSchema = [
   },
 ];
 
-const loginSchema = registerSchema.filter( (field) => ["email", "password"].includes(field.fieldName) )
+const loginSchema = registerSchema.filter((field) =>
+  ["email", "password"].includes(field.fieldName)
+);
 
-export const RegisterForm = FormFactory(registerSchema);
-export const LoginForm = FormFactory(loginSchema);
+const RegisterForm = FormFactory(registerSchema);
+const LoginForm = FormFactory(loginSchema);
+export { RegisterForm, LoginForm };
