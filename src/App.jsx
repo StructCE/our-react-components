@@ -1,7 +1,7 @@
-import { FormFactoryExample2 } from "./components/FormFactory/example2";
+import { WebContainerExample } from "./components/WebContainer";
 
 function App() {
-  return <FormFactoryExample2 />;
+  return <WebContainerExample />;
 }
 
 export default App;
