@@ -6,38 +6,26 @@ import { getWebContainerInstance } from "./webcontainer";
 import { files } from "./files";
 
 export function WebContainerExample() {
-  const initialCode = `console.log("ola")`;
+  const initialCode = ``;
 
   const [code, setCode] = useState(initialCode);
+  const [file, setFile] = useState();
 
   async function handleRun() {
     const webContainer = await getWebContainerInstance();
 
     await webContainer.mount({
       ...files,
-      "form.js": {
+      "index.js": {
         file: {
           contents: code,
         },
       },
     });
 
-    const install = await webContainer.spawn("yarn", []);
-
-    await install.exit;
-
-    const start = await webContainer.spawn("yarn", ["start"]);
-
-    start.output.pipeTo(
-      new WritableStream({
-        write(data) {
-          // eslint-disable-next-line no-console
-          console.log(data);
-        },
-      })
-    );
+    const packageJSON = await webContainer.fs.readFile("index.js", "utf-8");
+    setFile(packageJSON);
   }
-
   return (
     <>
       <div />
@@ -53,6 +41,7 @@ export function WebContainerExample() {
         <button type="button" onClick={() => handleRun()}>
           Run
         </button>
+        <p>{file}</p>
       </CodeLayout>
     </>
   );

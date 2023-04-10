@@ -8,7 +8,7 @@ export const files = {
           "dependencies": {
           },
           "scripts": {
-            "start": "node form.js"
+            "start": "node index.js"
           }
         }      
         `.trim(),
