@@ -3,6 +3,7 @@ import { Editor } from "@monaco-editor/react";
 import { useState } from "react";
 import { CodeLayout } from "./styles";
 import { getWebContainerInstance } from "./webcontainer";
+import { files } from "./files";
 
 export function WebContainerExample() {
   const initialCode = `console.log("ola")`;
@@ -13,24 +14,10 @@ export function WebContainerExample() {
     const webContainer = await getWebContainerInstance();
 
     await webContainer.mount({
+      ...files,
       "form.js": {
         file: {
           contents: code,
-        },
-      },
-      "package.json": {
-        file: {
-          contents: `
-          {
-            "name": "example-app",
-            "type": "module",
-            "dependencies": {
-            },
-            "scripts": {
-              "start": "node form.js"
-            }
-          }      
-          `.trim(),
         },
       },
     });
