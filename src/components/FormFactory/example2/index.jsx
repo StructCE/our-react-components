@@ -16,9 +16,21 @@ export function FormFactoryExample2() {
   const Form = FormFactory(formSchema);
 
   const codeFormLines = [
+    "// Optional schema[number] props:",
+    "// - customValidation: ({ formInfo }) => ({ valid: boolean, error: string })",
+    "// - any input specific attributes can be passed",
+    "",
     `const schema = ${JSON.stringify(formSchema, null, 4)}`,
     "",
     "export const Form = FormFactory(schema)",
+    "",
+    "// Optional <Form> props:",
+    "// - buttonContent: string",
+    "// - onValidSubmit: ({ formInfo }) => void",
+    "// - onInvalidSubmit: ({ formInfo, errors }) => void",
+    "",
+    "",
+    "",
   ];
 
   return (
@@ -61,7 +73,7 @@ export function FormFactoryExample2() {
 
       <FormCodeLayout>
         <h1>Código do seu formulário</h1>
-        <pre>{codeFormLines.join("\n")}</pre>
+        <pre style={{ marginLeft: 16 }}>{codeFormLines.join("\n")}</pre>
       </FormCodeLayout>
     </>
   );

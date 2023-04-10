@@ -1,7 +1,7 @@
-import { RadioInputExample } from "./components/RadioInput/example";
+import { FormFactoryExample2 } from "./components/FormFactory/example2";
 
 function App() {
-  return <RadioInputExample />;
+  return <FormFactoryExample2 />;
 }
 
 export default App;
