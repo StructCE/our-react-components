@@ -73,7 +73,7 @@ export function FormFactoryExample2() {
 
       <FormCodeLayout>
         <h1>Código do seu formulário</h1>
-        <pre style={{ marginLeft: 16 }}>{codeFormLines.join("\n")}</pre>
+        <pre>{codeFormLines.join("\n")}</pre>
       </FormCodeLayout>
     </>
   );

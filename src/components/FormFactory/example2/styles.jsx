@@ -64,4 +64,7 @@ export const FormCodeLayout = styled.section`
     width: 60%;
     padding-left: 0.4rem;
   }
+  pre {
+    margin-left: 1rem;
+  }
 `;
