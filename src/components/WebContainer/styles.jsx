@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormCodeLayout = styled.section`
+export const CodeLayout = styled.section`
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.3) -2px 8px 80px -6px;
   min-height: 8rem;

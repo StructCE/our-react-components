@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Editor } from "@monaco-editor/react";
 import { useState } from "react";
-import { FormCodeLayout } from "./styles";
+import { CodeLayout } from "./styles";
 import { getWebContainerInstance } from "./webcontainer";
 
 export function WebContainerExample() {
@@ -54,7 +54,7 @@ export function WebContainerExample() {
   return (
     <>
       <div />
-      <FormCodeLayout>
+      <CodeLayout>
         <h1>Seu código</h1>
         <Editor
           height="50vh"
@@ -66,7 +66,7 @@ export function WebContainerExample() {
         <button type="button" onClick={() => handleRun()}>
           Run
         </button>
-      </FormCodeLayout>
+      </CodeLayout>
     </>
   );
 }
