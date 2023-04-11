@@ -1,20 +1,48 @@
 // Forma de uso:
-// -> Construa um schema para o Carousel. Seu schema deve conter um Array de
-// objetos em que cada objeto contenha uma image, a qual irá compor o seu
-// carrosel.
-// -> Chame a função Carousel passando como argumento seu schema criado, de
-// forma que a propriedade image do seu objeto contenha a url da própria
-// imagem.
+// -> Construa um array de imagens para o Carousel, em que cada imagem contenha
+// o endereço da imagem (url) e um texto alternativo(alt).
+// -> Chame a função Carousel, passando como argumento seu array criado.
 // -> Agora basta estilizar o carrosel do seu jeito.
 
 import { useState } from "react";
+import styled from "styled-components";
 import { ArrowLeft, ArrowRight } from "./svgs";
 
-export function Carousel({ schema }) {
+const Container = styled.div`
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .right-arrow {
+    position: absolute;
+    top: 48%;
+    right: 45%;
+  }
+
+  .left-arrow {
+    position: absolute;
+    top: 48%;
+    left: 45%;
+  }
+
+  .button {
+    border-radius: 50%;
+    border: 3px solid #f1f1f1;
+    margin: 0 5px;
+    background: #f1f1f1;
+  }
+  .button.active {
+    background: rgb(32, 32, 32);
+  }
+`;
+
+export function Carousel({ images }) {
   const [currentPosition, setCurrentPosition] = useState(0);
 
   function changePosition(i) {
-    if (i >= schema.length) {
+    if (i >= images.length) {
       return;
     }
 
@@ -32,26 +60,24 @@ export function Carousel({ schema }) {
   const moveDot = (index) => changePosition(index);
 
   return (
-    <div className="carousel-container">
+    <Container>
       <ArrowLeft className="left-arrow" onClick={prevIndex} />
       <ArrowRight className="right-arrow" onClick={nextIndex} />
-      {schema.map((item, index) => (
+      {images.map((image, index) => (
         <div
-          className={index === currentPosition ? "item active" : "item"}
-          key={item.index}
+          className={index === currentPosition ? "image active" : "image"}
+          key={image.index}
         >
-          {index === currentPosition && (
-            <img src={item.image} alt={item.title} />
-          )}
+          {index === currentPosition && <img src={image.url} alt={image.alt} />}
         </div>
       ))}
       <div className="button-container" style={{ textAlign: "center" }}>
-        {schema.map((item, index) => (
+        {images.map((image, index) => (
           <button
             onClick={() => moveDot(index)}
             className={currentPosition === index ? "button active" : "button"}
             type="button"
-            aria-label="button navigation"
+            aria-label={`show ${image.alt}`}
             style={{
               cursor: "pointer",
               width: "16px",
@@ -61,6 +87,6 @@ export function Carousel({ schema }) {
           />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }
