@@ -28,6 +28,7 @@ export function WebContainerExample() {
       "/src/App.jsx",
       `
         import { useState } from 'react'
+        import { FormFactory } from "./component"
 
         function App() {
         ${code}
