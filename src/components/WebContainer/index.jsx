@@ -10,15 +10,20 @@ import {
 export function WebContainerExample() {
   const [containerUrl, setContainerUrl] = useState("");
   const [code, setCode] = useState("");
+  const [isStarting, setIsStarting] = useState(false);
 
   async function handleWebContainerStart() {
+    setIsStarting(true);
     const webContainer = await getWebContainerInstance();
 
     webContainer.mount(files);
 
     startWebContainerServer(webContainer);
 
-    webContainer.on("server-ready", (port, url) => setContainerUrl(url));
+    webContainer.on("server-ready", (port, url) => {
+      setContainerUrl(url);
+      setIsStarting(false);
+    });
   }
 
   async function handleWebContainerEdit() {
@@ -51,12 +56,12 @@ export function WebContainerExample() {
           onChange={(value) => setCode(value)}
         />
         <button type="button" onClick={handleWebContainerEdit}>
-          EDIT
+          Apply code
+        </button>
+        <button type="button" onClick={handleWebContainerStart}>
+          {isStarting ? "Loading..." : "Start"}
         </button>
       </CodeLayout>
-      <button type="button" onClick={handleWebContainerStart}>
-        START
-      </button>
       <iframe title="qqer coisa" src={containerUrl} />
     </div>
   );
