@@ -27,8 +27,8 @@ export function WebContainerExample() {
     await webContainer.fs.writeFile(
       "/src/App.jsx",
       `
-        import { useState } from 'react'
-        import { FormFactory } from "./component"
+        import { useState, useEffect } from 'react'
+        import Component from "./component"
 
         function App() {
         ${code}
