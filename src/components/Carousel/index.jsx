@@ -61,8 +61,12 @@ export function Carousel({ images }) {
 
   return (
     <Container>
-      <ArrowLeft className="left-arrow" onClick={prevIndex} />
-      <ArrowRight className="right-arrow" onClick={nextIndex} />
+      <button type="button" className="left-arrow">
+        <ArrowLeft onClick={prevIndex} />
+      </button>
+      <button type="button" className="right-arrow">
+        <ArrowRight onClick={nextIndex} />
+      </button>
       {images.map((image, index) => (
         <div
           className={index === currentPosition ? "image active" : "image"}
