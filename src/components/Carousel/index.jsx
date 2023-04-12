@@ -5,59 +5,29 @@
 // -> Agora basta estilizar o carrosel do seu jeito.
 
 import { useState } from "react";
-import styled from "styled-components";
 import { ArrowLeft, ArrowRight } from "./svgs";
-
-const Container = styled.div`
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .right-arrow {
-    position: absolute;
-    top: 48%;
-    right: 45%;
-  }
-
-  .left-arrow {
-    position: absolute;
-    top: 48%;
-    left: 45%;
-  }
-
-  .button {
-    border-radius: 50%;
-    border: 3px solid #f1f1f1;
-    margin: 0 5px;
-    background: #f1f1f1;
-  }
-  .button.active {
-    background: rgb(32, 32, 32);
-  }
-`;
+import { Container } from "./styles";
 
 export function Carousel({ images }) {
   const [currentPosition, setCurrentPosition] = useState(0);
 
-  function changePosition(i) {
-    if (i >= images.length) {
+  function changePosition(nextPosition) {
+    if (nextPosition >= images.length) {
       return;
     }
 
-    if (i < 0) {
+    if (nextPosition < 0) {
       return;
     }
 
-    setCurrentPosition(i);
+    setCurrentPosition(nextPosition);
   }
 
   const nextIndex = () => changePosition(currentPosition + 1);
 
   const prevIndex = () => changePosition(currentPosition - 1);
 
-  const moveDot = (index) => changePosition(index);
+  const moveDot = (toPosition) => changePosition(toPosition);
 
   return (
     <Container>
@@ -75,19 +45,13 @@ export function Carousel({ images }) {
           {index === currentPosition && <img src={image.url} alt={image.alt} />}
         </div>
       ))}
-      <div className="button-container" style={{ textAlign: "center" }}>
+      <div className="button-container">
         {images.map((image, index) => (
           <button
             onClick={() => moveDot(index)}
             className={currentPosition === index ? "button active" : "button"}
             type="button"
             aria-label={`show ${image.alt}`}
-            style={{
-              cursor: "pointer",
-              width: "16px",
-              height: "16px",
-              margin: "5px 4px",
-            }}
           />
         ))}
       </div>
