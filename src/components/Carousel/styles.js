@@ -15,6 +15,8 @@ export const Container = styled.div`
 
   .right-arrow,
   .left-arrow {
+    background: transparent;
+    border: none;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
