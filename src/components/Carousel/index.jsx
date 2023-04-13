@@ -31,16 +31,16 @@ export function Carousel({ images }) {
 
   return (
     <Container>
-      <button type="button" className="left-arrow">
-        <ArrowLeft onClick={prevIndex} />
+      <button type="button" className="left-arrow" onClick={prevIndex}>
+        <ArrowLeft />
       </button>
-      <button type="button" className="right-arrow">
-        <ArrowRight onClick={nextIndex} />
+      <button type="button" className="right-arrow" onClick={nextIndex}>
+        <ArrowRight />
       </button>
       {images.map((image, index) => (
         <div
           className={index === currentPosition ? "image active" : "image"}
-          key={image.index}
+          key={image.id}
         >
           {index === currentPosition && <img src={image.url} alt={image.alt} />}
         </div>
