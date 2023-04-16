@@ -4,6 +4,8 @@
 
 Copiar e colar os arquivos desejados para o seu projeto.
 
+Talvez seja necessário instalar as bibliotecas do RadixUI ou react-aria para os seus componentes.
+
 ## Como contribuir
 
 1. Dê um git clone no projeto
