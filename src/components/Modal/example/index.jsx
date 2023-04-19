@@ -1,6 +1,6 @@
 // o botão não fecha
 
-import { Modal, ModalTrigger, ModalContent } from "../index";
+import { Modal } from "../index";
 
 export function ModalExample() {
   const handleSubmit = (event) => {
@@ -8,22 +8,17 @@ export function ModalExample() {
   };
 
   return (
-    <Modal
+    <Modal.Root
       title="Edit Profile"
       description="Make changes to your profile here. Click save when you're done."
     >
-      <ModalTrigger>
-        <button type="button">Open Modal</button>
-      </ModalTrigger>
-      <ModalContent>
+      <Modal.Trigger>Open Modal</Modal.Trigger>
+      <Modal>
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Your username</label>
           <input type="text" id="username" name="username" />
-          <button type="submit" onClick="Close">
-            Salvar
-          </button>
         </form>
-      </ModalContent>
-    </Modal>
+      </Modal>
+    </Modal.Root>
   );
 }
