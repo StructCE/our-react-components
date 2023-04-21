@@ -1,7 +1,7 @@
-import { FormFactoryExample2 } from "./components/FormFactory/example2";
+import { TableExample } from "./components/Table/example";
 
 function App() {
-  return <FormFactoryExample2 />;
+  return <TableExample />;
 }
 
 export default App;
