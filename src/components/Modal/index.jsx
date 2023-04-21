@@ -8,9 +8,6 @@ export const Modal = React.forwardRef(
       <DialogOverlay />
       <DialogContent {...props} ref={forwardedRef}>
         {children}
-        <DialogPrimitive.Close aria-label="Close" type="submit">
-          Save
-        </DialogPrimitive.Close>
       </DialogContent>
     </DialogPrimitive.Portal>
   )
@@ -18,3 +15,7 @@ export const Modal = React.forwardRef(
 
 Modal.Root = DialogPrimitive.Root;
 Modal.Trigger = DialogPrimitive.Trigger;
+Modal.Close = DialogPrimitive.Close;
+// Tirei o close do corpo do Modal por querer chamá-lo duas
+// vezes dentro do exemplo e porque acho que nao vou utilizá-lo no segundo;
+// Consigo colocar "type='submit" e "aria-label='Close" ??
