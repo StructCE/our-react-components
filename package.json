@@ -11,11 +11,13 @@
     "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx,.cjs"
   },
   "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.0.3",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0",
     "styled-components": "^5.3.8",
     "vite-plugin-checker": "^0.5.6"
   },
