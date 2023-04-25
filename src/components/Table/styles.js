@@ -22,6 +22,10 @@ const Container = styled.table`
     text-transform: capitalize;
   }
 
+  tr {
+    position: relative;
+  }
+
   caption,
   td,
   th {
@@ -32,7 +36,7 @@ const Container = styled.table`
     background-color: rgba(255, 255, 255, 0.06);
   }
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 1140px) {
     td {
       display: grid;
 
@@ -61,12 +65,15 @@ const ActionButton = styled.button`
   display: flex;
   font-size: calc(1em - 0.4rem);
   align-items: center;
+  justify-content: center;
   gap: 0.2rem;
+  width: 100%;
 
   cursor: pointer;
   transition: transform 100ms ease-out;
 
   &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
     transform: scale(1.1);
   }
 `;

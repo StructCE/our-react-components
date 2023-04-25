@@ -11,6 +11,11 @@ export function Table({ title, fields, rows, actions, ...props }) {
               {fieldTitle}
             </th>
           ))}
+          {actions?.map(({ name }) => (
+            <th role="columnheader" key={name}>
+              {name}
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
@@ -26,7 +31,7 @@ export function Table({ title, fields, rows, actions, ...props }) {
               </td>
             ))}
             {actions?.map(({ name, Icon, onClick }) => (
-              <td role="cell" key={name}>
+              <td role="cell" key={name} data-cell={name}>
                 <TableStyles.ActionButton
                   name={name}
                   type="button"
