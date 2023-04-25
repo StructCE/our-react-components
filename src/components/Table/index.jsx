@@ -1,8 +1,8 @@
-import { TableContainer } from "./styles";
+import { TableStyles } from "./styles";
 
-export function Table({ title, fields, rows, ...props }) {
+export function Table({ title, fields, rows, actions, ...props }) {
   return (
-    <TableContainer {...props} role="table">
+    <TableStyles.Container {...props} role="table">
       <caption role="caption">{title}</caption>
       <thead>
         <tr role="row">
@@ -17,13 +17,28 @@ export function Table({ title, fields, rows, ...props }) {
         {rows.map((row) => (
           <tr role="row" key={row.id}>
             {fields.map(({ title: fieldTitle, name }) => (
-              <td role="cell" data-cell={fieldTitle}>
+              <td
+                role="cell"
+                key={`${fieldTitle} ${row.id}`}
+                data-cell={fieldTitle}
+              >
                 {row[name]}
+              </td>
+            ))}
+            {actions?.map(({ name, Icon, onClick }) => (
+              <td role="cell" key={name}>
+                <TableStyles.ActionButton
+                  name={name}
+                  type="button"
+                  onClick={() => onClick(row)}
+                >
+                  {Icon && <Icon />}
+                </TableStyles.ActionButton>
               </td>
             ))}
           </tr>
         ))}
       </tbody>
-    </TableContainer>
+    </TableStyles.Container>
   );
 }

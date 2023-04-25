@@ -1,6 +1,7 @@
 import { Table } from "..";
 import { getUsers } from "./getUsers";
 import { PageContainer } from "./styles";
+import { EditIcon, ShowIcon, TrashIcon } from "./svgs";
 
 export function TableExample() {
   // api call, etc
@@ -17,19 +18,34 @@ export function TableExample() {
     { title: "Cargo", name: "role" },
   ];
 
-  // const actions = [
-  //   {
-  //     title: "Deletar",
-  //     // eslint-disable-next-line no-alert
-  //     onClick: (row) => alert(JSON.stringify(row, 2, null)),
-  //   },
-  // ];
+  const actions = [
+    {
+      name: "Visualizar",
+      Icon: ShowIcon,
+      onClick: (row) =>
+        // eslint-disable-next-line no-alert
+        alert(`VISUALIZANDO\n\n ${JSON.stringify(row, null, 2)}`), // chamar api
+    },
+    {
+      name: "Editar",
+      Icon: EditIcon,
+      // eslint-disable-next-line no-alert
+      onClick: (row) => alert(`EDITANDO\n\n ${JSON.stringify(row, null, 2)}`), // chamar api
+    },
+    {
+      name: "Deletar",
+      Icon: TrashIcon,
+      // eslint-disable-next-line no-alert
+      onClick: (row) => alert(`DELETANDO\n\n ${JSON.stringify(row, null, 2)}`), // chamar api
+    },
+  ];
 
   return (
     <PageContainer>
       <Table
         title="Usuários"
         fields={fields}
+        actions={actions}
         rows={shownUsers}
         // actions={actions}
       />

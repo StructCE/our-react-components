@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TableContainer = styled.table`
+const Container = styled.table`
   border-collapse: collapse;
 
   font-size: 1.4rem;
@@ -53,3 +53,26 @@ export const TableContainer = styled.table`
     }
   }
 `;
+
+const ActionButton = styled.button`
+  border: none;
+  background-color: transparent;
+  color: currentColor;
+  display: flex;
+  font-size: calc(1em - 0.4rem);
+  align-items: center;
+  gap: 0.2rem;
+
+  cursor: pointer;
+  transition: transform 100ms ease-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const TableStyles = {};
+TableStyles.Container = Container;
+TableStyles.ActionButton = ActionButton;
+
+export { TableStyles };
