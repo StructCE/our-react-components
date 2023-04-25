@@ -1,20 +1,24 @@
 import styled from "styled-components";
 
 export const TableContainer = styled.table`
+  border-collapse: collapse;
+
   font-size: 1.4rem;
   text-align: left;
-  border-collapse: collapse;
   /* Estilização de cores pode
-    principalmente ser alterada somente
+    principalmente ser controlada somente
     com as 2 próximas props
   */
   color: white;
   background-color: rgba(0, 0, 0, 0.7);
 
+  margin-inline: 1rem;
+
   caption {
     background-color: inherit;
     backdrop-filter: contrast(0%);
     font-weight: 700;
+    font-size: min(10vw, 2rem);
     text-transform: capitalize;
   }
 
@@ -31,6 +35,7 @@ export const TableContainer = styled.table`
   @media only screen and (max-width: 800px) {
     td {
       display: grid;
+
       /* Alterável: */
       grid-template-columns: 10ch auto;
     }
