@@ -1,3 +1,7 @@
+// Proposta do exemplo: Mostrar o funcionamento de um modal não-controlado (padrão).
+// Em síntese, o modal é aberto e colocado em foco ao se apertar o botão "Open Modal".
+// Dentro do modal, há exemplos de textos e inputs que podem ser inseridos.
+// Por fim, para fechar o modal, basta clicar nos botões "Save", "X" ou fora do modal.
 import { Modal } from "../index";
 import { CloseX } from "./svgs";
 import { ModalStyled } from "./styles";

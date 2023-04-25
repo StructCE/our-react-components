@@ -1,3 +1,4 @@
+// Coloco o ModalStyled aqui ? Utilizei nos dois exemplos
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import styled from "styled-components";
 

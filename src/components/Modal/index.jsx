@@ -1,8 +1,13 @@
+// Forma de uso:
+// -> Chame a função Modal e, se necessário, seus derivados (Modal.Close,
+// Modal.Trigger, etc);
+// -> Agora basta estilizar o modal do seu jeito.
 import React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { DialogContent, DialogOverlay } from "./styles";
 
 export const Modal = React.forwardRef(
+  // Contém o layout e o conteúdo renderizados quando abre-se o modal
   ({ children, ...props }, forwardedRef) => (
     <DialogPrimitive.Portal>
       <DialogOverlay />
@@ -13,9 +18,6 @@ export const Modal = React.forwardRef(
   )
 );
 
-Modal.Root = DialogPrimitive.Root;
-Modal.Trigger = DialogPrimitive.Trigger;
-Modal.Close = DialogPrimitive.Close;
-// Tirei o close do corpo do Modal por querer chamá-lo duas
-// vezes dentro do exemplo e porque acho que nao vou utilizá-lo no segundo;
-// Consigo colocar "type='submit" e "aria-label='Close" ??
+Modal.Root = DialogPrimitive.Root; // Contém todas partes do modal
+Modal.Trigger = DialogPrimitive.Trigger; // Abre o modal
+Modal.Close = DialogPrimitive.Close; // Fecha o modal
