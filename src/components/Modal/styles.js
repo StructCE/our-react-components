@@ -5,7 +5,7 @@ export const DialogOverlay = styled(DialogPrimitive.Overlay)`
   position: absolute;
   inset: 0;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  @keyframe overlayShow {
+  @keyframes overlayShow {
     from {
       opacity: 0;
     }
@@ -27,7 +27,7 @@ export const DialogContent = styled(DialogPrimitive.Content)`
   :focus {
     outline: none;
   }
-  @keyframe contentShow {
+  @keyframes contentShow {
     from {
       opacity: 0;
       transform: translate(-50%, -48%);
