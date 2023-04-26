@@ -10,7 +10,7 @@ const Container = styled.table`
     com as 2 próximas props
   */
   color: white;
-  /* background-color: rgba(0, 0, 0, 0.7); */
+  background-color: rgba(0, 0, 0, 0.7);
 
   margin-inline: 1rem;
 
