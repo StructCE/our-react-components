@@ -1,9 +1,8 @@
-import React from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { alertRoot } from "./utils/root";
+import { render } from "./utils/render";
 
-export function Alert({
+function Alert({
   children,
   title,
   content,
@@ -43,16 +42,17 @@ export function Alert({
   );
 }
 
-export function AlertCall({
+function AlertCall({
   title,
   content,
   cancelText,
   confirmText,
   onConfirm,
   onCancel,
+  conditionToOpen,
 }) {
-  alertRoot.render(
-    <React.StrictMode>
+  if (conditionToOpen) {
+    render(
       <Alert
         title={title}
         content={content}
@@ -62,6 +62,8 @@ export function AlertCall({
         onCancel={onCancel}
         open
       />
-    </React.StrictMode>
-  );
+    );
+  }
 }
+
+export { Alert, AlertCall };
