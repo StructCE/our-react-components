@@ -10,7 +10,7 @@ const Container = styled.table`
     com as 2 próximas props
   */
   color: white;
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
 
   margin-inline: 1rem;
 
@@ -36,7 +36,8 @@ const Container = styled.table`
     background-color: rgba(255, 255, 255, 0.06);
   }
 
-  @media only screen and (max-width: 1140px) {
+  @media only screen and (max-width: ${({ breakPointWidth }) =>
+      `${breakPointWidth}px`}) {
     td {
       display: grid;
 

@@ -1,8 +1,21 @@
 import { TableStyles } from "./styles";
 
-export function Table({ title, fields, rows, actions, ...props }) {
+export function Table({
+  title,
+  fields,
+  rows,
+  actions,
+  breakPointWidth,
+  ...props
+}) {
   return (
-    <TableStyles.Container {...props} role="table">
+    <TableStyles.Container
+      breakPointWidth={
+        breakPointWidth || ((actions?.length ?? 0) + fields.length) * 190
+      }
+      {...props}
+      role="table"
+    >
       <caption role="caption">{title}</caption>
       <thead>
         <tr role="row">
