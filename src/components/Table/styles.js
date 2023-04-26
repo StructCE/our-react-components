@@ -50,6 +50,8 @@ const Container = styled.table`
 
     td::before {
       content: attr(data-cell);
+      display: flex;
+      align-items: center;
 
       /* Alterável: */
       font-weight: 700;
@@ -62,19 +64,41 @@ const ActionButton = styled.button`
   border: none;
   background-color: transparent;
   color: currentColor;
-  display: flex;
   font-size: calc(1em - 0.4rem);
+
+  padding: 1rem;
+  margin-inline: auto;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.2rem;
-  width: 100%;
 
   cursor: pointer;
+
   transition: transform 100ms ease-out;
 
   &:hover {
+  }
+
+  /* when select with keyboard, for accessibility */
+  &:focus-visible {
+    outline: currentColor solid 1px;
+    outline-offset: 1px;
+  }
+
+  &:hover,
+  &:focus-visible {
     background-color: rgba(255, 255, 255, 0.05);
     transform: scale(1.1);
+    box-shadow: 0.5em 0.5em 10px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  /* pill shaped border: */
+  border-radius: 100vmax;
+
+  @media (pointer: coarse) {
+    /* mais fácil de clicar quando tela touch */
+    width: 100%;
   }
 `;
 
