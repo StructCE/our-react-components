@@ -24,9 +24,9 @@ export function Table({
               {fieldTitle}
             </th>
           ))}
-          {actions?.map(({ name }) => (
-            <th role="columnheader" key={name}>
-              {name}
+          {actions?.map(({ title: actionTitle }) => (
+            <th role="columnheader" key={actionTitle}>
+              {actionTitle}
             </th>
           ))}
         </tr>
@@ -43,14 +43,14 @@ export function Table({
                 {row[name]}
               </td>
             ))}
-            {actions?.map(({ name, Icon, onClick }) => (
-              <td role="cell" key={name} data-cell={name}>
+            {actions?.map(({ title: actionTitle, Icon, onClick }) => (
+              <td role="cell" key={actionTitle} data-cell={actionTitle}>
                 <TableStyles.ActionButton
-                  name={name}
+                  name={actionTitle}
                   type="button"
                   onClick={() => onClick(row)}
                 >
-                  {Icon && <Icon />}
+                  <Icon />
                 </TableStyles.ActionButton>
               </td>
             ))}

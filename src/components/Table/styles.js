@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+const getBreakPointWidth = ({ breakPointWidth }) => `${breakPointWidth}px`;
+
 const Container = styled.table`
   border-collapse: collapse;
 
@@ -36,8 +38,7 @@ const Container = styled.table`
     background-color: rgba(255, 255, 255, 0.06);
   }
 
-  @media only screen and (max-width: ${({ breakPointWidth }) =>
-      `${breakPointWidth}px`}) {
+  @media only screen and (max-width: ${getBreakPointWidth}) {
     td {
       display: grid;
 
