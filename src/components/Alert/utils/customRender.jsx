@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-const alertRoot = ReactDOM.createRoot(document.getElementById("alert"));
-
-export function render(children) {
+export async function customRender(children) {
+  const alertRoot = ReactDOM.createRoot(document.getElementById("alert"));
   alertRoot.render(<React.StrictMode>{children}</React.StrictMode>);
 }

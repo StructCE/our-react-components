@@ -1,37 +1,18 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
-// import { useState } from "react";
 import { useState } from "react";
-import { Alert, AlertCall } from "..";
+import { AlertCall } from "..";
 
 export function AlertExample() {
-  const [sla, setSla] = useState(false);
-
-  function onConfirm() {
-    console.log("confirmado");
-  }
-
-  AlertCall({
-    cancelText: "cancelar",
-    confirmText: "confirmar",
-    onConfirm,
-    conditionToOpen: sla,
-  });
+  const [valid, setValid] = useState(false);
 
   return (
     <>
-      <h1>Seu alert</h1>
-      <Alert
-        title="Teste de alerta"
-        confirmText="Confirmar"
-        cancelText="Cancelar"
-        onConfirm={onConfirm}
-      >
-        <button type="button">Mostrar Alert</button>
-      </Alert>
-      <button type="button" onClick={() => setSla(true)}>
-        Mostrar AlertCall
+      <h1>Testando funcionamento da função AlertCall</h1>
+
+      <button type="button" onClick={async () => setValid(await AlertCall())}>
+        chamar alert
       </button>
+
+      <span>{(valid && "true") || "false"}</span>
     </>
   );
 }

@@ -1,20 +1,24 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable no-console */
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { render } from "./utils/render";
+import { customRender } from "./utils/customRender";
 
 function Alert({
-  children,
   title,
   content,
   cancelText,
+  onCancel,
   confirmText,
   onConfirm,
-  onCancel,
-  open,
+  children,
+  conditionToOpen,
+  defaultOpen,
 }) {
   return (
-    <AlertDialog.Root defaultOpen={open}>
-      <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
+    <AlertDialog.Root defaultOpen={defaultOpen}>
+      {(conditionToOpen && (
+        <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
+      )) ||
+        children}
       <AlertDialog.Portal>
         <AlertDialog.Overlay
           style={{
@@ -24,46 +28,48 @@ function Alert({
           }}
         />
         <AlertDialog.Content style={{ position: "fixed", inset: "0" }}>
-          <h1>{title}</h1>
-          <p>{content}</p>
-          <AlertDialog.Cancel asChild>
-            <button type="button" onClick={onCancel}>
-              {cancelText}
-            </button>
-          </AlertDialog.Cancel>
-          <AlertDialog.Action asChild>
-            <button type="button" onClick={onConfirm}>
-              {confirmText}
-            </button>
-          </AlertDialog.Action>
+          <div style={{ backgroundColor: "white" }}>
+            <h1>{title}</h1>
+            <p>{content}</p>
+            <div>
+              <AlertDialog.Cancel asChild>
+                <button type="button" onClick={onCancel}>
+                  {cancelText || "cancelar"}
+                </button>
+              </AlertDialog.Cancel>
+              <AlertDialog.Action asChild>
+                <button type="button" onClick={onConfirm}>
+                  {confirmText || "confirmar"}
+                </button>
+              </AlertDialog.Action>
+            </div>
+          </div>
         </AlertDialog.Content>
       </AlertDialog.Portal>
     </AlertDialog.Root>
   );
 }
 
-function AlertCall({
-  title,
-  content,
-  cancelText,
-  confirmText,
-  onConfirm,
-  onCancel,
-  conditionToOpen,
-}) {
-  if (conditionToOpen) {
-    render(
+async function AlertCall() {
+  let value = null;
+  const operation = new Promise((resolve) => {
+    customRender(
       <Alert
-        title={title}
-        content={content}
-        cancelText={cancelText}
-        confirmText={confirmText}
-        onConfirm={onConfirm}
-        onCancel={onCancel}
-        open
+        defaultOpen
+        onCancel={() => {
+          resolve(false);
+        }}
+        onConfirm={() => {
+          resolve(true);
+        }}
       />
     );
-  }
+  });
+  await operation.then((data) => {
+    value = data;
+  });
+
+  return value;
 }
 
 export { Alert, AlertCall };
