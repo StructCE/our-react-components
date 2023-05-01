@@ -1,7 +1,7 @@
-import { TableExample } from "./components/Table/example";
+import { TableExample2 } from "./components/Table/example2/index";
 
 function App() {
-  return <TableExample />;
+  return <TableExample2 />;
 }
 
 export default App;
