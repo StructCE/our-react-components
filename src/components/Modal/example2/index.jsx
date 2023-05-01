@@ -1,4 +1,7 @@
-// Configuração quando tem mais de um input fica estranha
+// Proposta do exemplo: Mostrar o funcionamento de um modal controlado.
+// Este modal possui o mesmo funcionamento básico do Exemplo 1, porém,
+// com alguns diferenciais, tal qual, a possibilidade de verificar as
+// validações de requisições antes de fechá-lo.
 import React, { useState } from "react";
 import { Modal } from "..";
 import { ModalStyled } from "../example/styles";
