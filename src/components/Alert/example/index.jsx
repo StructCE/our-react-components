@@ -1,18 +1,49 @@
 import { useState } from "react";
-import { AlertCall } from "..";
+import { Alert, AlertCall } from "..";
 
 export function AlertExample() {
-  const [valid, setValid] = useState(false);
+  const [bestAnime, setBestAnime] = useState("");
+  const [confirmedReply, setConfirmedReply] = useState(false);
+
+  const handleChange = (ev) => {
+    setBestAnime(ev.target.value);
+  };
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    if (bestAnime.length > 0) {
+      setConfirmedReply(
+        await AlertCall({
+          content: "Tem certeza que esse é o melhor anime? aiai 🙄",
+        })
+      );
+    }
+  };
 
   return (
     <>
-      <h1>Testando funcionamento da função AlertCall</h1>
+      <h1>Bem vindo ao AnimeTest 🔥</h1>
 
-      <button type="button" onClick={async () => setValid(await AlertCall())}>
-        chamar alert
-      </button>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="bestAnime">Qual o melhor anime que existe?</label>
+          <input
+            type="text"
+            value={bestAnime}
+            onChange={handleChange}
+            id="bestAnime"
+          />
+        </div>
 
-      <span>{(valid && "true") || "false"}</span>
+        <Alert
+          conditionToOpen={bestAnime === ""}
+          content="Não quer colocar nada no input? 🤨"
+        >
+          <button type="submit">Responder</button>
+        </Alert>
+      </form>
+
+      <span>{confirmedReply ? "true" : "false"}</span>
     </>
   );
 }

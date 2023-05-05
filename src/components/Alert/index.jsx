@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { customRender } from "./utils/customRender";
 
@@ -15,10 +14,11 @@ function Alert({
 }) {
   return (
     <AlertDialog.Root defaultOpen={defaultOpen}>
-      {(conditionToOpen && (
+      {conditionToOpen ? (
         <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
-      )) ||
-        children}
+      ) : (
+        children
+      )}
       <AlertDialog.Portal>
         <AlertDialog.Overlay
           style={{
@@ -50,7 +50,7 @@ function Alert({
   );
 }
 
-async function AlertCall() {
+async function AlertCall({ ...atributes }) {
   let value = null;
   const operation = new Promise((resolve) => {
     customRender(
@@ -62,6 +62,7 @@ async function AlertCall() {
         onConfirm={() => {
           resolve(true);
         }}
+        {...atributes}
       />
     );
   });
