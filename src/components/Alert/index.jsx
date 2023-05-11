@@ -9,7 +9,7 @@ function Alert({
   confirmText,
   onConfirm,
   children,
-  conditionToOpen,
+  conditionToOpen = true,
   defaultOpen,
 }) {
   return (
@@ -50,7 +50,7 @@ function Alert({
   );
 }
 
-async function AlertCall({ ...atributes }) {
+async function AlertCall(attributes) {
   let value = null;
   const operation = new Promise((resolve) => {
     customRender(
@@ -62,7 +62,7 @@ async function AlertCall({ ...atributes }) {
         onConfirm={() => {
           resolve(true);
         }}
-        {...atributes}
+        {...attributes}
       />
     );
   });
