@@ -7,8 +7,8 @@ export function AlertRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/alertexample" element={<AlertExample />} />
-        <Route path="/alertexample2" element={<AlertExample2 />} />
+        <Route path="/" element={<AlertExample />} />
+        <Route path="/2" element={<AlertExample2 />} />
       </Routes>
     </BrowserRouter>
   );

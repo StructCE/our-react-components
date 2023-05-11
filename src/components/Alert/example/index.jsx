@@ -3,7 +3,7 @@ import { Alert, AlertCall } from "..";
 
 export function AlertExample() {
   const [bestAnime, setBestAnime] = useState("");
-  const [confirmedReply, setConfirmedReply] = useState(false);
+  const [responseForSubmit, setResponseForSubmit] = useState("");
 
   const handleChange = (ev) => {
     setBestAnime(ev.target.value);
@@ -11,12 +11,15 @@ export function AlertExample() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    if (bestAnime.length > 0) {
-      setConfirmedReply(
-        await AlertCall({
-          content: "Tem certeza que esse é o melhor anime? aiai 🙄",
-        })
-      );
+    if (bestAnime) {
+      const confirmedReply = await AlertCall({
+        content: "Tem certeza que esse é o melhor anime? aiai",
+      });
+      if (confirmedReply && bestAnime === "one piece") {
+        setResponseForSubmit("Parabéns, percebo que você entende das coisas");
+      } else if (confirmedReply) {
+        setResponseForSubmit("Melhore!");
+      }
     }
   };
 
@@ -37,13 +40,14 @@ export function AlertExample() {
 
         <Alert
           conditionToOpen={bestAnime === ""}
-          content="Não quer colocar nada no input? 🤨"
+          content="Não quer colocar nada no input?"
+          onConfirm={() => setResponseForSubmit("Melhore!")}
         >
           <button type="submit">Responder</button>
         </Alert>
       </form>
 
-      <span>{confirmedReply ? "true" : "false"}</span>
+      {responseForSubmit && <h2>{responseForSubmit}</h2>}
     </>
   );
 }
