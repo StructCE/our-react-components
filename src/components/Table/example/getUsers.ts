@@ -1,5 +1,5 @@
 // Normalmente esse tipo viria do prisma, etc.
-type User = {
+export type User = {
   id: number;
   user_name: string;
   age: number;

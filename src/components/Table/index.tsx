@@ -1,20 +1,20 @@
 import { TableStyles } from "./styles";
 
-export type GenericFields<Row extends object[]> = readonly {
+export type GenericFields<Rows extends object[]> = readonly {
   readonly title: string;
-  // name deve ser o nome de uma propriedade do Row passado:
-  readonly name: keyof Row[number];
+  // name deve ser o nome de uma propriedade do Rows passado:
+  readonly name: keyof Rows[number];
 }[];
 
-export type GenericRowAction<Row extends object[]> = Readonly<{
+export type GenericRowAction<Rows extends object[]> = Readonly<{
   title: string;
-  onClick: (row: Row[number]) => void;
+  onClick: (row: Rows[number]) => void;
   Icon: () => JSX.Element;
 }>;
 
 type GenericRow<
-  Fields extends GenericFields<Row>,
-  Row extends object[]
+  Fields extends GenericFields<Rows>,
+  Rows extends object[]
 > = Readonly<
   {
     [key in Fields[number]["name"]]: string | number;
@@ -22,20 +22,20 @@ type GenericRow<
 >;
 
 type TableProps<
-  Fields extends GenericFields<Row>,
-  Row extends GenericRow<Fields, Row>[]
+  Fields extends GenericFields<Rows>,
+  Rows extends GenericRow<Fields, Rows>[]
 > = Readonly<{
   fields: Fields;
-  rows: Row;
+  rows: Rows;
   title: string;
-  actions: GenericRowAction<Row>[];
+  actions: GenericRowAction<Rows>[];
   breakPointWidth: number;
 }>;
 
 // export function Table({
 export function Table<
-  Fields extends GenericFields<Row>,
-  Row extends GenericRow<Fields, Row>[]
+  Fields extends GenericFields<Rows>,
+  Rows extends GenericRow<Fields, Rows>[]
 >({
   fields,
   rows,
@@ -43,12 +43,10 @@ export function Table<
   actions,
   breakPointWidth,
   ...props
-}: TableProps<Fields, Row>) {
+}: TableProps<Fields, Rows>) {
   return (
     <TableStyles.Container
-      breakPointWidth={
-        breakPointWidth || ((actions?.length ?? 0) + fields.length) * 190
-      }
+      breakPointWidth={breakPointWidth}
       {...props}
       role="table"
     >

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Table } from "..";
+import type { GenericFields, GenericRowAction } from "..";
 import { getUsers } from "../example/getUsers";
 import { PageContainer } from "./styles";
 import { EditIcon, ShowIcon, TrashIcon } from "../example/svgs";
@@ -26,7 +27,7 @@ export function TableExample2() {
     role: false,
   });
 
-  const mayShowFields = [
+  const mayShowFields: GenericFields<typeof users> = [
     { title: "Id", name: "id" },
     { title: "Usuário", name: "user_name" },
     { title: "Idade", name: "age" },
@@ -37,25 +38,45 @@ export function TableExample2() {
   // show only fields specified
   const shownFields = mayShowFields.filter(({ name }) => selectedFields[name]);
 
-  const actions = [
+  const actions: GenericRowAction<typeof users>[] = [
     {
       title: "Visualizar",
       Icon: ShowIcon,
       onClick: (row) =>
         // eslint-disable-next-line no-alert
-        alert(`VISUALIZANDO\n\n ${JSON.stringify(row, null, 2)}`), // chamar api
+        alert(
+          `VISUALIZANDO OS DADOS DE ${row.user_name}\n\n ${JSON.stringify(
+            row,
+            null,
+            2
+          )}`
+        ), // chamar api
     },
     {
       title: "Editar",
       Icon: EditIcon,
       // eslint-disable-next-line no-alert
-      onClick: (row) => alert(`EDITANDO\n\n ${JSON.stringify(row, null, 2)}`), // chamar api
+      onClick: (row) =>
+        alert(
+          `EDITANDO OS DADOS DE ${row.user_name}\n\n ${JSON.stringify(
+            row,
+            null,
+            2
+          )}`
+        ), // chamar api
     },
     {
       title: "Deletar",
       Icon: TrashIcon,
       // eslint-disable-next-line no-alert
-      onClick: (row) => alert(`DELETANDO\n\n ${JSON.stringify(row, null, 2)}`), // chamar api
+      onClick: (row) =>
+        alert(
+          `DELETANDO OS DADOS DE ${row.user_name}\n\n ${JSON.stringify(
+            row,
+            null,
+            2
+          )}`
+        ), // chamar api
     },
   ];
 
@@ -93,7 +114,11 @@ export function TableExample2() {
                 type="checkbox"
                 name={statusName}
                 value={statusName}
-                checked={filterUsersByActiveStatus[statusName]}
+                checked={
+                  filterUsersByActiveStatus[
+                    statusName as "active" | "deactivated"
+                  ]
+                }
                 onChange={(e) => {
                   setFilterUsersByActiveStatus((prev) => ({
                     ...prev,
@@ -113,7 +138,7 @@ export function TableExample2() {
         fields={shownFields}
         actions={actions}
         rows={shownUsers}
-        breakPointWidth={900}
+        breakPointWidth={(actions.length + shownFields.length) * 190 || 900}
       />
     </PageContainer>
   );
