@@ -11,7 +11,7 @@ type Row<T extends FieldsGeneric> = Readonly<
   } & { id: string | number }
 >;
 
-type Action<RS extends object[]> = Readonly<{
+export type RowAction<RS extends object[]> = Readonly<{
   title: string;
   onClick: (row: RS[number]) => void;
   Icon: () => JSX.Element;
@@ -21,7 +21,7 @@ type TableProps<T extends FieldsGeneric, RS extends Row<T>[]> = Readonly<{
   fields: T;
   rows: RS;
   title: string;
-  actions: Action<RS>[];
+  actions: RowAction<RS>[];
   breakPointWidth: number;
 }>;
 

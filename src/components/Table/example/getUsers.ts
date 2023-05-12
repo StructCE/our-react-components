@@ -1,5 +1,14 @@
+// Normalmente esse tipo viria do prisma, etc.
+type User = {
+  id: number;
+  user_name: string;
+  age: number;
+  status: "active" | "deactivated";
+  role: "super_admin" | "admin" | "user";
+};
+
 export function getUsers() {
-  const users = [
+  const users: User[] = [
     { id: 1, user_name: "art", age: 20, status: "active", role: "admin" },
     {
       id: 2,

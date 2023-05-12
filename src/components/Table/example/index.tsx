@@ -1,4 +1,4 @@
-import { Table } from "..";
+import { type RowAction, Table } from "..";
 import { getUsers } from "./getUsers";
 import { PageContainer } from "./styles";
 import { EditIcon, ShowIcon, TrashIcon } from "./svgs";
@@ -19,7 +19,7 @@ export function TableExample() {
     { title: "Cargo", name: "role" },
   ];
 
-  const actions = [
+  const actions: RowAction<typeof users>[] = [
     {
       title: "Visualizar",
       Icon: ShowIcon,
