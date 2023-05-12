@@ -1,39 +1,49 @@
 import { TableStyles } from "./styles";
 
-type FieldsGeneric = readonly {
+export type GenericFields<Row extends object[]> = readonly {
   readonly title: string;
-  readonly name: string;
+  // name deve ser o nome de uma propriedade do Row passado:
+  readonly name: keyof Row[number];
 }[];
 
-type Row<T extends FieldsGeneric> = Readonly<
-  {
-    [key in T[number]["name"]]: string | number;
-  } & { id: string | number }
->;
-
-export type RowAction<RS extends object[]> = Readonly<{
+export type GenericRowAction<Row extends object[]> = Readonly<{
   title: string;
-  onClick: (row: RS[number]) => void;
+  onClick: (row: Row[number]) => void;
   Icon: () => JSX.Element;
 }>;
 
-type TableProps<T extends FieldsGeneric, RS extends Row<T>[]> = Readonly<{
-  fields: T;
-  rows: RS;
+type GenericRow<
+  Fields extends GenericFields<Row>,
+  Row extends object[]
+> = Readonly<
+  {
+    [key in Fields[number]["name"]]: string | number;
+  } & { id: string | number }
+>;
+
+type TableProps<
+  Fields extends GenericFields<Row>,
+  Row extends GenericRow<Fields, Row>[]
+> = Readonly<{
+  fields: Fields;
+  rows: Row;
   title: string;
-  actions: RowAction<RS>[];
+  actions: GenericRowAction<Row>[];
   breakPointWidth: number;
 }>;
 
 // export function Table({
-export function Table<T extends FieldsGeneric, RS extends Row<T>[]>({
+export function Table<
+  Fields extends GenericFields<Row>,
+  Row extends GenericRow<Fields, Row>[]
+>({
   fields,
   rows,
   title,
   actions,
   breakPointWidth,
   ...props
-}: TableProps<T, RS>) {
+}: TableProps<Fields, Row>) {
   return (
     <TableStyles.Container
       breakPointWidth={
@@ -66,8 +76,7 @@ export function Table<T extends FieldsGeneric, RS extends Row<T>[]>({
                 key={`${fieldTitle} ${row.id}`}
                 data-cell={fieldTitle}
               >
-                {/* Cuidado com a tipagem aqui: */}
-                {row[name as T[number]["name"]]}
+                {row[name]}
               </td>
             ))}
             {actions?.map(({ title: actionTitle, Icon, onClick }) => (

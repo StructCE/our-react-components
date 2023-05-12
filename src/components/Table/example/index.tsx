@@ -1,4 +1,6 @@
-import { type RowAction, Table } from "..";
+import type { GenericRowAction, GenericFields } from "..";
+import { Table } from "..";
+
 import { getUsers } from "./getUsers";
 import { PageContainer } from "./styles";
 import { EditIcon, ShowIcon, TrashIcon } from "./svgs";
@@ -11,7 +13,7 @@ export function TableExample() {
   const shownUsers = users.filter((u) => u.status !== "deactivated");
 
   // show only fields specified
-  const shownFields = [
+  const shownFields: GenericFields<typeof users> = [
     // { title: "Id", name: "id" },
     { title: "Usuário", name: "user_name" },
     // { title: "Idade", name: "age" },
@@ -19,7 +21,7 @@ export function TableExample() {
     { title: "Cargo", name: "role" },
   ];
 
-  const actions: RowAction<typeof users>[] = [
+  const actions: GenericRowAction<typeof users>[] = [
     {
       title: "Visualizar",
       Icon: ShowIcon,
