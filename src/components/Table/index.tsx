@@ -1,13 +1,39 @@
 import { TableStyles } from "./styles";
 
-export function Table({
-  title,
+type FieldsGeneric = readonly {
+  readonly title: string;
+  readonly name: string;
+}[];
+
+type Row<T extends FieldsGeneric> = Readonly<
+  {
+    [key in T[number]["name"]]: string | number;
+  } & { id: string | number }
+>;
+
+type Action<RS extends object[]> = Readonly<{
+  title: string;
+  onClick: (row: RS[number]) => void;
+  Icon: () => JSX.Element;
+}>;
+
+type TableProps<T extends FieldsGeneric, RS extends Row<T>[]> = Readonly<{
+  fields: T;
+  rows: RS;
+  title: string;
+  actions: Action<RS>[];
+  breakPointWidth: number;
+}>;
+
+// export function Table({
+export function Table<T extends FieldsGeneric, RS extends Row<T>[]>({
   fields,
   rows,
+  title,
   actions,
   breakPointWidth,
   ...props
-}) {
+}: TableProps<T, RS>) {
   return (
     <TableStyles.Container
       breakPointWidth={
@@ -40,7 +66,8 @@ export function Table({
                 key={`${fieldTitle} ${row.id}`}
                 data-cell={fieldTitle}
               >
-                {row[name]}
+                {/* Cuidado com a tipagem aqui: */}
+                {row[name as T[number]["name"]]}
               </td>
             ))}
             {actions?.map(({ title: actionTitle, Icon, onClick }) => (

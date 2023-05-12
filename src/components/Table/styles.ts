@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-const getBreakPointWidth = ({ breakPointWidth }) => `${breakPointWidth}px`;
+const getBreakPointWidth = ({ breakPointWidth }: { breakPointWidth: number }) =>
+  `${breakPointWidth}px`;
 
 const Container = styled.table`
   border-collapse: collapse;
@@ -104,8 +105,9 @@ const ActionButton = styled.button`
   }
 `;
 
-const TableStyles = {};
-TableStyles.Container = Container;
-TableStyles.ActionButton = ActionButton;
+const TableStyles = {
+  Container: Container,
+  ActionButton: ActionButton,
+};
 
 export { TableStyles };
