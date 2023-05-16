@@ -19,8 +19,8 @@ export function AlertExample2() {
 
   const linesComponentCode = [
     "<Alert",
-    " onConfirm={() => setResponse(true)",
-    " onCancel={() => setResponse(false)}}",
+    " onConfirm={() => setResponse(true)}",
+    " onCancel={() => setResponse(false)}",
     ">",
     "  <button>",
     "    Emitir status",
@@ -58,7 +58,7 @@ export function AlertExample2() {
               Emitir status
             </button>
 
-            {response ? <span>Confirmado</span> : <span>Cancelado</span>}
+            <span>response = {response ? "true" : "false"}</span>
 
             <pre className="mb-4 mt-6 bg-gray-950 p-2 rounded-md border-2 border-cyan-600">
               {linesFunctionCode.join("\n")}
@@ -73,17 +73,13 @@ export function AlertExample2() {
             >
               <button
                 type="button"
-                className="my-4 border-b-2 border-cyan-500 w-32 py-2 bg-black rounded"
+                className="px-4 py-2 mt-4 mb-6 w-32 shadow-md shadow-cyan-800 justify-center hover:bg-cyan-100 border border-cyan-400 font-medium rounded-lg text-sm inline-flex dark:bg-cyan-800 dark:border-cyan-700 dark:text-white dark:hover:bg-cyan-700"
               >
                 Emitir status
               </button>
             </Alert>
 
-            {response ? (
-              <span>Response = Confirmado</span>
-            ) : (
-              <span>Cancelado</span>
-            )}
+            <span>response = {response ? "true" : "false"}</span>
 
             <pre className="mb-4 mt-6 bg-gray-950 p-2 rounded-md border-2 border-cyan-600">
               {linesComponentCode.join("\n")}
