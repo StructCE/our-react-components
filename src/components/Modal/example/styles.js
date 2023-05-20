@@ -20,20 +20,42 @@ export const ModalStyled = styled.div`
 
   form {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     align-items: center;
-    text-align: center;
     margin-bottom: 15px;
-  }
+    > label {
+      text-align: left;
+    }
+    > button {
+      padding: 0.5em 1em;
+      border: none;
 
-  label {
-    font-size: 15px;
-    width: 70px;
-    text-align: right;
+      /* when select with keyboard, for accessibility */
+      &:focus-visible {
+        outline: orangered solid 1px;
+        outline-offset: 1px;
+      }
+
+      /* specific styling */
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:hover,
+      &:focus-visible {
+        box-shadow: 0.5em 0.5em 10px 1px rgba(0, 0, 0, 0.5);
+      }
+
+      font-size: 1rem;
+      /* pill shaped border: */
+      border-radius: 100vmax;
+    }
   }
 
   input {
-    width: 100%;
+    width: 25rem;
     flex: 1;
     display: inline-flex;
     align-items: center;
@@ -48,36 +70,15 @@ export const ModalStyled = styled.div`
     box-shadow: 0 0 0 2px;
   }
 
-  div {
-    display: flex;
-    margin-top: 25px;
-    justify-content: flex-end;
-  }
-
-  .SaveButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    padding: 0 15px;
-    font-size: 15px;
-    line-height: 1;
-    font-weight: 500;
-    height: 35px;
-    cursor: pointer;
-  }
-
   .IconButton {
     background: transparent;
     border: none;
-    height: 25px;
-    width: 25px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0.7rem;
+    right: 0.7rem;
     cursor: pointer;
   }
 `;
