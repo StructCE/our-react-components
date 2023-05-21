@@ -25,23 +25,6 @@ body {
   min-height: 100vh;
 }
 
-img {
-  /* Some responsiveness by default */
-  display: block;
-  max-width: 100%;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  /* Force people to use header tags semantically: */
-  font-weight: 400;
-  font-size: 1rem;
-}
-
 /*
 A bit less generic, should change:
 */
