@@ -29,20 +29,20 @@ export function AlertExample2() {
   ];
 
   return (
-    <div className="bg-slate-800 h-screen flex justify-center items-center flex-col">
-      <section className="bg-gray-900 rounded px-5 py-4 shadow-md text-white border-b-4 border-cyan-500">
+    <div className="bg-gradient-to-t from-cyan-950 to-gray-900 h-screen flex justify-center items-center flex-col">
+      <section className="w-3/6 bg-gray-900 rounded px-5 py-4 shadow-md text-white border-b-4 border-cyan-500">
         <div>
           <button
             type="button"
             onClick={() => setIsManagingAlertCall(true)}
-            className="px-4 py-2 mb-4 mr-2 w-32 justify-center hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
+            className="px-4 py-2 mb-4 mr-2 w-32 justify-center hover:bg-gray-100 border border-gray-200 active:ring-4 focus:ring-2 focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
           >
             Função Alert
           </button>
           <button
             type="button"
             onClick={() => setIsManagingAlertCall(false)}
-            className="px-4 py-2 mb-4 ml-2 w-44 justify-center hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
+            className="px-4 py-2 mb-4 ml-2 w-44 justify-center hover:bg-gray-100 border border-gray-200 active:ring-4 focus:ring-2 focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
           >
             Componente alert
           </button>
@@ -58,7 +58,9 @@ export function AlertExample2() {
               Emitir status
             </button>
 
-            <span>response = {response ? "true" : "false"}</span>
+            <span className="text-xl">
+              response = {response ? "true" : "false"}
+            </span>
 
             <pre className="mb-4 mt-6 bg-gray-950 p-2 rounded-md border-2 border-cyan-600">
               {linesFunctionCode.join("\n")}
@@ -79,7 +81,9 @@ export function AlertExample2() {
               </button>
             </Alert>
 
-            <span>response = {response ? "true" : "false"}</span>
+            <span className="text-xl">
+              response = {response ? "true" : "false"}
+            </span>
 
             <pre className="mb-4 mt-6 bg-gray-950 p-2 rounded-md border-2 border-cyan-600">
               {linesComponentCode.join("\n")}

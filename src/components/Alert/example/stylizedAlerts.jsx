@@ -20,19 +20,27 @@ function Alert({
         children
       )}
       <AlertDialog.Portal>
-        <AlertDialog.Overlay className="fixed inset-0 bg-black/40" />
-        <AlertDialog.Content className="fixed inset-0">
-          <div className="bg-white">
-            <h1>{title}</h1>
-            <p>{content}</p>
-            <div>
+        <AlertDialog.Overlay className="fixed inset-0 bg-black/50" />
+        <AlertDialog.Content className="fixed inset-0 flex justify-center items-center">
+          <div className="text-amber-950 relative flex flex-col items-center bg-slate-50 w-96 h-48 border-t-4 border-t-red-700 rounded-md">
+            <h1 className="font-bold text-xl mt-2">{title}</h1>
+            <p className="italic">{content}</p>
+            <div className="mt-10 w-56 flex justify-between">
               <AlertDialog.Cancel asChild>
-                <button type="button" onClick={onCancel}>
+                <button
+                  type="button"
+                  onClick={onCancel}
+                  className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                >
                   {cancelText || "cancelar"}
                 </button>
               </AlertDialog.Cancel>
               <AlertDialog.Action asChild>
-                <button type="button" onClick={onConfirm}>
+                <button
+                  type="button"
+                  onClick={onConfirm}
+                  className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                >
                   {confirmText || "confirmar"}
                 </button>
               </AlertDialog.Action>

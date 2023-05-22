@@ -22,7 +22,7 @@ function Alert({
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 bg-black/60" />
         <AlertDialog.Content className="fixed inset-0 flex justify-center items-center">
-          <div className="relative flex flex-col items-center p-2 text-md text-white/80 font-medium rounded-lg bg-gradient-to-br from-gray-950 to-gray-900 border-b-2 border-cyan-600">
+          <div className="relative flex flex-col items-center p-2 text-md text-white/80 font-medium rounded-lg bg-gradient-to-t from-gray-950 to-gray-900 border-b-2 border-cyan-600">
             <h1 className="mt-2 mb-0 pb-4 px-6 text-xl border-b-2 border-white">
               {title}
             </h1>

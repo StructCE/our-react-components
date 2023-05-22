@@ -1,7 +1,13 @@
 import { useState } from "react";
-import backgroundSection from "./images/backgroundSection.png";
+import backgroundSection from "./assets/backgroundSection.png";
 import { useApiSimulator } from "./utils/api";
 import { AlertCall } from "./stylizedAlerts";
+import {
+  ConcludedIcon,
+  ErrorIcon,
+  LoadingBar,
+  RocketIcon,
+} from "./assets/svgs";
 
 export function AlertExample() {
   const api = useApiSimulator();
@@ -10,42 +16,66 @@ export function AlertExample() {
     favAnime: "",
     favGenre: "",
   });
+  const [statusRequest, setStatusRequest] = useState("");
 
   async function handleSubmit(ev) {
     ev.preventDefault();
 
-    let confirmToProceed = null;
-    await api.post("/user/create", user).catch(async (e) => {
-      confirmToProceed = await AlertCall({
-        title: e.message,
-        content: "Deseja tentar novamente?",
+    setStatusRequest("loading");
+    await api
+      .post("/user/create", user)
+      .then(() => {
+        setStatusRequest("concluded");
+      })
+      .catch(async (eRouteNotFound) => {
+        if (
+          await AlertCall({
+            title: eRouteNotFound.message,
+            content: "Deseja tentar novamente?",
+          })
+        ) {
+          await api
+            .post("/users/create", user)
+            .then(() => {
+              setStatusRequest("concluded");
+            })
+            .catch(async (eBadRequest) => {
+              await AlertCall({ title: eBadRequest.message });
+              setStatusRequest("error");
+            });
+        } else {
+          setStatusRequest("error");
+        }
       });
-    });
-    if (confirmToProceed) {
-      await api.post("/users/create", user);
-    }
   }
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen bg-[url('./src/components/Alert/example/images/background.jpg')] bg-cover bg-center bg-no-repeat bg-fixed">
-      <section className="bg-amber-200/70 w-10/12 h-5/6 flex rounded-lg shadow-lg">
+    <div className="flex justify-center items-center h-screen w-screen bg-[url('./src/components/Alert/example/assets/background.jpg')] bg-cover bg-center bg-no-repeat bg-fixed">
+      <section className="bg-amber-200/[0.75] w-10/12 h-5/6 flex rounded-lg shadow-lg">
         <img src={backgroundSection} alt="anime girl" />
 
-        <div className="mt-20 ml-28">
-          <h1 className="text-white font-extrabold text-3xl underline mb-3 w-96">
-            Crie seu perfil no AnimeCenter
+        <div className="mt-20 ml-32">
+          <h1 className="text-amber-800 font-extrabold text-3xl bg-clip-text bg-gradient-to-br from-orange-700 to-amber-900 mb-3 w-96">
+            <span className="text-transparent">
+              Crie seu perfil no AnimeCenter
+            </span>
+            <RocketIcon />
           </h1>
-          <form onSubmit={handleSubmit} className="relative">
+
+          <form
+            onSubmit={handleSubmit}
+            className="relative flex flex-col items-center"
+          >
             <input
               value={user.favAnime}
               onChange={(ev) => setUser({ ...user, favAnime: ev.target.value })}
-              className="mb-2 h-12 w-96 bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
+              className="mb-3 h-12 w-96 bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
               placeholder="Digite seu anime favorito"
             />
             <input
               value={user.favGenre}
               onChange={(ev) => setUser({ ...user, favGenre: ev.target.value })}
-              className="mb-2 h-12 w-96 bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
+              className="mb-3 h-12 w-96 bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
               placeholder="Digite seu gênero favorito"
             />
             <input
@@ -56,8 +86,11 @@ export function AlertExample() {
             />
             <button
               type="submit"
-              className="inline-block bg-amber-400 hover:bg-amber-500 active:shadow-inner p-2 ease-in transition-all cursor-pointer shadow-sm rounded-sm -ml-11 "
+              className="mt-4 text-white bg-amber-700 hover:bg-amber-800 focus:ring-2 focus:outline-none focus:ring-yellow-300 font-semibold rounded-sm text-base px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-yellow-600 inline-flex items-center shadow-md shadow-yellow-600"
             >
+              {statusRequest === "loading" && <LoadingBar />}
+              {statusRequest === "concluded" && <ConcludedIcon />}
+              {statusRequest === "error" && <ErrorIcon />}
               Criar
             </button>
           </form>

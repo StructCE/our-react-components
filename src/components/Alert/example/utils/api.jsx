@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function useApiSimulator() {
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState([]);
 
   const api = {
     post: (route, data) =>
@@ -9,8 +9,10 @@ export function useApiSimulator() {
         setTimeout(() => {
           if (route === "/users/create") {
             if (data && data.username && data.favAnime && data.favGenre) {
-              setUsers(...users, data);
+              setUsers([...users, data]);
               resolve(data);
+            } else {
+              reject(new Error("Dados incompletos"));
             }
           } else {
             reject(new Error("Rota não encontrada"));
