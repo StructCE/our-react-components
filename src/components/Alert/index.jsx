@@ -1,5 +1,5 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { customRender } from "./utils/customRender";
+import { customRender } from "./customRender";
 
 function Alert({
   title,

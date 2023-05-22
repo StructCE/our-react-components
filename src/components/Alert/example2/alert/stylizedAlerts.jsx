@@ -1,5 +1,5 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { customRender } from "../utils/customRender";
+import { customRender } from "./customRender";
 
 function Alert({
   title,
@@ -20,17 +20,19 @@ function Alert({
         children
       )}
       <AlertDialog.Portal>
-        <AlertDialog.Overlay className="fixed inset-0 bg-black/50" />
+        <AlertDialog.Overlay className="fixed inset-0 bg-black/60" />
         <AlertDialog.Content className="fixed inset-0 flex justify-center items-center">
-          <div className="text-amber-950 relative flex flex-col items-center bg-slate-50 w-96 h-48 border-t-4 border-t-red-700 rounded-md">
-            <h1 className="font-bold text-xl mt-2">{title}</h1>
-            <p className="italic">{content}</p>
-            <div className="mt-10 w-56 flex justify-between">
+          <div className="relative flex flex-col items-center p-2 text-md text-white/80 font-medium rounded-lg bg-gradient-to-t from-gray-950 to-gray-900 border-b-2 border-cyan-600">
+            <h1 className="mt-2 mb-0 pb-4 px-6 text-xl border-b-2 border-white">
+              {title}
+            </h1>
+            <p className="font-normal">{content}</p>
+            <div className="mx-auto mt-2">
               <AlertDialog.Cancel asChild>
                 <button
                   type="button"
                   onClick={onCancel}
-                  className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                  className="mx-8 my-4 hover:text-cyan-600 transition-all ease-linear px-2"
                 >
                   {cancelText || "cancelar"}
                 </button>
@@ -39,7 +41,7 @@ function Alert({
                 <button
                   type="button"
                   onClick={onConfirm}
-                  className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                  className="mx-8 my-4 hover:text-cyan-600 transition-all ease-linear px-2"
                 >
                   {confirmText || "confirmar"}
                 </button>

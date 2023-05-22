@@ -1,7 +1,7 @@
 import { useState } from "react";
 import backgroundSection from "./assets/backgroundSection.png";
 import { useApiSimulator } from "./utils/api";
-import { AlertCall } from "./stylizedAlerts";
+import { AlertCall } from "./alert/stylizedAlerts";
 import {
   ConcludedIcon,
   ErrorIcon,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, AlertCall } from "./stylizedAlerts";
+import { Alert, AlertCall } from "./alert/stylizedAlerts";
 
 export function AlertExample2() {
   const [isManagingAlertCall, setIsManagingAlertCall] = useState(true);
