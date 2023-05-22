@@ -1,7 +1,7 @@
-import { FormFactoryExample2 } from "./components/FormFactory/example2";
+import { AlertExample } from "./components/Alert/example";
 
 function App() {
-  return <FormFactoryExample2 />;
+  return <AlertExample />;
 }
 
 export default App;
