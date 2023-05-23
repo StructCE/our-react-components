@@ -2,7 +2,7 @@
 export default {
   content: [
     "./index.html",
-    "./src/components/Button/index.js"
+    "./src/components/Button/example.tsx"
   ],
   theme: {
     extend: {},
