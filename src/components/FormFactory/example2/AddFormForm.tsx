@@ -1,6 +1,17 @@
 import { FormFactory } from "..";
 
-const addFormSchema = [
+interface AddFormField {
+  fieldName: string;
+  placeholder: string;
+  required: boolean;
+  label: string;
+  customValidation?: ({ formInfo }: { formInfo: Record<string, string> }) => {
+    valid?: boolean;
+    error?: string;
+  };
+}
+
+const addFormSchema: AddFormField[] = [
   {
     fieldName: "newField",
     placeholder: "field name",
