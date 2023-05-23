@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AddFormForm } from "./AddFormForm";
 import { AddFormLayout, FormCodeLayout, FormLayout } from "./styles";
-import { FormFactory, type FormSchema } from "..";
+import { FormFactory } from "..";
 
 interface FormInfo {
   newField: string;
@@ -13,7 +13,7 @@ interface FormInfo {
 }
 
 export function FormFactoryExample2() {
-  const [formSchema, setFormSchema] = useState<FormSchema[]>([]);
+  const [formSchema, setFormSchema] = useState<[]>([]);
 
   const Form = FormFactory(formSchema);
 
