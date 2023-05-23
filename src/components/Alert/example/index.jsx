@@ -1,3 +1,20 @@
+/*
+Este exemplo aborda a implementação do Alert para uma função de chamada da api,
+já que tal método não foi abordado no exemplo 1
+
+É uma página de criação de perfil numa plataforma fictícia de anime, onde
+você irá preencher seus dados (anime favorito, gênero de anime favorito e
+nome de usuário) e então irá solicitar a criação do seu perfil
+
+Porém, a página foi implementada de foram que toda primeira tentativa de
+post irá ser falha, por enviar uma requisição a uma rota errada, e então será
+emitido um Alert para o usuário. Caso, pelo alert, ele deseje tentar novamente,
+aí sim seu perfil irá ser criado
+
+Obs.: também é emitido um possível segundo Alert, quando você não preenche um
+dos campos do formulário
+*/
+
 import { useState } from "react";
 import backgroundSection from "./assets/backgroundSection.png";
 import { useApiSimulator } from "./utils/api";
@@ -10,24 +27,32 @@ import {
 } from "./assets/svgs";
 
 export function AlertExample() {
-  const api = useApiSimulator();
   const [user, setUser] = useState({
     username: "",
     favAnime: "",
     favGenre: "",
   });
+  /*
+  o estado statusRequest é para efeito de dinamicidade da página, podendo o usuário
+  acompanhar o estado da sua requisição, por meio de um icon no botão
+  */
   const [statusRequest, setStatusRequest] = useState("");
+  const api = useApiSimulator();
 
   async function handleSubmit(ev) {
     ev.preventDefault();
 
     setStatusRequest("loading");
     await api
+      // aqui é passada uma rota errada (rota correta: "/users/create")
       .post("/user/create", user)
       .then(() => {
+        // sabemos que nunca vai chegar aqui, mas coloquei por ser uma simulação de
+        // requisição de uma api real e aí fica mais completinho
         setStatusRequest("concluded");
       })
       .catch(async (eRouteNotFound) => {
+        // se o usuário confirmar nesse Alert, tentaremos fazer o post na api novamente
         if (
           await AlertCall({
             title: eRouteNotFound.message,

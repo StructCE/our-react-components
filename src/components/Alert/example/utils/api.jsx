@@ -1,3 +1,5 @@
+// simulação de api para funcionamento da página exemplo
+
 import { useState } from "react";
 
 export function useApiSimulator() {

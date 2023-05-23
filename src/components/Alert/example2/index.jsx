@@ -1,3 +1,11 @@
+/*
+Essa página consiste numa seção de mostrar o funcionando dos Alerts criados.
+
+Você pode alternar entre ver o AlertCall ou o Alert, e é exibido um
+bloco de código de como ele está sendo utilizado, ignorando aspectos de
+estilização.
+*/
+
 import { useState } from "react";
 import { Alert, AlertCall } from "./alert/stylizedAlerts";
 

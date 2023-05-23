@@ -1,6 +1,32 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { customRender } from "./customRender";
 
+/*
+Forma de utilização:
+
+<Alert
+  title=" "
+  content=" "
+  onConfirm={function}
+  confirmText=" "
+  onCancel={function}
+  cancelText=" "
+  conditionToOpen={() => return boolean}
+  defaultOpen=boolean
+>
+  <button>Botão</button>
+</Alert>
+
+Sobre conditionToOpen:
+ Ao clicar no children button, o Alert só abrirá se conditionToOpen for true, ou seja,
+ você pode passar uma função que retorne um boolean para a prop conditionToOpen, a qual
+ irá regular a abertura do Alert
+
+Sobre defaultOpen:
+ defaultOpen define se, quando o componente for renderizado a primeira vez, ele iniciará
+ aberto (quando defaultOpen for true) ou não (quando defaultOpen for false)
+*/
+
 function Alert({
   title,
   content,
@@ -49,6 +75,32 @@ function Alert({
     </AlertDialog.Root>
   );
 }
+
+/*
+Formas de utilização:
+Forma 1:
+
+function() {
+  api
+    .post('/rota', data)
+    .catch(async () => {
+      const response = await AlertCall({...attributes})
+    })
+}
+
+Forma 2:
+
+<button
+  onClick={async () => {
+    const response = await AlertCall({...attributes})
+  }}
+>
+  Botão
+</button>
+
+Sobre attributes:
+  São os mesmos que podem ser passados no Alert componente (title, content, confirmText, etc)
+*/
 
 async function AlertCall(attributes) {
   let value = null;
