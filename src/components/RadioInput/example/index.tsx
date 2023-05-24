@@ -7,20 +7,18 @@
 
 // - Criar uma página que permita o usuário escolher uma direção para mover o quadrado
 
+import * as RadioGroup from "@radix-ui/react-radio-group";
 import { useState } from "react";
-import styled from "styled-components";
 import { RadioInput } from "..";
 import { ArrowUp, ArrowUpLeft, ArrowUpRight } from "./svgs";
 
-const PageLayout = styled.section`
-  height: 100vh;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+export default () => (
+  <RadioGroup.Root>
+    <RadioGroup.Item>
+      <RadioGroup.Indicator />
+    </RadioGroup.Item>
+  </RadioGroup.Root>
+);
 
 export function RadioInputExample() {
   const [direction, setDirection] = useState(0);
@@ -45,7 +43,7 @@ export function RadioInputExample() {
   }
 
   return (
-    <PageLayout>
+    <RadioGroup.Root className="pt-72 items-center content-center flex-col flex w-full h-screen">
       <form onSubmit={handleSubmitMove}>
         <RadioInput
           name="direction"
@@ -102,6 +100,6 @@ export function RadioInputExample() {
           transition: "transform 0.5s ease-in-out",
         }}
       />
-    </PageLayout>
+    </RadioGroup.Root>
   );
 }
