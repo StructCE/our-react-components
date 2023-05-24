@@ -1,6 +1,6 @@
 import { FormFactory } from "..";
 
-interface AddFormField {
+type FormField = {
   fieldName: string;
   placeholder: string;
   required: boolean;
@@ -9,9 +9,9 @@ interface AddFormField {
     valid?: boolean;
     error?: string;
   };
-}
+};
 
-const addFormSchema: AddFormField[] = [
+const addFormSchema: FormField[] = [
   {
     fieldName: "newField",
     placeholder: "field name",
