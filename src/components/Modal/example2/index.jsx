@@ -5,38 +5,49 @@
 import React, { useState } from "react";
 import { Modal } from "..";
 import { ModalStyled } from "../example/styles";
+import { CloseX } from "../example/svgs";
+import { UsersForm } from "../example/users";
+import { useApiSimulator } from "../example/utils";
 
 export function ModalExample2() {
-  const wait = () =>
-    new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
+  // simulando api
+  const api = useApiSimulator();
 
   const [open, setOpen] = useState(false);
-
-  const handleSubmit = (event) => {
-    wait().then(() => setOpen(false));
-    event.preventDefault();
-  };
 
   return (
     <Modal.Root open={open} onOpenChange={setOpen}>
       <Modal.Trigger>Open Modal</Modal.Trigger>
-      <Modal>
+      <Modal.Content>
         <ModalStyled>
           <h1>Edit Profile</h1>
           <h2>
-            Make changes to your profile here. Click save when you are done
+            Make changes to your profile here. Click save when you are done.
           </h2>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" name="username" />
-            <button type="submit" className="SaveButton">
-              Save
+          <UsersForm
+            onValidSubmit={({ formInfo }) => {
+              api
+                .patch("/users/update/:email", { user: formInfo })
+                // eslint-disable-next-line no-alert
+                .then(() => {
+                  setOpen(false);
+                  alert("Usuário atualizado com sucesso");
+                })
+                .catch((e) => alert(e));
+            }}
+            onInvalidSubmit={({ errors }) => {
+              // eslint-disable-next-line no-alert
+              errors.map((error) => alert(error));
+            }}
+            buttonContent="Save"
+          />
+          <Modal.Close asChild>
+            <button type="button" aria-label="Close" className="IconButton">
+              <CloseX />
             </button>
-          </form>
+          </Modal.Close>
         </ModalStyled>
-      </Modal>
+      </Modal.Content>
     </Modal.Root>
   );
 }

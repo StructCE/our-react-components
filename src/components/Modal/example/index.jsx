@@ -5,39 +5,44 @@
 import { Modal } from "../index";
 import { CloseX } from "./svgs";
 import { ModalStyled } from "./styles";
+import { UsersForm } from "./users";
+import { useApiSimulator } from "./utils";
 
 export function ModalExample() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+  // simulando api
+  const api = useApiSimulator();
 
   return (
     <Modal.Root>
       <Modal.Trigger>Open Modal</Modal.Trigger>
-      <Modal>
+      <Modal.Content>
         <ModalStyled>
-          <h1>Edit Profile</h1>
+          <h1>Add User</h1>
           <h2>
-            Make changes to your profile here. Click save when you are done
+            Please enter the user's informations. Click save when you are done.
           </h2>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" name="username" />
-          </form>
-          <div className="closing-container">
-            <Modal.Close asChild>
-              <button type="submit" aria-label="Close" className="SaveButton">
-                Save
-              </button>
-            </Modal.Close>
-            <Modal.Close asChild>
-              <button type="submit" aria-label="Close" className="IconButton">
-                <CloseX />
-              </button>
-            </Modal.Close>
-          </div>
+          <UsersForm
+            onValidSubmit={({ formInfo }) => {
+              api
+                .post("/users/create", { user: formInfo })
+                // eslint-disable-next-line no-alert
+                .then(() => alert("Usuário criado com sucesso"))
+                // eslint-disable-next-line no-alert
+                .catch((er) => alert(er));
+            }}
+            onInvalidSubmit={({ errors }) => {
+              // eslint-disable-next-line no-alert
+              errors.map((error) => alert(error));
+            }}
+            buttonContent="Adicionar"
+          />
+          <Modal.Close asChild>
+            <button type="button" aria-label="Close" className="IconButton">
+              <CloseX />
+            </button>
+          </Modal.Close>
         </ModalStyled>
-      </Modal>
+      </Modal.Content>
     </Modal.Root>
   );
 }
