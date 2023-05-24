@@ -9,17 +9,16 @@ import React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { DialogContent, DialogOverlay } from "./styles";
 
-export const Modal = React.forwardRef(
-  ({ children, ...props }, forwardedRef) => (
+export const Modal = {
+  Content: React.forwardRef(({ children, ...props }, forwardedRef) => (
     <DialogPrimitive.Portal>
       <DialogOverlay />
       <DialogContent {...props} ref={forwardedRef}>
         {children}
       </DialogContent>
     </DialogPrimitive.Portal>
-  )
-);
-
-Modal.Root = DialogPrimitive.Root;
-Modal.Trigger = DialogPrimitive.Trigger;
-Modal.Close = DialogPrimitive.Close;
+  )),
+  Root: DialogPrimitive.Root,
+  Trigger: DialogPrimitive.Trigger,
+  Close: DialogPrimitive.Close,
+};
