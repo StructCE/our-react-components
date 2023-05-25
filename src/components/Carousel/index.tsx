@@ -8,15 +8,15 @@ import React, { useState } from "react";
 import { ArrowLeft, ArrowRight } from "./svgs";
 import { Container } from "./styles";
 
-interface Image {
+type Image = {
   id: number;
   url: string;
   alt: string;
-}
+};
 
-interface Props {
+type Props = {
   images: Image[];
-}
+};
 
 export function Carousel({ images }: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
