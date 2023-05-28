@@ -1,56 +1,60 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { customRender } from "./customRender";
 
-type AlertCallProps = {
+type alertCallProps = {
   title: string | JSX.Element;
   content: string;
   cancelText?: string;
   confirmText?: string;
-  children?: JSX.Element;
-  conditionToOpen?: true;
 };
 
-type AlertProps = AlertCallProps & {
+type alertProps = alertCallProps & {
   onCancel?: () => void;
   onConfirm?: () => void;
+  children?: JSX.Element;
   defaultOpen?: boolean;
 };
 
-function Alert(props: AlertProps) {
+function Alert({
+  title,
+  content,
+  cancelText = "Cancelar",
+  onCancel,
+  confirmText = "Confirmar",
+  onConfirm,
+  children,
+  defaultOpen,
+}: alertProps) {
   return (
-    <AlertDialog.Root defaultOpen={props.defaultOpen}>
-      {props.conditionToOpen ? (
-        <AlertDialog.Trigger asChild>{props.children}</AlertDialog.Trigger>
-      ) : (
-        props.children
-      )}
+    <AlertDialog.Root defaultOpen={defaultOpen}>
+      <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 bg-black/60" />
         <AlertDialog.Content className="fixed inset-0 flex justify-center items-center">
           <div className="relative flex flex-col items-center p-2 text-md text-white/80 font-medium rounded-lg bg-gradient-to-t from-gray-950 to-gray-900 border-b-2 border-cyan-600">
             <AlertDialog.Title className="mt-2 mb-2 mx-6 text-xl">
-              {props.title}
+              {title}
             </AlertDialog.Title>
             <AlertDialog.Description className="font-normal mb-2">
-              {props.content}
+              {content}
             </AlertDialog.Description>
-            <div className="mx-auto mt-2">
+            <div>
               <AlertDialog.Cancel asChild>
                 <button
                   type="button"
-                  onClick={props.onCancel}
+                  onClick={onCancel}
                   className="mx-8 my-4 hover:text-cyan-600 transition-all ease-linear px-2"
                 >
-                  {props.cancelText || "cancelar"}
+                  {cancelText}
                 </button>
               </AlertDialog.Cancel>
               <AlertDialog.Action asChild>
                 <button
                   type="button"
-                  onClick={props.onConfirm}
+                  onClick={onConfirm}
                   className="mx-8 my-4 hover:text-cyan-600 transition-all ease-linear px-2"
                 >
-                  {props.confirmText || "confirmar"}
+                  {confirmText}
                 </button>
               </AlertDialog.Action>
             </div>
@@ -61,7 +65,12 @@ function Alert(props: AlertProps) {
   );
 }
 
-async function AlertCall(props: AlertCallProps) {
+async function AlertCall({
+  title,
+  content,
+  cancelText = "Cancelar",
+  confirmText = "Confirmar",
+}: alertCallProps) {
   const operation = new Promise((resolve) => {
     customRender(
       <Alert
@@ -72,7 +81,10 @@ async function AlertCall(props: AlertCallProps) {
         onConfirm={() => {
           resolve(true);
         }}
-        {...props}
+        title={title}
+        content={content}
+        cancelText={cancelText}
+        confirmText={confirmText}
       />
     );
   });

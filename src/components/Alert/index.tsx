@@ -11,66 +11,57 @@ Forma de utilização:
   confirmText=" "
   onCancel={function}
   cancelText=" "
-  conditionToOpen={() => return boolean}
   defaultOpen=boolean
 >
   <button>Botão</button>
 </Alert>
 
-Sobre conditionToOpen:
- Ao clicar no children button, o Alert só abrirá se conditionToOpen for true, ou seja,
- você pode passar uma função que retorne um boolean para a prop conditionToOpen, a qual
- irá regular a abertura do Alert
-
 Sobre defaultOpen:
  defaultOpen define se, quando o componente for renderizado a primeira vez, ele iniciará
  aberto (quando defaultOpen for true) ou não (quando defaultOpen for false)
 */
-
-type AlertCallProps = {
+type alertCallProps = {
   title: string | JSX.Element;
   content: string;
   cancelText?: string;
   confirmText?: string;
-  children: JSX.Element;
-  conditionToOpen?: () => true;
 };
 
-type AlertProps = AlertCallProps & {
+type alertProps = alertCallProps & {
   onCancel?: () => void;
   onConfirm?: () => void;
+  children?: JSX.Element;
   defaultOpen?: boolean;
 };
 
-function Alert(props: AlertProps) {
+function Alert({
+  title,
+  content,
+  cancelText = "Cancelar",
+  onCancel,
+  confirmText = "Confirmar",
+  onConfirm,
+  children,
+  defaultOpen,
+}: alertProps) {
   return (
-    <AlertDialog.Root defaultOpen={props.defaultOpen}>
-      {props.conditionToOpen ? (
-        <AlertDialog.Trigger asChild>{props.children}</AlertDialog.Trigger>
-      ) : (
-        props.children
-      )}
+    <AlertDialog.Root defaultOpen={defaultOpen}>
+      <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
       <AlertDialog.Portal>
-        <AlertDialog.Overlay
-          style={{
-            position: "fixed",
-            inset: "0",
-            backgroundColor: "rgba(0,0,0,0.4)",
-          }}
-        />
-        <AlertDialog.Content style={{ position: "fixed", inset: "0" }}>
-          <div style={{ backgroundColor: "white" }}>
-            <AlertDialog.Title>{props.title}</AlertDialog.Title>
-            <AlertDialog.Description>{props.content}</AlertDialog.Description>
+        <AlertDialog.Overlay className="fixed inset-0 bg-black/40" />
+        <AlertDialog.Content className="fixed inset-0">
+          <div className="bg-white">
+            <AlertDialog.Title>{title}</AlertDialog.Title>
+            <AlertDialog.Description>{content}</AlertDialog.Description>
             <div>
               <AlertDialog.Cancel asChild>
-                <button type="button" onClick={props.onCancel}>
-                  {props.cancelText || "cancelar"}
+                <button type="button" onClick={onCancel}>
+                  {cancelText}
                 </button>
               </AlertDialog.Cancel>
               <AlertDialog.Action asChild>
-                <button type="button" onClick={props.onConfirm}>
-                  {props.confirmText || "confirmar"}
+                <button type="button" onClick={onConfirm}>
+                  {confirmText}
                 </button>
               </AlertDialog.Action>
             </div>
@@ -82,8 +73,7 @@ function Alert(props: AlertProps) {
 }
 
 /*
-Formas de utilização:
-Forma 1:
+Forma de utilização:
 
 function() {
   api
@@ -92,23 +82,13 @@ function() {
       const response = await AlertCall({...attributes})
     })
 }
-
-Forma 2:
-
-<button
-  onClick={async () => {
-    const response = await AlertCall({...attributes})
-  }}
->
-  Botão
-</button>
-
-Sobre attributes:
-  São os mesmos que podem ser passados no Alert componente (title, content, confirmText, etc)
 */
-
-async function AlertCall(props: AlertCallProps) {
-  let value = null;
+async function AlertCall({
+  title,
+  content,
+  cancelText = "Cancelar",
+  confirmText = "Confirmar",
+}: alertCallProps) {
   const operation = new Promise((resolve) => {
     customRender(
       <Alert
@@ -119,14 +99,18 @@ async function AlertCall(props: AlertCallProps) {
         onConfirm={() => {
           resolve(true);
         }}
-        {...props}
+        title={title}
+        content={content}
+        cancelText={cancelText}
+        confirmText={confirmText}
       />
     );
   });
+
+  let value = null;
   await operation.then((data) => {
     value = data;
   });
-
   return value;
 }
 
