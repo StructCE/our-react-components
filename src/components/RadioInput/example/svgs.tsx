@@ -13,7 +13,10 @@ export function ArrowUpRight({ ...props }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-    ></svg>
+    >
+      <line x1="7" y1="17" x2="17" y2="7" />
+      <polyline points="7 7 17 7 17 17" />
+    </svg>
   );
 }
 
@@ -30,7 +33,10 @@ export function ArrowUpLeft({ ...props }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-    ></svg>
+    >
+      <line x1="17" y1="17" x2="7" y2="7" />
+      <polyline points="7 17 7 7 17 7" />
+    </svg>
   );
 }
 
@@ -47,6 +53,9 @@ export function ArrowUp({ ...props }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-    ></svg>
+    >
+      <line x1="12" y1="19" x2="12" y2="5" />
+      <polyline points="5 12 12 5 19 12" />
+    </svg>
   );
 }
