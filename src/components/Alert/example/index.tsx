@@ -15,10 +15,10 @@ Obs.: também é emitido um possível segundo Alert, quando você não preenche 
 dos campos do formulário
 */
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import backgroundSection from "./assets/backgroundSection.png";
 import { useApiSimulator } from "./utils/api";
-import { AlertCall } from "./alert/stylizedAlerts";
+import { AlertCall } from "./alert/index";
 import {
   ConcludedIcon,
   ErrorIcon,
@@ -32,18 +32,19 @@ export function AlertExample() {
     favAnime: "",
     favGenre: "",
   });
+  const api = useApiSimulator();
+
   /*
   o estado statusRequest é para efeito de dinamicidade da página, podendo o usuário
   acompanhar o estado da sua requisição, por meio de um icon no botão
   */
   const [statusRequest, setStatusRequest] = useState("");
-  const api = useApiSimulator();
 
-  async function handleSubmit(ev) {
+  function handleSubmit(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault();
 
     setStatusRequest("loading");
-    await api
+    api
       // aqui é passada uma rota errada (rota correta: "/users/create")
       .post("/user/create", user)
       .then(() => {
@@ -51,11 +52,11 @@ export function AlertExample() {
         // requisição de uma api real e aí fica mais completinho
         setStatusRequest("concluded");
       })
-      .catch(async (eRouteNotFound) => {
+      .catch(async (e: Error) => {
         // se o usuário confirmar nesse Alert, tentaremos fazer o post na api novamente
         if (
           await AlertCall({
-            title: eRouteNotFound.message,
+            title: e.message,
             content: "Deseja tentar novamente?",
           })
         ) {
@@ -64,8 +65,11 @@ export function AlertExample() {
             .then(() => {
               setStatusRequest("concluded");
             })
-            .catch(async (eBadRequest) => {
-              await AlertCall({ title: eBadRequest.message });
+            .catch(async (eBadRequest: Error) => {
+              await AlertCall({
+                title: eBadRequest.message,
+                content: "Deseja prosseguir?",
+              });
               setStatusRequest("error");
             });
         } else {

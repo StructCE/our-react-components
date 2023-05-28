@@ -7,15 +7,17 @@ estilização.
 */
 
 import { useState } from "react";
-import { Alert, AlertCall } from "./alert/stylizedAlerts";
+import { Alert, AlertCall } from "./alert/index";
 
 export function AlertExample2() {
   const [isManagingAlertCall, setIsManagingAlertCall] = useState(true);
-  const [response, setResponse] = useState(false);
+  const [response, setResponse] = useState<boolean | null>(false);
 
-  const handleClick = async () => {
-    setResponse(await AlertCall({ title: "Tem certeza?" }));
-  };
+  async function handleClick() {
+    setResponse(
+      await AlertCall({ title: "Alert", content: "deseja prosseguir?" })
+    );
+  }
 
   const linesFunctionCode = [
     "<button",
@@ -60,6 +62,7 @@ export function AlertExample2() {
           <div className="flex flex-col text-sm font-medium">
             <button
               type="button"
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onClick={handleClick}
               className="px-4 py-2 mt-4 mb-6 w-32 shadow-md shadow-cyan-800 justify-center hover:bg-cyan-100 border border-cyan-400 font-medium rounded-lg text-sm inline-flex dark:bg-cyan-800 dark:border-cyan-700 dark:text-white dark:hover:bg-cyan-700"
             >
@@ -79,7 +82,8 @@ export function AlertExample2() {
             <Alert
               onConfirm={() => setResponse(true)}
               onCancel={() => setResponse(false)}
-              title="Tem certeza?"
+              title="Alert"
+              content="Deseja prosseguir?"
             >
               <button
                 type="button"

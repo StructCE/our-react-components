@@ -1,7 +1,7 @@
-import { AlertExample } from "./components/Alert/example";
+import { AlertExample2 } from "./components/Alert/example2";
 
 function App() {
-  return <AlertExample />;
+  return <AlertExample2 />;
 }
 
 export default App;

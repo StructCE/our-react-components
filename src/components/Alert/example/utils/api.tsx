@@ -3,10 +3,13 @@
 import { useState } from "react";
 
 export function useApiSimulator() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([{}]);
 
   const api = {
-    post: (route, data) =>
+    post: (
+      route: string,
+      data: { username: string; favAnime: string; favGenre: string }
+    ) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
           if (route === "/users/create") {

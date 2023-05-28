@@ -27,23 +27,28 @@ Sobre defaultOpen:
  aberto (quando defaultOpen for true) ou não (quando defaultOpen for false)
 */
 
-function Alert({
-  title,
-  content,
-  cancelText,
-  onCancel,
-  confirmText,
-  onConfirm,
-  children,
-  conditionToOpen = true,
-  defaultOpen,
-}) {
+type AlertCallProps = {
+  title: string | JSX.Element;
+  content: string;
+  cancelText?: string;
+  confirmText?: string;
+  children: JSX.Element;
+  conditionToOpen?: () => true;
+};
+
+type AlertProps = AlertCallProps & {
+  onCancel?: () => void;
+  onConfirm?: () => void;
+  defaultOpen?: boolean;
+};
+
+function Alert(props: AlertProps) {
   return (
-    <AlertDialog.Root defaultOpen={defaultOpen}>
-      {conditionToOpen ? (
-        <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
+    <AlertDialog.Root defaultOpen={props.defaultOpen}>
+      {props.conditionToOpen ? (
+        <AlertDialog.Trigger asChild>{props.children}</AlertDialog.Trigger>
       ) : (
-        children
+        props.children
       )}
       <AlertDialog.Portal>
         <AlertDialog.Overlay
@@ -55,17 +60,17 @@ function Alert({
         />
         <AlertDialog.Content style={{ position: "fixed", inset: "0" }}>
           <div style={{ backgroundColor: "white" }}>
-            <h1>{title}</h1>
-            <p>{content}</p>
+            <AlertDialog.Title>{props.title}</AlertDialog.Title>
+            <AlertDialog.Description>{props.content}</AlertDialog.Description>
             <div>
               <AlertDialog.Cancel asChild>
-                <button type="button" onClick={onCancel}>
-                  {cancelText || "cancelar"}
+                <button type="button" onClick={props.onCancel}>
+                  {props.cancelText || "cancelar"}
                 </button>
               </AlertDialog.Cancel>
               <AlertDialog.Action asChild>
-                <button type="button" onClick={onConfirm}>
-                  {confirmText || "confirmar"}
+                <button type="button" onClick={props.onConfirm}>
+                  {props.confirmText || "confirmar"}
                 </button>
               </AlertDialog.Action>
             </div>
@@ -102,7 +107,7 @@ Sobre attributes:
   São os mesmos que podem ser passados no Alert componente (title, content, confirmText, etc)
 */
 
-async function AlertCall(attributes) {
+async function AlertCall(props: AlertCallProps) {
   let value = null;
   const operation = new Promise((resolve) => {
     customRender(
@@ -114,7 +119,7 @@ async function AlertCall(attributes) {
         onConfirm={() => {
           resolve(true);
         }}
-        {...attributes}
+        {...props}
       />
     );
   });
