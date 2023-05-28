@@ -18,7 +18,7 @@ dos campos do formulário
 import { useState, type FormEvent } from "react";
 import backgroundSection from "./assets/backgroundSection.png";
 import { useApiSimulator } from "./utils/api";
-import { AlertCall } from "./alert/index";
+import { AlertCall } from "./alert/stylizedAlerts";
 import {
   ConcludedIcon,
   ErrorIcon,
@@ -65,9 +65,9 @@ export function AlertExample() {
             .then(() => {
               setStatusRequest("concluded");
             })
-            .catch(async (eBadRequest: Error) => {
+            .catch(async (e: Error) => {
               await AlertCall({
-                title: eBadRequest.message,
+                title: e.message,
                 content: "Deseja prosseguir?",
               });
               setStatusRequest("error");

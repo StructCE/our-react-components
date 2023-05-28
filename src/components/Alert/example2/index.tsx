@@ -7,7 +7,7 @@ estilização.
 */
 
 import { useState } from "react";
-import { Alert, AlertCall } from "./alert/index";
+import { Alert, AlertCall } from "./alert/stylizedAlerts";
 
 export function AlertExample2() {
   const [isManagingAlertCall, setIsManagingAlertCall] = useState(true);
