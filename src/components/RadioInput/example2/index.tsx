@@ -5,7 +5,7 @@
 
 // - Criar uma página que permita o usuário escolher uma forma de pagamento com os radios
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { CustomRadio } from "./CustomRadio";
 
 export function RadioInputExample2() {
@@ -14,7 +14,7 @@ export function RadioInputExample2() {
     value: 0,
   });
 
-  function handleChange(e) {
+  function handleChange(e: { target: { name: string; value: string } }) {
     // Reutilizar o mesmo handler para todos os inputs, basta colocar em cada um deles o atributo "name"
     const { name, value } = e.target;
     // Isso nem sempre pode ser feito
@@ -26,7 +26,7 @@ export function RadioInputExample2() {
     }
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: { preventDefault: () => void }) {
     // prevenir o reload da página no "submit" (comportamento padrão do form)
     e.preventDefault();
 
@@ -42,6 +42,7 @@ export function RadioInputExample2() {
       <fieldset>
         <legend>Escolha a forma de pagamento</legend>
         <CustomRadio
+          children=""
           name="paymentMethod"
           value="card"
           id="card"
@@ -50,6 +51,7 @@ export function RadioInputExample2() {
         />
         <label htmlFor="card">No Cartão</label>
         <CustomRadio
+          children=""
           name="paymentMethod"
           id="pix"
           value="pix"

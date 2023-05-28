@@ -8,23 +8,15 @@
 // - Criar uma página que permita o usuário escolher uma direção para mover o quadrado
 
 import * as RadioGroup from "@radix-ui/react-radio-group";
-import { useState } from "react";
+import React, { useState } from "react";
 import { RadioInput } from "..";
 import { ArrowUp, ArrowUpLeft, ArrowUpRight } from "./svgs";
-
-export default () => (
-  <RadioGroup.Root>
-    <RadioGroup.Item>
-      <RadioGroup.Indicator />
-    </RadioGroup.Item>
-  </RadioGroup.Root>
-);
 
 export function RadioInputExample() {
   const [direction, setDirection] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
 
-  function handleSubmitMove(e) {
+  function handleSubmitMove(e: React.FormEvent) {
     // prevenir o reload da página no "submit" (comportamento padrão do form)
     e.preventDefault();
 
@@ -38,52 +30,81 @@ export function RadioInputExample() {
     // pode causar bugs
   }
 
-  function handleChangeMove(e) {
+  function handleChangeMove(e: React.ChangeEvent<HTMLInputElement>) {
     setDirection(Number(e.target.value));
   }
 
   return (
-    <RadioGroup.Root className="pt-72 items-center content-center flex-col flex w-full h-screen">
+    <RadioGroup.Root className="flex flex-col items-center gap-2.5">
       <form onSubmit={handleSubmitMove}>
-        <RadioInput
-          name="direction"
-          id="left"
-          value={-1}
-          onChange={handleChangeMove}
+        <RadioGroup.Item
+          value={""}
+          className="flex-col w-[25px] h-[25px] focus:bg-white border-black border-2"
         >
-          <ArrowUpLeft
-            style={{
-              cursor: "pointer",
-              background: direction === -1 ? "rgba(255, 255, 255, 0.8)" : "",
-            }}
-          />
-        </RadioInput>
-        <RadioInput
-          name="direction"
-          id="up"
-          value={0}
-          onChange={handleChangeMove}
+          <RadioInput
+            style={{}}
+            name="direction"
+            id="left"
+            value={-1}
+            onChange={handleChangeMove}
+          >
+            <RadioGroup.Indicator>
+              <ArrowUpLeft
+                style={{
+                  cursor: "pointer",
+                  background:
+                    direction === -1 ? "rgba(255, 255, 255, 0.8)" : "",
+                }}
+              />
+            </RadioGroup.Indicator>
+          </RadioInput>
+        </RadioGroup.Item>
+        <br />
+        <RadioGroup.Item
+          value={""}
+          className="flex-col w-[25px] h-[25px] focus:bg-white border-black border-2"
         >
-          <ArrowUp
-            style={{
-              cursor: "pointer",
-              background: direction === 0 ? "rgba(255, 255, 255, 0.8)" : "",
-            }}
-          />
-        </RadioInput>
-        <RadioInput
-          name="direction"
-          id="down"
-          value={1}
-          onChange={handleChangeMove}
+          <RadioInput
+            style={{}}
+            name="direction"
+            id="up"
+            value={0}
+            onChange={handleChangeMove}
+          >
+            <RadioGroup.Indicator>
+              <ArrowUp
+                style={{
+                  cursor: "pointer",
+                  background: direction === 0 ? "rgba(255, 255, 255, 0.8)" : "",
+                }}
+              />
+            </RadioGroup.Indicator>
+          </RadioInput>
+        </RadioGroup.Item>
+        <br />
+        <RadioGroup.Item
+          value={""}
+          className="flex-col w-[25px] h-[25px] focus:bg-white border-black border-2"
         >
-          <ArrowUpRight
-            style={{
-              cursor: "pointer",
-              background: direction === 1 ? "rgba(255, 255, 255, 0.8)" : "",
-            }}
-          />
-        </RadioInput>
+          <RadioInput
+            style={{}}
+            name="direction"
+            id="down"
+            value={1}
+            onChange={handleChangeMove}
+          >
+            <RadioGroup.Indicator>
+              <ArrowUpRight
+                className="border-black"
+                style={{
+                  cursor: "pointer",
+                  background: direction === 1 ? "rgba(255, 255, 255, 0.8)" : "",
+                }}
+              />
+            </RadioGroup.Indicator>
+          </RadioInput>
+        </RadioGroup.Item>
+
         <br />
         <button type="submit">Move</button>
       </form>

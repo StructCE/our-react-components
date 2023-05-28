@@ -1,4 +1,13 @@
-export function RadioInput({ children, id, style, ...props }) {
+type Props = {
+  children: React.ReactNode;
+  id: string;
+  style: React.CSSProperties;
+  name: string;
+  value: number;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+};
+
+export function RadioInput({ children, id, style, ...props }: Props) {
   return (
     <>
       <input
