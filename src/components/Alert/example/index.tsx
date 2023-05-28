@@ -60,7 +60,7 @@ export function AlertExample() {
             content: "Deseja tentar novamente?",
           })
         ) {
-          await api
+          api
             .post("/users/create", user)
             .then(() => {
               setStatusRequest("concluded");
