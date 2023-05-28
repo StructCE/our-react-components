@@ -65,7 +65,7 @@ function Alert({
   );
 }
 
-async function AlertCall({
+async function alertCall({
   title,
   content,
   cancelText = "Cancelar",
@@ -96,4 +96,4 @@ async function AlertCall({
   return value;
 }
 
-export { Alert, AlertCall };
+export { Alert, alertCall };

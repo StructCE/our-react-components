@@ -79,11 +79,11 @@ function() {
   api
     .post('/rota', data)
     .catch(async () => {
-      const response = await AlertCall({...attributes})
+      const response = await alertCall({...attributes})
     })
 }
 */
-async function AlertCall({
+async function alertCall({
   title,
   content,
   cancelText = "Cancelar",
@@ -114,4 +114,4 @@ async function AlertCall({
   return value;
 }
 
-export { Alert, AlertCall };
+export { Alert, alertCall };

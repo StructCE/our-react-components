@@ -18,7 +18,7 @@ dos campos do formulário
 import { useState, type FormEvent } from "react";
 import backgroundSection from "./assets/backgroundSection.png";
 import { useApiSimulator } from "./utils/api";
-import { AlertCall } from "./alert/stylizedAlerts";
+import { alertCall } from "./alert/stylizedAlerts";
 import {
   ConcludedIcon,
   ErrorIcon,
@@ -27,12 +27,12 @@ import {
 } from "./assets/svgs";
 
 export function AlertExample() {
+  const api = useApiSimulator();
   const [user, setUser] = useState({
     username: "",
     favAnime: "",
     favGenre: "",
   });
-  const api = useApiSimulator();
 
   /*
   o estado statusRequest é para efeito de dinamicidade da página, podendo o usuário
@@ -55,7 +55,7 @@ export function AlertExample() {
       .catch(async (e: Error) => {
         // se o usuário confirmar nesse Alert, tentaremos fazer o post na api novamente
         if (
-          await AlertCall({
+          await alertCall({
             title: e.message,
             content: "Deseja tentar novamente?",
           })
@@ -66,7 +66,7 @@ export function AlertExample() {
               setStatusRequest("concluded");
             })
             .catch(async (e: Error) => {
-              await AlertCall({
+              await alertCall({
                 title: e.message,
                 content: "Deseja prosseguir?",
               });

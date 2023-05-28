@@ -1,13 +1,13 @@
 /*
 Essa página consiste numa seção de mostrar o funcionando dos Alerts criados.
 
-Você pode alternar entre ver o AlertCall ou o Alert, e é exibido um
+Você pode alternar entre ver o alertCall ou o Alert, e é exibido um
 bloco de código de como ele está sendo utilizado, ignorando aspectos de
 estilização.
 */
 
 import { useState } from "react";
-import { Alert, AlertCall } from "./alert/stylizedAlerts";
+import { Alert, alertCall } from "./alert/stylizedAlerts";
 
 export function AlertExample2() {
   const [isManagingAlertCall, setIsManagingAlertCall] = useState(true);
@@ -15,13 +15,13 @@ export function AlertExample2() {
 
   async function handleClick() {
     setResponse(
-      await AlertCall({ title: "Alert", content: "deseja prosseguir?" })
+      await alertCall({ title: "Alert", content: "deseja prosseguir?" })
     );
   }
 
   const linesFunctionCode = [
     "<button",
-    " onClick={async () => setResponse(await AlertCall())}",
+    " onClick={async () => setResponse(await alertCall())}",
     ">",
     "  Emitir status",
     "</button>",
