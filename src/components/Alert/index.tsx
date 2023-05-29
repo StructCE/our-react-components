@@ -49,7 +49,10 @@ function Alert({
       <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 bg-black/40" />
-        <AlertDialog.Content className="fixed inset-0">
+        <AlertDialog.Content
+          className="fixed inset-0"
+          onEscapeKeyDown={onCancel}
+        >
           <div className="bg-white">
             <AlertDialog.Title>{title}</AlertDialog.Title>
             <AlertDialog.Description>{content}</AlertDialog.Description>

@@ -20,8 +20,12 @@ export function AlertExample2() {
   }
 
   const linesFunctionCode = [
+    "async function handleClick() {",
+    "  setResponse(await alertCall());",
+    "}",
+    "",
     "<button",
-    " onClick={async () => setResponse(await alertCall())}",
+    " onClick={() => void handleClick()}",
     ">",
     "  Emitir status",
     "</button>",
@@ -62,9 +66,7 @@ export function AlertExample2() {
           <div className="flex flex-col text-sm font-medium">
             <button
               type="button"
-              onClick={() => {
-                void handleClick();
-              }}
+              onClick={() => void handleClick()}
               className="px-4 py-2 mt-4 mb-6 w-32 shadow-md shadow-cyan-800 justify-center hover:bg-cyan-100 border border-cyan-400 font-medium rounded-lg text-sm inline-flex dark:bg-cyan-800 dark:border-cyan-700 dark:text-white dark:hover:bg-cyan-700"
             >
               Emitir status

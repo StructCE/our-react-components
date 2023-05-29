@@ -30,7 +30,10 @@ function Alert({
       <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 bg-black/60" />
-        <AlertDialog.Content className="fixed inset-0 flex justify-center items-center">
+        <AlertDialog.Content
+          className="fixed inset-0 flex justify-center items-center"
+          onEscapeKeyDown={onCancel}
+        >
           <div className="relative flex flex-col items-center p-2 text-md text-white/80 font-medium rounded-lg bg-gradient-to-t from-gray-950 to-gray-900 border-b-2 border-cyan-600">
             <AlertDialog.Title className="mt-2 mb-2 mx-6 text-xl">
               {title}
