@@ -1,5 +1,5 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { customRender } from "./customRender";
+import { customRootRender } from "./customRootRender";
 
 /*
 Forma de utilização:
@@ -93,7 +93,7 @@ async function alertCall({
   confirmText = "Confirmar",
 }: alertCallProps) {
   const operation = new Promise((resolve) => {
-    customRender(
+    customRootRender(
       <Alert
         defaultOpen
         onCancel={() => {

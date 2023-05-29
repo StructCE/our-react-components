@@ -1,5 +1,5 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { customRender } from "./customRender";
+import { customRootRender } from "./customRootRender";
 
 type alertCallProps = {
   title: string | JSX.Element;
@@ -75,7 +75,7 @@ async function alertCall({
   confirmText = "Confirmar",
 }: alertCallProps) {
   const operation = new Promise((resolve) => {
-    customRender(
+    customRootRender(
       <Alert
         defaultOpen
         onCancel={() => {
