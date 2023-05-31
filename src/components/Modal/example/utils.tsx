@@ -9,7 +9,7 @@ export function useApiSimulator() {
     },
   ]);
   const api = {
-    post: (route, data) =>
+    post: (route: string, data: string[]) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
           if (route === "/users/create") {
@@ -26,7 +26,7 @@ export function useApiSimulator() {
         }, 1000);
       }),
 
-    patch: (route, data) =>
+    patch: (route: string, data: string[]) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
           if (route === "/users/update/:email") {

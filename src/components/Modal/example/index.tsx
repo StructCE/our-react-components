@@ -30,7 +30,7 @@ export function ModalExample() {
                 // eslint-disable-next-line no-alert
                 .catch((er) => alert(er));
             }}
-            onInvalidSubmit={({ errors }) => {
+            onInvalidSubmit={(errors: string[]) => {
               // eslint-disable-next-line no-alert
               errors.map((error) => alert(error));
             }}

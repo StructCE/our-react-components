@@ -1,40 +1,52 @@
-import { FormFactory } from "../../FormFactory";
+import { FormFactory } from "./form";
 
-const UsersSchema = [
+type FormSchema = {
+  fieldName: string;
+  placeholder: string;
+  required: boolean;
+  label: string;
+  type: string;
+  customValidation?: ({ formInfo }: { formInfo: Record<string, string> }) => {
+    valid?: boolean;
+    error?: string;
+  };
+};
+
+const UsersSchema: FormSchema[] = [
   {
     fieldName: "username",
     placeholder: "username",
     required: true,
-    type: "text",
     label: "Nome",
+    type: "text",
   },
   {
     fieldName: "email",
     placeholder: "email",
     required: true,
-    type: "email",
     label: "Email",
+    type: "email",
   },
   {
     fieldName: "credit",
     placeholder: "credit",
     required: false,
-    type: "number",
     label: "Crédito",
+    type: "number",
   },
   {
     fieldName: "age",
     placeholder: "age",
     required: false,
-    type: "number",
     label: "Idade",
+    type: "number",
   },
   {
     fieldName: "status",
     placeholder: "status",
     required: true,
-    type: "text",
     label: "Status",
+    type: "text",
     customValidation: ({ formInfo }) => {
       // eslint-disable-next-line no-console
       if (formInfo.status == "active" || formInfo.status == "desactive") {
@@ -47,8 +59,8 @@ const UsersSchema = [
     fieldName: "role",
     placeholder: "role",
     required: false,
-    type: "text",
     label: "Cargo",
+    type: "text",
   },
 ];
 
