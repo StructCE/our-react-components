@@ -1,12 +1,21 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
-    "./src/components/Carousel/styles.tsx",
-    "./src/components/Carousel/example/index.tsx",
+    "./src/**/*[.jsx,.js,.tsx,.ts]",
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
-}
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.arrow-offset': {
+          '--arrow-offset': '5%',
+          marginLeft: 'var(--arrow-offset)',
+          marginRight: 'var(--arrow-offset)',
+        },
+      }, ['responsive']);
+    },
+  ],
+};
