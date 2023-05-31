@@ -30,9 +30,9 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={({ errors }) => {
+              onInvalidSubmit={({ errors }: { errors: string[] }) => {
                 // eslint-disable-next-line no-alert
-                errors.map((error) => alert(error));
+                errors.map((error: string) => alert(error));
               }}
               buttonContent="Registrar"
             />
@@ -56,9 +56,9 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={({ errors }) => {
+              onInvalidSubmit={({ errors }: { errors: string[] }) => {
                 // eslint-disable-next-line no-alert
-                errors.map((error) => alert(error));
+                errors.map((error: string) => alert(error));
               }}
               buttonContent="Entrar"
             />
