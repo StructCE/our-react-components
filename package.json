@@ -11,8 +11,10 @@
     "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx,.cjs"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "postcss": "^8.4.24",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
