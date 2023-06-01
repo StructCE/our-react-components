@@ -6,6 +6,7 @@
 
 import React, { useState } from "react";
 import { ArrowLeft, ArrowRight } from "./svgs";
+import "../../index.css";
 
 type Image = {
   id: number;
@@ -39,7 +40,7 @@ export function Carousel({ images }: Props) {
   const moveDot = (toPosition: number) => changePosition(toPosition);
 
   return (
-    <div className="flex w-[200px] flex-col justify-center items-center relative mb-5 arrow-offset">
+    <div className="flex w-[200px] flex-col justify-center items-center relative mb-5 --arrow-offset">
       <button type="button" className="left-arrow" onClick={prevIndex}>
         <ArrowLeft />
       </button>

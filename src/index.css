@@ -60,3 +60,11 @@ A bit less generic, should change:
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+@layer utilities {
+  .arrow-offset {
+    --arrow-offset: 5%;
+    margin-left: var(--arrow-offset);
+    margin-right: var(--arrow-offset);
+  }
+}
