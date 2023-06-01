@@ -68,8 +68,8 @@ export function Carousel({ images }: Props) {
         {images.map((image, index) => (
           <button
             onClick={() => moveDot(index)}
-            className={`rounded-full border-solid border-gray-300 
-            ${currentPosition === index ? "bg-gray-900" : "bg-gray-300"}
+            className={`rounded-full border-solid border-2 border-white
+            ${currentPosition === index ? "bg-gray-900" : "bg-white"}
              w-4 h-4 mx-1 cursor-pointer`}
             type="button"
             aria-label={`show ${image.alt}`}
