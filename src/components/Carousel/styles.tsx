@@ -8,7 +8,6 @@ export const Container = styled.div`
   align-items: center;
   position: relative;
   margin-bottom: 5px;
-
   --arrow-offset: 5%;
   margin-left: var(--arrow-offset);
   margin-right: var(--arrow-offset);
