@@ -14,13 +14,15 @@ export function useApiSimulator() {
         setTimeout(() => {
           if (route === "/users/create") {
             if (!(data && data.username && data.favAnime && data.favGenre)) {
-              reject(new Error("Dados incompletos"));
-            } else if (!(Math.floor(Math.random() * 3) === 0)) {
-              // Math.floor(Math.random() * n) gera um número aleatório de 0 a n
-              reject(new Error("Erro na API"));
+              if (!(Math.floor(Math.random() * 3) === 0)) {
+                // Math.floor(Math.random() * n) gera um número aleatório de 0 a n
+                reject(new Error("Erro na API"));
+              } else {
+                setUsers([...users, data]);
+                resolve(data);
+              }
             } else {
-              setUsers([...users, data]);
-              resolve(data);
+              reject(new Error("Dados incompletos"));
             }
           }
         }, 500);
