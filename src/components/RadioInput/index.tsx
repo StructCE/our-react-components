@@ -1,25 +1,13 @@
-type Props = {
-  children: React.ReactNode;
-  id: string;
-  style: React.CSSProperties;
-  name: string;
-  value: number;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-};
+import * as RadioGroup from "@radix-ui/react-radio-group";
+import React from "react";
 
-export function RadioInput({ children, id, style, ...props }: Props) {
+type Props = {
+  value: string;
+};
+export function RadioInput({ ...props }: Props) {
   return (
-    <>
-      <input
-        id={id}
-        {...props}
-        style={{ appearance: "none", position: "absolute" }}
-        type="radio"
-      />
-      <label htmlFor={id} style={{ ...style }}>
-        {/* Icon/visual instead of normal radio: */}
-        {children}
-      </label>
-    </>
+    <RadioGroup.Item {...props} className="appearance-none absolute">
+      <RadioGroup.Indicator />
+    </RadioGroup.Item>
   );
 }

@@ -5,6 +5,7 @@
 
 // - Criar uma página que permita o usuário escolher uma forma de pagamento com os radios
 
+import * as RadioGroup from "@radix-ui/react-radio-group";
 import React, { useState } from "react";
 import { CustomRadio } from "./CustomRadio";
 
@@ -20,10 +21,24 @@ export function RadioInputExample2() {
     // Isso nem sempre pode ser feito
 
     if (Number.isNaN(Number(value))) {
-      setFormInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
+      setFormInfo((prevInfo) => ({
+        ...prevInfo,
+        [name]: value,
+      }));
     } else {
-      setFormInfo((prevInfo) => ({ ...prevInfo, [name]: Number(value) }));
+      setFormInfo((prevInfo) => ({
+        ...prevInfo,
+        [name]: Number(value),
+      }));
     }
+  }
+
+  function handlePaymentMethodChange(value: string) {
+    setFormInfo((prevInfo) => ({
+      ...prevInfo,
+      paymentMethod: value,
+    }));
+    console.log(value);
   }
 
   function handleSubmit(e: { preventDefault: () => void }) {
@@ -39,27 +54,17 @@ export function RadioInputExample2() {
   return (
     <form id="form" onSubmit={handleSubmit}>
       <h1>Faça o pagamento</h1>
-      <fieldset>
-        <legend>Escolha a forma de pagamento</legend>
-        <CustomRadio
-          children=""
-          name="paymentMethod"
-          value="card"
-          id="card"
-          checked={formInfo.paymentMethod === "card"}
-          onChange={handleChange}
-        />
+      <legend>Escolha a forma de pagamento</legend>
+      <RadioGroup.Root
+        className="flex flex-col"
+        value={formInfo.paymentMethod}
+        onValueChange={handlePaymentMethodChange}
+      >
         <label htmlFor="card">No Cartão</label>
-        <CustomRadio
-          children=""
-          name="paymentMethod"
-          id="pix"
-          value="pix"
-          checked={formInfo.paymentMethod === "pix"}
-          onChange={handleChange}
-        />
-        <label htmlFor="pix">No PIX</label>
-      </fieldset>
+        <CustomRadio value="card" />
+        <label htmlFor="card">No Pix</label>
+        <CustomRadio value="pix" />
+      </RadioGroup.Root>
       <br />
       <fieldset>
         <legend>Qual o valor?</legend>

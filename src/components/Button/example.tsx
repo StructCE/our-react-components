@@ -1,7 +1,11 @@
-export function Button({}) {
+type Props = {
+  children: React.ReactNode;
+};
+
+export function Button({ children }: Props) {
   return (
-    <body className="h-100 w-full flex justify-center items-center">
-      <button className="bg-gray-300 border-none h-8 w-20 pt-2 pr-4 hover:shadow-lg focus:shadow-lg focus:outline-orange-600 focus:outline-offset-1 hover:cursor-pointer rounded-md text-transparent"></button>
-    </body>
+    <button className="bg-gray-300 border-none py-[0.5em] px-[1em] hover:shadow-lg focus-visible:shadow-lg focus-visible:outline focus-visible:outline-orange-600 focus-visible:outline-offset-1 cursor-pointer rounded-md">
+      {children}
+    </button>
   );
 }
