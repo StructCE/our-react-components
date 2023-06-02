@@ -5,17 +5,20 @@
 // Modal.Trigger, etc);
 // -> Agora basta estilizar o modal do seu jeito.
 
-import React from "react";
+import React, { type RefAttributes } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { DialogContent, DialogOverlay } from "./styles";
+//import { IntrinsicAttributes, RefAttributes }
 
 type ModalProps = {
-  children?: JSX.Element;
-};
+  children: JSX.Element;
+} & JSX.IntrinsicAttributes &
+  RefAttributes<HTMLDivElement> &
+  DialogPrimitive.DialogContentProps;
 
 export const Modal = {
-  Content: React.forwardRef<HTMLInputElement>(
-    ({ children, ...props }: ModalProps, forwardedRef) => (
+  Content: React.forwardRef<HTMLDivElement, ModalProps>(
+    ({ children, ...props }, forwardedRef) => (
       <DialogPrimitive.Portal>
         <DialogOverlay />
         <DialogContent {...props} ref={forwardedRef}>
