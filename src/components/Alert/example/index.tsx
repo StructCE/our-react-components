@@ -40,42 +40,35 @@ export function AlertExample() {
   */
   const [statusRequest, setStatusRequest] = useState("");
 
-  function handleSubmit(ev: FormEvent<HTMLFormElement>) {
-    ev.preventDefault();
-
-    setStatusRequest("loading");
+  /*
+  para este exemplo, a api está "quebrada", e ela só responde adequadamente ao post
+  em 1/3 dos casos (ou seja, ha uma chande de 33% de dar certo). Portanto, a função
+  abaixo tenta realizar o post do usuário enquanto ele desejar tentar novamente
+  */
+  function tryPostUserRecursively() {
     api
-      // aqui é passada uma rota errada (rota correta: "/users/create")
-      .post("/user/create", user)
+      .post("/users/create", user)
       .then(() => {
-        // sabemos que nunca vai chegar aqui, mas coloquei por ser uma simulação de
-        // requisição de uma api real e aí fica mais completinho
         setStatusRequest("concluded");
       })
       .catch(async (e: Error) => {
-        // se o usuário confirmar nesse Alert, tentaremos fazer o post na api novamente
         if (
           await alertCall({
             title: e.message,
             content: "Deseja tentar novamente?",
           })
         ) {
-          api
-            .post("/users/create", user)
-            .then(() => {
-              setStatusRequest("concluded");
-            })
-            .catch(async (e: Error) => {
-              await alertCall({
-                title: e.message,
-                content: "Deseja prosseguir?",
-              });
-              setStatusRequest("error");
-            });
+          tryPostUserRecursively();
         } else {
           setStatusRequest("error");
         }
       });
+  }
+
+  function handleSubmit(ev: FormEvent<HTMLFormElement>) {
+    ev.preventDefault();
+    setStatusRequest("loading");
+    tryPostUserRecursively();
   }
 
   return (
