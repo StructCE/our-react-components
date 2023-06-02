@@ -37,7 +37,7 @@ function Alert({
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 bg-black/50" />
         <AlertDialog.Content
-          className="fixed inset-0 flex justify-center items-center"
+          className="fixed inset-0 flex justify-center items-center mx-2"
           onEscapeKeyDown={onCancel}
         >
           <div className="text-amber-950 relative flex flex-col items-center bg-slate-50 w-96 h-48 border-t-4 border-t-red-700 rounded-md">

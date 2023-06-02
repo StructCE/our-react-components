@@ -43,20 +43,20 @@ export function AlertExample2() {
   ];
 
   return (
-    <div className="bg-gradient-to-t from-cyan-950 to-gray-900 h-screen flex justify-center items-center flex-col">
-      <section className="w-3/6 bg-gray-900 rounded px-5 py-4 shadow-md text-white border-b-4 border-cyan-500">
-        <div>
+    <div className="bg-gradient-to-t from-cyan-950 to-gray-900 h-[100vh] w-full overflow-auto flex justify-center items-center flex-col">
+      <section className="max-w-[600px] w-[80%] bg-gray-900 rounded px-5 py-4 shadow-md text-white border-b-4 border-cyan-500">
+        <div className="mb-4">
           <button
             type="button"
             onClick={() => setIsManagingAlertCall(true)}
-            className="px-4 py-2 mb-4 mr-2 w-32 justify-center hover:bg-gray-100 border border-gray-200 active:ring-4 focus:ring-2 focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
+            className="px-4 py-2 mb-4 mr-4 w-32 justify-center hover:bg-gray-100 border border-gray-200 active:ring-4 focus:ring-2 focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
           >
             Função Alert
           </button>
           <button
             type="button"
             onClick={() => setIsManagingAlertCall(false)}
-            className="px-4 py-2 mb-4 ml-2 w-44 justify-center hover:bg-gray-100 border border-gray-200 active:ring-4 focus:ring-2 focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
+            className="px-4 py-2 mb-4 w-44 justify-center hover:bg-gray-100 border border-gray-200 active:ring-4 focus:ring-2 focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
           >
             Componente alert
           </button>
@@ -76,7 +76,7 @@ export function AlertExample2() {
               response = {response ? "true" : "false"}
             </span>
 
-            <pre className="mb-4 mt-6 bg-gray-950 p-2 rounded-md border-2 border-cyan-600">
+            <pre className="mb-4 mt-6 bg-gray-950 p-2 rounded-md border-2 border-cyan-600 overflow-x-scroll">
               {linesFunctionCode.join("\n")}
             </pre>
           </div>
@@ -100,7 +100,7 @@ export function AlertExample2() {
               response = {response ? "true" : "false"}
             </span>
 
-            <pre className="mb-4 mt-6 bg-gray-950 p-2 rounded-md border-2 border-cyan-600">
+            <pre className="mb-4 mt-6 bg-gray-950 p-2 rounded-md border-2 border-cyan-600 overflow-x-scroll">
               {linesComponentCode.join("\n")}
             </pre>
           </div>

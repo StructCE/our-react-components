@@ -72,12 +72,16 @@ export function AlertExample() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen bg-[url('./src/components/Alert/example/assets/background.jpg')] bg-cover bg-center bg-no-repeat bg-fixed">
-      <section className="bg-amber-200/[0.75] w-10/12 h-5/6 flex rounded-lg shadow-lg">
-        <img src={backgroundSection} alt="anime girl" />
+    <div className="flex justify-center items-center h-screen w-full overflow-auto bg-[url('/src/components/Alert/example/assets/background.jpg')] bg-center bg-no-repeat bg-fixed bg-cover">
+      <section className="bg-amber-200/[0.75] w-10/12 h-5/6 flex rounded-lg shadow-lg justify-around">
+        <img
+          src={backgroundSection}
+          alt="anime girl"
+          className="hidden md:block"
+        />
 
-        <div className="mt-20 ml-32">
-          <h1 className="text-amber-800 font-extrabold text-3xl bg-clip-text bg-gradient-to-br from-orange-700 to-amber-900 mb-3 w-96">
+        <div className="mt-20 md:mr-10 max-w-[80%] md:min-w-[40%] flex flex-col">
+          <h1 className="relative mx-auto w-full px-4 text-amber-800 font-extrabold text-3xl bg-clip-text bg-gradient-to-br from-orange-700 to-amber-900 mb-3">
             <span className="text-transparent">
               Crie seu perfil no AnimeCenter
             </span>
@@ -86,24 +90,24 @@ export function AlertExample() {
 
           <form
             onSubmit={handleSubmit}
-            className="relative flex flex-col items-center"
+            className="relative flex flex-col items-center px-4"
           >
             <input
               value={user.favAnime}
               onChange={(ev) => setUser({ ...user, favAnime: ev.target.value })}
-              className="mb-3 h-12 w-96 bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
+              className="mb-3 h-12 w-full relative bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
               placeholder="Digite seu anime favorito"
             />
             <input
               value={user.favGenre}
               onChange={(ev) => setUser({ ...user, favGenre: ev.target.value })}
-              className="mb-3 h-12 w-96 bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
+              className="mb-3 h-12 w-full bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
               placeholder="Digite seu gênero favorito"
             />
             <input
               value={user.username}
               onChange={(ev) => setUser({ ...user, username: ev.target.value })}
-              className="h-12 w-96 bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
+              className="h-12 w-full bg-white shadow-md py-3 px-4 outline-none transition-all ease-in focus:shadow-lg"
               placeholder="Digite seu nome de usuário"
             />
             <button
