@@ -6,6 +6,7 @@ type alertCallProps = {
   content: string;
   cancelText?: string;
   confirmText?: string;
+  canOpen?: boolean;
 };
 
 type alertProps = alertCallProps & {
@@ -24,10 +25,15 @@ function Alert({
   onConfirm,
   children,
   defaultOpen,
+  canOpen = true,
 }: alertProps) {
   return (
     <AlertDialog.Root defaultOpen={defaultOpen}>
-      <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
+      {canOpen ? (
+        <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
+      ) : (
+        children
+      )}
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 bg-black/50" />
         <AlertDialog.Content

@@ -12,12 +12,18 @@ Forma de utilização:
   onCancel={function}
   cancelText=" "
   defaultOpen=boolean
+  canOpen=boolean
 >
   <button>Botão</button>
 </Alert>
 
+Sobre canOpen:
+ canOpen auxilia a ter um melhor controle de quando o Alert deve abrir. O Alert irá
+ ser acionado pelo trigger ou pela chamada de alertCall, somente se o canOpen for true.
+ Seu valor default é true
+
 Sobre defaultOpen:
- defaultOpen define se, quando o componente for renderizado a primeira vez, ele iniciará
+ defaultOpen define se, quando o componente for renderizado pela primeira vez, ele iniciará
  aberto (quando defaultOpen for true) ou não (quando defaultOpen for false)
 */
 type alertCallProps = {
@@ -25,6 +31,7 @@ type alertCallProps = {
   content: string;
   cancelText?: string;
   confirmText?: string;
+  canOpen?: boolean;
 };
 
 type alertProps = alertCallProps & {
@@ -43,10 +50,15 @@ function Alert({
   onConfirm,
   children,
   defaultOpen,
+  canOpen = true,
 }: alertProps) {
   return (
     <AlertDialog.Root defaultOpen={defaultOpen}>
-      <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
+      {canOpen ? (
+        <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
+      ) : (
+        children
+      )}{" "}
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 bg-black/40" />
         <AlertDialog.Content
