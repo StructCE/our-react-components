@@ -1,4 +1,5 @@
-import { TableStyles } from "./styles";
+import styles from "./styles.module.scss";
+import { useWindowWidth } from "./example2/utils/useWindowWidth";
 
 export type GenericFields<Rows extends object[]> = readonly {
   readonly title: string;
@@ -32,7 +33,6 @@ type TableProps<
   breakPointWidth: number;
 }>;
 
-// export function Table({
 export function Table<
   Fields extends GenericFields<Rows>,
   Rows extends GenericRow<Fields, Rows>[]
@@ -44,9 +44,15 @@ export function Table<
   breakPointWidth,
   ...props
 }: TableProps<Fields, Rows>) {
+  const windowWidth = useWindowWidth();
+
   return (
-    <TableStyles.Container
-      breakPointWidth={breakPointWidth}
+    <table
+      className={
+        (styles["table"] || "") +
+        " " +
+        (windowWidth > breakPointWidth ? "" : styles["responsive-table"] || "")
+      }
       {...props}
       role="table"
     >
@@ -79,18 +85,19 @@ export function Table<
             ))}
             {actions?.map(({ title: actionTitle, Icon, onClick }) => (
               <td role="cell" key={actionTitle} data-cell={actionTitle}>
-                <TableStyles.ActionButton
+                <button
+                  className={styles["action-button"]}
                   name={actionTitle}
                   type="button"
                   onClick={() => onClick(row)}
                 >
                   <Icon />
-                </TableStyles.ActionButton>
+                </button>
               </td>
             ))}
           </tr>
         ))}
       </tbody>
-    </TableStyles.Container>
+    </table>
   );
 }
