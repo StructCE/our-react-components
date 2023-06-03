@@ -81,7 +81,7 @@ export function AlertExample() {
         />
 
         <div className="mt-20 md:mr-10 max-w-[80%] md:min-w-[40%] flex flex-col">
-          <h1 className="relative mx-auto w-full px-4 text-amber-800 font-extrabold text-3xl bg-clip-text bg-gradient-to-br from-orange-700 to-amber-900 mb-3">
+          <h1 className="relative mx-auto w-full px-4 text-amber-800 font-extrabold text-2xl md:text-3xl bg-clip-text bg-gradient-to-br from-orange-700 to-amber-900 mb-3">
             <span className="text-transparent">
               Crie seu perfil no AnimeCenter
             </span>
