@@ -4,7 +4,6 @@
 // validações de requisições antes de fechá-lo.
 import React, { useState } from "react";
 import { Modal } from "..";
-import { ModalStyled } from "../example/styles";
 import { CloseX } from "../example/svgs";
 import { UsersForm } from "../example/users";
 import { useApiSimulator } from "../example/utils";
@@ -19,9 +18,9 @@ export function ModalExample2() {
     <Modal.Root open={open} onOpenChange={setOpen}>
       <Modal.Trigger>Open Modal</Modal.Trigger>
       <Modal.Content>
-        <ModalStyled>
-          <h1>Edit Profile</h1>
-          <h2>
+        <div className="max-w-md max-h-[85vh] p-6">
+          <h1 className="m-0 font-medium text-base">Edit Profile</h1>
+          <h2 className="mt-2.5 mb-5 mx-0 text-base">
             Make changes to your profile here. Click save when you are done.
           </h2>
           <UsersForm
@@ -35,18 +34,22 @@ export function ModalExample2() {
                 })
                 .catch((e) => alert(e));
             }}
-            onInvalidSubmit={({ errors }) => {
+            onInvalidSubmit={({ errors }: { errors: string[] }) => {
               // eslint-disable-next-line no-alert
               errors.map((error) => alert(error));
             }}
             buttonContent="Save"
           />
           <Modal.Close asChild>
-            <button type="button" aria-label="Close" className="IconButton">
+            <button
+              type="button"
+              aria-label="Close"
+              className="bg-transparent border-none inline-flex items-center content-center absolute top-3 right-3 cursor-pointer"
+            >
               <CloseX />
             </button>
           </Modal.Close>
-        </ModalStyled>
+        </div>
       </Modal.Content>
     </Modal.Root>
   );
