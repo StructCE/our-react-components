@@ -39,7 +39,7 @@ export function Carousel({ images }: Props) {
   const moveDot = (toPosition: number) => changePosition(toPosition);
 
   return (
-    <div className="flex w-[200px] flex-col justify-center items-center relative mb-4">
+    <div className="flex w-[200px] flex-col justify-center items-center relative mb-[5px]">
       <button
         className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 right-[105%]"
         type="button"
