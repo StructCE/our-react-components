@@ -6,10 +6,10 @@ já que tal método não foi abordado no exemplo 1
 você irá preencher seus dados (anime favorito, gênero de anime favorito e
 nome de usuário) e então irá solicitar a criação do seu perfil
 
-Porém, a página foi implementada de foram que toda primeira tentativa de
-post irá ser falha, por enviar uma requisição a uma rota errada, e então será
-emitido um Alert para o usuário. Caso, pelo alert, ele deseje tentar novamente,
-aí sim seu perfil irá ser criado
+Porém, a página foi implementada com uma api "defeituosa", onde apenas 1 a cada 3
+tentativas de post são bem sucedidas, e, para o caso de falha, será
+emitido um Alert para o usuário, onde ele poderá tentar a requisição
+novamente, quantas vezes desejar, até conseguir criar o perfil com sucesso.
 
 Obs.: também é emitido um possível segundo Alert, quando você não preenche um
 dos campos do formulário
@@ -43,7 +43,7 @@ export function AlertExample() {
   /*
   para este exemplo, a api está "quebrada", e ela só responde adequadamente ao post
   em 1/3 dos casos (ou seja, ha uma chande de 33% de dar certo). Portanto, a função
-  abaixo tenta realizar o post do usuário enquanto ele desejar tentar novamente
+  abaixo tenta realizar o post do usuário recursivamente
   */
   function tryPostUserRecursively() {
     api
