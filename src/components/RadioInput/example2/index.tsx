@@ -7,7 +7,7 @@
 
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import React, { useState } from "react";
-import { CustomRadio } from "./CustomRadio";
+import { CustomRadio } from "../index";
 
 export function RadioInputExample2() {
   const [formInfo, setFormInfo] = useState({
@@ -60,10 +60,10 @@ export function RadioInputExample2() {
         value={formInfo.paymentMethod}
         onValueChange={handlePaymentMethodChange}
       >
-        <label htmlFor="card">No Cartão</label>
-        <CustomRadio value="card" />
-        <label htmlFor="card">No Pix</label>
-        <CustomRadio value="pix" />
+        <label htmlFor="payment">No Cartão</label>
+        <CustomRadio value="card" id="payment" />
+        <label htmlFor="payment">No Pix</label>
+        <CustomRadio value="pix" id="payment" />
       </RadioGroup.Root>
       <br />
       <fieldset>

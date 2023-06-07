@@ -29,8 +29,8 @@ export function RadioInputExample() {
     // pode causar bugs
   }
 
-  function handleChangeMove(newValue: string) {
-    setDirection(Number(newValue));
+  function handleChangeMove(e: string) {
+    setDirection(Number(e));
   }
 
   return (
@@ -43,45 +43,29 @@ export function RadioInputExample() {
         >
           <RadioGroup.Item
             value="-1"
-            className="flex-col w-[25px] h-[25px] focus:bg-white"
+            className="relative w-6 h-6 focus:bg-white"
             id="left"
           >
-            <ArrowUpLeft
-              style={{
-                cursor: "pointer",
-                background: direction === -1 ? "rgba(255, 255, 255, 0.8)" : "",
-              }}
-            />
-            <RadioGroup.Indicator className="w-full h-full -z-10" />
+            <ArrowUpLeft className="cursor-pointer" />
+            <RadioGroup.Indicator className="w-full h-full absolute inset-0 -z-10 bg-white" />
           </RadioGroup.Item>
           <br />
           <RadioGroup.Item
-            className="flex-col w-[25px] h-[25px] focus:bg-white"
+            className="relative w-6 h-6 focus:bg-white"
             id="up"
             value="0"
           >
-            <ArrowUp
-              style={{
-                cursor: "pointer",
-                background: direction === 0 ? "rgba(255, 255, 255, 0.8)" : "",
-              }}
-            />
-            <RadioGroup.Indicator />
+            <ArrowUp className="cursor-pointer" />
+            <RadioGroup.Indicator className="w-full h-full absolute inset-0 -z-10 bg-white" />
           </RadioGroup.Item>
           <br />
           <RadioGroup.Item
-            className="flex-col w-[25px] h-[25px] focus:bg-white"
+            className="relative w-6 h-6 focus:bg-white"
             id="down"
             value="1"
           >
-            <ArrowUpRight
-              className="border-black"
-              style={{
-                cursor: "pointer",
-                background: direction === 1 ? "rgba(255, 255, 255, 0.8)" : "",
-              }}
-            />
-            <RadioGroup.Indicator />
+            <ArrowUpRight className="cursor-pointer" />
+            <RadioGroup.Indicator className="w-full h-full absolute inset-0 -z-10 bg-white" />
           </RadioGroup.Item>
         </RadioGroup.Root>
         <br />
@@ -90,15 +74,10 @@ export function RadioInputExample() {
         </button>
       </form>
       <div
-        className="flex mx-auto my-0"
+        className="block mx-auto my-0 -z-10 bg-red-500 w-[50px] h-[50px] duration-700 ease-in-out"
+        onSubmit={handleSubmitMove}
         style={{
-          display: "block",
-          zIndex: -1,
-          background: "red",
-          width: "50px",
-          height: "50px",
           transform: `translateX(${currentPosition * 200}%)`,
-          transition: "transform 0.5s ease-in-out",
         }}
       />
     </>
