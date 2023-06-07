@@ -62,13 +62,13 @@ export function Carousel({ images }: Props) {
           {index === currentPosition && <img src={image.url} alt={image.alt} />}
         </div>
       ))}
-      <div className="absolute top-full h-4">
+      <div className="absolute top-full h-4 flex">
         {images.map((image, index) => (
           <button
             onClick={() => moveDot(index)}
             className={`rounded-full border-solid border-[3px]
             ${currentPosition === index ? "bg-primary-100" : "bg-primary-500"}
-             w-4 h-4  mx-1 cursor-pointer`}
+             w-4 h-4 mx-1 cursor-pointer`}
             type="button"
             aria-label={`show ${image.alt}`}
             key={image.id}
