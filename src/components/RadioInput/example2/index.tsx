@@ -5,8 +5,9 @@
 
 // - Criar uma página que permita o usuário escolher uma forma de pagamento com os radios
 
-import { useState } from "react";
-import { CustomRadio } from "./CustomRadio";
+import * as RadioGroup from "@radix-ui/react-radio-group";
+import React, { useState } from "react";
+import { CustomRadio } from "../index";
 
 export function RadioInputExample2() {
   const [formInfo, setFormInfo] = useState({
@@ -14,19 +15,33 @@ export function RadioInputExample2() {
     value: 0,
   });
 
-  function handleChange(e) {
+  function handleChange(e: { target: { name: string; value: string } }) {
     // Reutilizar o mesmo handler para todos os inputs, basta colocar em cada um deles o atributo "name"
     const { name, value } = e.target;
     // Isso nem sempre pode ser feito
 
     if (Number.isNaN(Number(value))) {
-      setFormInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
+      setFormInfo((prevInfo) => ({
+        ...prevInfo,
+        [name]: value,
+      }));
     } else {
-      setFormInfo((prevInfo) => ({ ...prevInfo, [name]: Number(value) }));
+      setFormInfo((prevInfo) => ({
+        ...prevInfo,
+        [name]: Number(value),
+      }));
     }
   }
 
-  function handleSubmit(e) {
+  function handlePaymentMethodChange(value: string) {
+    setFormInfo((prevInfo) => ({
+      ...prevInfo,
+      paymentMethod: value,
+    }));
+    console.log(value);
+  }
+
+  function handleSubmit(e: { preventDefault: () => void }) {
     // prevenir o reload da página no "submit" (comportamento padrão do form)
     e.preventDefault();
 
@@ -39,25 +54,17 @@ export function RadioInputExample2() {
   return (
     <form id="form" onSubmit={handleSubmit}>
       <h1>Faça o pagamento</h1>
-      <fieldset>
-        <legend>Escolha a forma de pagamento</legend>
-        <CustomRadio
-          name="paymentMethod"
-          value="card"
-          id="card"
-          checked={formInfo.paymentMethod === "card"}
-          onChange={handleChange}
-        />
-        <label htmlFor="card">No Cartão</label>
-        <CustomRadio
-          name="paymentMethod"
-          id="pix"
-          value="pix"
-          checked={formInfo.paymentMethod === "pix"}
-          onChange={handleChange}
-        />
-        <label htmlFor="pix">No PIX</label>
-      </fieldset>
+      <legend>Escolha a forma de pagamento</legend>
+      <RadioGroup.Root
+        className="flex flex-col"
+        value={formInfo.paymentMethod}
+        onValueChange={handlePaymentMethodChange}
+      >
+        <label htmlFor="payment">No Cartão</label>
+        <CustomRadio value="card" id="payment" />
+        <label htmlFor="payment">No Pix</label>
+        <CustomRadio value="pix" id="payment" />
+      </RadioGroup.Root>
       <br />
       <fieldset>
         <legend>Qual o valor?</legend>
@@ -70,9 +77,7 @@ export function RadioInputExample2() {
           step={100}
           min={100}
         />
-        <label htmlFor="value" aria-controls="formValue">
-          Em centavos de real
-        </label>
+        <label htmlFor="valueInput">Em centavos de real</label>
       </fieldset>
       <br />
       <br />

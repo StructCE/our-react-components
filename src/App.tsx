@@ -1,6 +1,7 @@
-import { CarouselExample } from "./components/Carousel/example";
+import { AlertExample } from "./components/Alert/example";
+
 function App() {
-  return <CarouselExample />;
+  return <AlertExample />;
 }
 
 export default App;
