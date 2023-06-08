@@ -6,7 +6,6 @@
 
 import React, { useState } from "react";
 import { ArrowLeft, ArrowRight } from "./svgs";
-import { Container } from "./styles";
 
 type Image = {
   id: number;
@@ -40,32 +39,39 @@ export function Carousel({ images }: Props) {
   const moveDot = (toPosition: number) => changePosition(toPosition);
 
   return (
-    <Container>
-      <button type="button" className="left-arrow" onClick={prevIndex}>
+    <div className="flex w-[200px] flex-col justify-center items-center relative mb-4 text-black">
+      <button
+        className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 right-[105%]"
+        type="button"
+        onClick={prevIndex}
+      >
         <ArrowLeft />
       </button>
-      <button type="button" className="right-arrow" onClick={nextIndex}>
+      <button
+        className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 left-[105%]"
+        type="button"
+        onClick={nextIndex}
+      >
         <ArrowRight />
       </button>
       {images.map((image, index) => (
-        <div
-          className={index === currentPosition ? "image active" : "image"}
-          key={image.id}
-        >
+        <div key={image.id}>
           {index === currentPosition && <img src={image.url} alt={image.alt} />}
         </div>
       ))}
-      <div className="button-container">
+      <div className="absolute top-full h-4 flex">
         {images.map((image, index) => (
           <button
             onClick={() => moveDot(index)}
-            className={currentPosition === index ? "button active" : "button"}
+            className={`rounded-full border-solid border-[3px] bg-opacity-90
+            ${currentPosition === index ? "bg-black" : "bg-white"}
+             w-4 h-4 mx-[5px] cursor-pointer`}
             type="button"
             aria-label={`show ${image.alt}`}
             key={image.id}
           />
         ))}
       </div>
-    </Container>
+    </div>
   );
 }
