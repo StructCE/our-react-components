@@ -24,6 +24,7 @@
   "include": [
     "src",
     ".eslintrc.cjs",
+    "tailwind.config.js",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
