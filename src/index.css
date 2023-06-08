@@ -6,6 +6,10 @@
 Generic default styling:
 */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 *::before,
 *::after {
