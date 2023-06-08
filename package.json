@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@radix-ui/react-radio-group": "^1.1.2",
+    "@radix-ui/react-alert-dialog": "^1.0.3",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.4",

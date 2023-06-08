@@ -4,14 +4,24 @@
 // -> Chame a função Carousel, passando como argumento seu array criado.
 // -> Agora basta estilizar o carrosel do seu jeito.
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { ArrowLeft, ArrowRight } from "./svgs";
 import { Container } from "./styles";
 
-export function Carousel({ images }) {
+type Image = {
+  id: number;
+  url: string;
+  alt: string;
+};
+
+type Props = {
+  images: Image[];
+};
+
+export function Carousel({ images }: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
 
-  function changePosition(nextPosition) {
+  function changePosition(nextPosition: number) {
     if (nextPosition >= images.length) {
       return;
     }
@@ -27,7 +37,7 @@ export function Carousel({ images }) {
 
   const prevIndex = () => changePosition(currentPosition - 1);
 
-  const moveDot = (toPosition) => changePosition(toPosition);
+  const moveDot = (toPosition: number) => changePosition(toPosition);
 
   return (
     <Container>
@@ -52,6 +62,7 @@ export function Carousel({ images }) {
             className={currentPosition === index ? "button active" : "button"}
             type="button"
             aria-label={`show ${image.alt}`}
+            key={image.id}
           />
         ))}
       </div>

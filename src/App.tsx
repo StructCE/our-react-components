@@ -1,7 +1,7 @@
-import { RadioInputExample2 } from "./components/RadioInput/example2";
+import { AlertExample } from "./components/Alert/example";
 
 function App() {
-  return <RadioInputExample2 />;
+  return <AlertExample />;
 }
 
 export default App;
