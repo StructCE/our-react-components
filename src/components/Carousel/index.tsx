@@ -39,7 +39,7 @@ export function Carousel({ images }: Props) {
   const moveDot = (toPosition: number) => changePosition(toPosition);
 
   return (
-    <div className="flex w-[200px] flex-col justify-center items-center relative mb-[5px] text-black">
+    <div className="flex w-[200px] flex-col justify-center items-center relative mb-4 text-black">
       <button
         className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 right-[105%]"
         type="button"
@@ -55,14 +55,11 @@ export function Carousel({ images }: Props) {
         <ArrowRight />
       </button>
       {images.map((image, index) => (
-        <div
-          className={index === currentPosition ? "image active" : "image"}
-          key={image.id}
-        >
+        <div key={image.id}>
           {index === currentPosition && <img src={image.url} alt={image.alt} />}
         </div>
       ))}
-      <div className="absolute top-full h-4 flex mt-[5px]">
+      <div className="absolute top-full h-4 flex">
         {images.map((image, index) => (
           <button
             onClick={() => moveDot(index)}
