@@ -77,9 +77,7 @@ export function RadioInputExample2() {
           step={100}
           min={100}
         />
-        <label htmlFor="value" aria-controls="formValue">
-          Em centavos de real
-        </label>
+        <label htmlFor="valueInput">Em centavos de real</label>
       </fieldset>
       <br />
       <br />
