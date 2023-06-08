@@ -9,7 +9,6 @@ module.exports = {
       colors: {
           'primary-100': 'rgb(32, 32, 32)',
           'primary-500': '#f1f1f1',
-          'border-button': '#880808',
       },
     },
   },
