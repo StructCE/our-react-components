@@ -39,7 +39,7 @@ export function Carousel({ images }: Props) {
   const moveDot = (toPosition: number) => changePosition(toPosition);
 
   return (
-    <div className="flex w-[200px] flex-col justify-center items-center relative">
+    <div className="flex w-[200px] flex-col justify-center items-center relative mb-[5px]">
       <button
         className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 right-[105%]"
         type="button"
@@ -68,7 +68,7 @@ export function Carousel({ images }: Props) {
             onClick={() => moveDot(index)}
             className={`rounded-full border-solid border-[3px]
             ${currentPosition === index ? "bg-primary-100" : "bg-primary-500"}
-             w-4 h-4 mx-1 cursor-pointer`}
+             w-4 h-4 mx-[5px] cursor-pointer`}
             type="button"
             aria-label={`show ${image.alt}`}
             key={image.id}
