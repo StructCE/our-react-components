@@ -1,7 +1,7 @@
-import { RadioInputExample2 } from "./components/RadioInput/example2";
+import { FilterExample } from "./components/FilterByFields/example/example";
 
 function App() {
-  return <RadioInputExample2 />;
+  return <FilterExample />;
 }
 
 export default App;
