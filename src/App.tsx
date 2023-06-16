@@ -1,7 +1,7 @@
-import { CarouselExample } from "./components/Carousel/example";
+import { DropdownMenuDemo } from "./components/Dropdown/example";
 
 function App() {
-  return <CarouselExample />;
+  return <DropdownMenuDemo />;
 }
 
 export default App;
