@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { Users } from "../users";
+import { Users } from "../data";
 
-type User = {
+type Props = {
   nome: string;
   sobrenome: string;
   diretoria: string;
   id: number;
 };
 
-export function FilterByFields() {
+export function FilterBySearch() {
   const [query, setQuery] = useState("");
 
-  const search = (data: User[]): User[] => {
+  const search = (data: Props[]): Props[] => {
     return data.filter(
-      (item: User) =>
+      (item: Props) =>
         item.nome.toLowerCase().includes(query) ||
         item.sobrenome.toLowerCase().includes(query) ||
         item.diretoria.toLowerCase().includes(query)

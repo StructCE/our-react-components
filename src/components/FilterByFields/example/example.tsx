@@ -1,5 +1,5 @@
-import { FilterByFields } from "./index";
+import { FilterBySearch } from "./index";
 
 export function FilterExample() {
-  return <FilterByFields></FilterByFields>;
+  return <FilterBySearch></FilterBySearch>;
 }
