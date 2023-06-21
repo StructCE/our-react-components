@@ -14,9 +14,9 @@ export function FilterBySearch() {
   const search = (data: Props[]): Props[] => {
     return data.filter(
       (item: Props) =>
-        item.nome.toLowerCase().includes(query) ||
-        item.sobrenome.toLowerCase().includes(query) ||
-        item.diretoria.toLowerCase().includes(query)
+        item.nome.toLowerCase().includes(query.toLowerCase()) ||
+        item.sobrenome.toLowerCase().includes(query.toLowerCase()) ||
+        item.diretoria.toLowerCase().includes(query.toLowerCase())
     );
   };
 
