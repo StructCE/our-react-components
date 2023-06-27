@@ -37,7 +37,7 @@ const registerSchema: FormField[] = [
     required: true,
     customValidation: ({ formInfo }) => {
       // eslint-disable-next-line no-console
-      if (formInfo.password?.length > 5) {
+      if (formInfo.password?.length && formInfo.password?.length > 5) {
         return { valid: true };
       }
       return { error: "a senha deve possuir mais de 5 caracteres" };

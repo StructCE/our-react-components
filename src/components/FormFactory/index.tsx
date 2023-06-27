@@ -36,6 +36,7 @@ interface SchemaItem {
 }
 
 type OnValidSubmitFn = (formInfo: Record<string, string>) => void;
+
 type OnInvalidSubmitFn = (
   formInfo: Record<string, string>,
   errors: string[]

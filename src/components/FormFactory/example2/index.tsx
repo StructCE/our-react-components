@@ -13,7 +13,7 @@ interface FormInfo {
 }
 
 export function FormFactoryExample2() {
-  const [formSchema, setFormSchema] = useState<[]>([]);
+  const [formSchema, setFormSchema] = useState<FormInfo>(FormInfo[]);
 
   const Form = FormFactory(formSchema);
 
