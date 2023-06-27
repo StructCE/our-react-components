@@ -23,29 +23,57 @@
 //      />
 
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { z } from "zod";
 
-interface SchemaItem {
-  fieldName: string;
-  required: boolean;
-  label?: string;
-  customValidation?: (formInfo: Record<string, string>) => {
-    valid: boolean;
-    error: string;
-  };
-  key: string;
-}
+const mySchema = z.array(
+  z.object({
+    key: z.string(),
+    fieldName: z.string(),
+    required: z.boolean(),
+    label: z.string(),
+    customValidation: z
+      .function()
+      .args(
+        z.record(z.string(), z.string()) // rever isso depois para generalizar para um schemaInfo
+      )
+      .returns(
+        z.object({
+          valid: z.boolean(),
+          error: z.string(),
+        })
+      )
+      .optional(),
+  })
+);
 
-type OnValidSubmitFn = (formInfo: Record<string, string>) => void;
+const onValidSubmit = z
+  .function()
+  .args(
+    z.record(z.string(), z.string()) // rever isso depois para generalizar para um schemaInfo
+  )
+  .returns(z.void());
 
-type OnInvalidSubmitFn = (
-  formInfo: Record<string, string>,
-  errors: string[]
-) => void;
+const onInvalidSubmit = z
+  .function()
+  .args(
+    z.record(z.string(), z.string(), z.object({ errors: z.string() })) // rever isso depois para generalizar para um schemaInfo
+  )
+  .returns(z.void());
 
-export function FormFactory(schema: SchemaItem[]) {
+const formItemInfo = z.record(z.string(), z.string());
+
+type SchemaItem = z.infer<typeof mySchema>;
+
+type OnValidSubmitFn = z.infer<typeof onValidSubmit>;
+
+type OnInvalidSubmitFn = z.infer<typeof onInvalidSubmit>;
+
+type FormInfo = z.infer<typeof formItemInfo>;
+
+export function FormFactory(schema: SchemaItem) {
   const handleSubmit = (
     event: FormEvent<HTMLFormElement>,
-    formInfo: Record<string, string>,
+    formInfo: FormInfo,
     onValidSubmit: OnValidSubmitFn,
     onInvalidSubmit: OnInvalidSubmitFn
   ) => {
@@ -77,7 +105,7 @@ export function FormFactory(schema: SchemaItem[]) {
     onInvalidSubmit: OnInvalidSubmitFn;
     buttonContent?: string;
   }) {
-    const [formInfo, setFormInfo] = useState<Record<string, string>>({});
+    const [formInfo, setFormInfo] = useState<FormInfo>({});
 
     const handleChange = (
       event: ChangeEvent<HTMLInputElement>,
