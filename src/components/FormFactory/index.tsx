@@ -22,77 +22,49 @@
 //        onInvalidSubmit={ function ({ formInfo, errors }) }
 //      />
 
-import { useState, type ChangeEvent, type FormEvent } from "react";
-import { z } from "zod";
+import { useState, type ChangeEvent, type FormEvent, HTMLAttributes  } from "react";
+import { ZodError, ZodObject, ZodType, z } from "zod";
 
-const mySchema = z.array(
-  z.object({
-    key: z.string(),
-    fieldName: z.string(),
-    required: z.boolean(),
-    label: z.string(),
-    customValidation: z
-      .function()
-      .args(
-        z.record(z.string(), z.string()) // rever isso depois para generalizar para um schemaInfo
-      )
-      .returns(
-        z.object({
-          valid: z.boolean(),
-          error: z.string(),
-        })
-      )
-      .optional(),
-  })
-);
+const Schema = z.object({
+  fieldName: z.string(),
+  required: z.boolean(),
+  label: z.string().optional(),
+  key: z.string(),
+})
 
-const onValidSubmit = z
-  .function()
-  .args(
-    z.record(z.string(), z.string()) // rever isso depois para generalizar para um schemaInfo
-  )
-  .returns(z.void());
+type OnValidSubmitFn<schemaT> = (formInfo: schemaT) => void;
 
-const onInvalidSubmit = z
-  .function()
-  .args(
-    z.record(z.string(), z.string(), z.object({ errors: z.string() })) // rever isso depois para generalizar para um schemaInfo
-  )
-  .returns(z.void());
+type OnInvalidSubmitFn<schemaT> = (
+  formInfo: schemaT,
+  error: ZodError
+) => void;
 
-const formItemInfo = z.record(z.string(), z.string());
+type FormFactoryInfo<SchemaType extends ZodType<any, any, any>> = {
+  schema: SchemaType;
+  fields: FieldsInfo<z.infer<SchemaType>>;
+}
 
-type SchemaItem = z.infer<typeof mySchema>;
+type FieldsInfo<SchemaType> = { // rever se apenas label e Atrr existe
+  [key in keyof SchemaType]: {
+    label: string;
+    inputAtrr?: HTMLAttributes<HTMLInputElement>;
+  }
+};
 
-type OnValidSubmitFn = z.infer<typeof onValidSubmit>;
-
-type OnInvalidSubmitFn = z.infer<typeof onInvalidSubmit>;
-
-type FormInfo = z.infer<typeof formItemInfo>;
-
-export function FormFactory(schema: SchemaItem) {
+export function FormFactory<schemaT extends ZodType>(schemaInfo: FormFactoryInfo<schemaT>) {
   const handleSubmit = (
     event: FormEvent<HTMLFormElement>,
-    formInfo: FormInfo,
-    onValidSubmit: OnValidSubmitFn,
-    onInvalidSubmit: OnInvalidSubmitFn
+    formInfo: z.infer<schemaT>,
+    onValidSubmit: OnValidSubmitFn<schemaT>,
+    onInvalidSubmit: OnInvalidSubmitFn<schemaT>
   ) => {
     event.preventDefault();
 
-    const errors: string[] = [];
-    schema.forEach((item) => {
-      if (item.customValidation) {
-        const { valid, error } = item.customValidation(formInfo);
-        if (!valid) {
-          errors.push(error);
-        }
-      }
-    });
-
-    if (errors.length === 0) {
+    const response = schemaInfo.schema.safeParse(formInfo);
+    if (response.success) {
       onValidSubmit(formInfo);
     } else {
-      onInvalidSubmit(formInfo, errors);
+      onInvalidSubmit(formInfo, response.error);
     }
   };
 
@@ -101,11 +73,11 @@ export function FormFactory(schema: SchemaItem) {
     onInvalidSubmit,
     buttonContent,
   }: {
-    onValidSubmit: OnValidSubmitFn;
-    onInvalidSubmit: OnInvalidSubmitFn;
+    onValidSubmit: OnValidSubmitFn<schemaT>;
+    onInvalidSubmit: OnInvalidSubmitFn<schemaT>;
     buttonContent?: string;
   }) {
-    const [formInfo, setFormInfo] = useState<FormInfo>({});
+    const [formInfo, setFormInfo] = useState<schemaT>({} as schemaT);
 
     const handleChange = (
       event: ChangeEvent<HTMLInputElement>,
@@ -120,9 +92,9 @@ export function FormFactory(schema: SchemaItem) {
           handleSubmit(event, formInfo, onValidSubmit, onInvalidSubmit)
         }
       >
-        {schema.map((item) => {
-          const { fieldName, required, label, ...attributes } = item;
-          delete attributes.customValidation;
+      {schemaInfo.fields}
+        {schemaInfo.fields.map((item) => {
+          const { fieldName, required, label, ...attributes } = schemaInfo.fields;
 
           return (
             <div key={fieldName}>
