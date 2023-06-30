@@ -30,8 +30,9 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={(formInfo, error) => {
+              onInvalidSubmit={(error) => {
                 // eslint-disable-next-line no-alert
+                // error.issues.map((error) => alert(error.message)); // pode-se personalizar a msg de erro no schema
                 alert(error);
               }}
               buttonContent="Registrar"
@@ -58,6 +59,7 @@ export function FormFactoryExample() {
               }}
               onInvalidSubmit={(error) => {
                 // eslint-disable-next-line no-alert
+                // error.issues.map((error) => alert(error.message)); // pode-se personalizar a msg de erro no schema
                 alert(error);
               }}
               buttonContent="Entrar"

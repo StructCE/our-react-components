@@ -50,10 +50,7 @@ import { type ZodError, type ZodType, type z } from "zod";
 
 type OnValidSubmitFn<SchemaType> = (formInfo: SchemaType) => void;
 
-type OnInvalidSubmitFn<SchemaType> = (
-  formInfo: SchemaType,
-  error: ZodError
-) => void;
+type OnInvalidSubmitFn = (error: ZodError) => void;
 
 export type FormFactoryInfo<SchemaType extends ZodType> = {
   schema: SchemaType;
@@ -76,7 +73,7 @@ export function FormFactory<SchemaType extends ZodType>(
     event: FormEvent<HTMLFormElement>,
     formInfo: z.infer<SchemaType>,
     onValidSubmit: OnValidSubmitFn<SchemaType>,
-    onInvalidSubmit: OnInvalidSubmitFn<SchemaType>
+    onInvalidSubmit: OnInvalidSubmitFn
   ) => {
     event.preventDefault();
 
@@ -84,7 +81,7 @@ export function FormFactory<SchemaType extends ZodType>(
     if (response.success) {
       onValidSubmit(formInfo);
     } else {
-      onInvalidSubmit(formInfo, response.error);
+      onInvalidSubmit(response.error);
     }
   };
 
@@ -94,18 +91,18 @@ export function FormFactory<SchemaType extends ZodType>(
     buttonContent,
   }: {
     onValidSubmit: OnValidSubmitFn<SchemaType>;
-    onInvalidSubmit: OnInvalidSubmitFn<SchemaType>;
+    onInvalidSubmit: OnInvalidSubmitFn;
     buttonContent?: string;
   }) {
-    const [formInfo, setFormInfo] = useState<z.infer<SchemaType>>(
+    const [formInfo, setFormInfo] = useState<SchemaType>(
       {} as z.infer<SchemaType>
     );
 
     const handleChange = (
       event: ChangeEvent<HTMLInputElement>,
-      fieldName: string
+      key: string
     ) => {
-      setFormInfo({ ...formInfo, [fieldName]: event.target.value });
+      setFormInfo({ ...formInfo, [key]: event.target.value });
     };
 
     return (
@@ -116,10 +113,9 @@ export function FormFactory<SchemaType extends ZodType>(
       >
         {Object.entries(schemaInfo.fields).map(([key, fieldInfo]) => {
           const { label, required, inputAtrr } = fieldInfo;
-
           return (
             <div key={key}>
-              {label && <label htmlFor={key}>{label}</label>}
+              {label && <label htmlFor={label}>{label}</label>}
               <input
                 id={key}
                 required={required}
