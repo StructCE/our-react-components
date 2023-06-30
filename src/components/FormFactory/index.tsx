@@ -12,8 +12,8 @@
 //          .refine((schema) => schema.password === schema.passwordConfirmation, {
 //            message: "As senhas estão diferentes",
 //          });
-// 
-// 
+//
+//
 //        const SchemaInfo: FormFactoryInfo<typeof Schema> = {
 //          schema: Schema,
 //          fields: {
@@ -40,8 +40,13 @@
 //        onInvalidSubmit={ function ({ formInfo, errors }) }
 //      />
 
-import { useState, type ChangeEvent, type FormEvent, HTMLAttributes  } from "react";
-import { ZodError, ZodType, z } from "zod";
+import {
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+  type HTMLProps,
+} from "react";
+import { type ZodError, type ZodType, type z } from "zod";
 
 type OnValidSubmitFn<SchemaType> = (formInfo: SchemaType) => void;
 
@@ -50,20 +55,23 @@ type OnInvalidSubmitFn<SchemaType> = (
   error: ZodError
 ) => void;
 
-export type FormFactoryInfo<SchemaType extends ZodType<any, any, any>> = {
+export type FormFactoryInfo<SchemaType extends ZodType> = {
   schema: SchemaType;
   fields: FieldsInfo<z.infer<SchemaType>>;
 };
 
-type FieldsInfo<SchemaType> = { // rever se apenas label existe
+type FieldsInfo<SchemaType> = {
+  // rever se apenas label existe
   [key in keyof SchemaType]: {
-    label: string
-    required: boolean
-    inputAtrr?: HTMLAttributes<HTMLInputElement>
-  }
+    label: string;
+    required: boolean;
+    inputAtrr?: HTMLProps<HTMLInputElement>;
+  };
 };
 
-export function FormFactory<SchemaType extends ZodType>(schemaInfo: FormFactoryInfo<SchemaType>) {
+export function FormFactory<SchemaType extends ZodType>(
+  schemaInfo: FormFactoryInfo<SchemaType>
+) {
   const handleSubmit = (
     event: FormEvent<HTMLFormElement>,
     formInfo: z.infer<SchemaType>,
@@ -89,7 +97,9 @@ export function FormFactory<SchemaType extends ZodType>(schemaInfo: FormFactoryI
     onInvalidSubmit: OnInvalidSubmitFn<SchemaType>;
     buttonContent?: string;
   }) {
-    const [formInfo, setFormInfo] = useState<z.infer<SchemaType>>({} as z.infer<SchemaType>);
+    const [formInfo, setFormInfo] = useState<z.infer<SchemaType>>(
+      {} as z.infer<SchemaType>
+    );
 
     const handleChange = (
       event: ChangeEvent<HTMLInputElement>,
@@ -104,39 +114,22 @@ export function FormFactory<SchemaType extends ZodType>(schemaInfo: FormFactoryI
           handleSubmit(event, formInfo, onValidSubmit, onInvalidSubmit)
         }
       >
-      {Object.entries(schemaInfo.fields).map(([key, fieldInfo]) => {
-        const { label, required, ...atributes} = fieldInfo
+        {Object.entries(schemaInfo.fields).map(([key, fieldInfo]) => {
+          const { label, required, inputAtrr } = fieldInfo;
 
-        return (
-          <div key={key}>
+          return (
+            <div key={key}>
               {label && <label htmlFor={key}>{label}</label>}
               <input
                 id={key}
                 required={required}
                 value={formInfo[key] || ""}
                 onChange={(event) => handleChange(event, key)}
-                {...atributes}
-              />
-            </div>
-        )
-        })
-      }
-        {/* {schemaInfo.fields.map((item) => {
-          const { fieldName, required, label, ...attributes } = schemaInfo.fields;
-
-          return (
-            <div key={fieldName}>
-              {label && <label htmlFor={fieldName}>{label}</label>}
-              <input
-                id={fieldName}
-                required={required}
-                value={formInfo[fieldName] || ""}
-                onChange={(event) => handleChange(event, fieldName)}
-                {...attributes}
+                {...inputAtrr}
               />
             </div>
           );
-        })} */}
+        })}
         <button type="submit">{buttonContent || "Enviar"}</button>
       </form>
     );

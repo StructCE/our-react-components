@@ -1,12 +1,11 @@
 import { useState } from "react";
+import { type registerSchema } from "./forms";
+import { type z } from "zod";
 
-type current_user = {
-  email: string;
-  password: string;
-};
+type current_user = z.infer<typeof registerSchema>;
 
 export function useApiSimulator() {
-  const [users, setUsers] = useState<[]>([]);
+  const [users, setUsers] = useState<current_user[]>([] as current_user[]);
   const api = {
     post: (route: string, data: current_user) =>
       new Promise((resolve, reject) => {

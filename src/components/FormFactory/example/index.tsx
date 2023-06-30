@@ -22,7 +22,7 @@ export function FormFactoryExample() {
           <h1>Registre-se</h1>
           <FormStyled>
             <RegisterForm
-              onValidSubmit={({ formInfo }) => {
+              onValidSubmit={(formInfo) => {
                 api
                   .post("/users/create", { user: formInfo })
                   // eslint-disable-next-line no-alert
@@ -30,9 +30,9 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={({ errors }: { errors: string[] }) => {
+              onInvalidSubmit={(formInfo, error) => {
                 // eslint-disable-next-line no-alert
-                errors.map((error: string) => alert(error));
+                alert(error);
               }}
               buttonContent="Registrar"
             />
@@ -48,7 +48,7 @@ export function FormFactoryExample() {
           <h1>Entrar</h1>
           <FormStyled>
             <LoginForm
-              onValidSubmit={({ formInfo }) => {
+              onValidSubmit={(formInfo) => {
                 api
                   .get("/users/login", { user: formInfo })
                   // eslint-disable-next-line no-alert
@@ -56,9 +56,9 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={({ errors }: { errors: string[] }) => {
+              onInvalidSubmit={(error) => {
                 // eslint-disable-next-line no-alert
-                errors.map((error: string) => alert(error));
+                alert(error);
               }}
               buttonContent="Entrar"
             />

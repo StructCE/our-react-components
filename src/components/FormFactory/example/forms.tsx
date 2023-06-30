@@ -1,66 +1,68 @@
-import { FormFactory } from "..";
+import { z } from "zod";
+import { FormFactory, type FormFactoryInfo } from "..";
 
-type FormField = {
-  fieldName: string;
-  placeholder: string;
-  required: boolean;
-  type: string;
-  customValidation?: ({ formInfo }: { formInfo: Record<string, string> }) => {
-    valid?: boolean;
-    error?: string;
-  };
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+export const registerSchema = loginSchema
+  .extend({
+    name: z.string().min(3).max(15),
+    age: z.number().optional(),
+    passwordConfirmation: z.string().min(6),
+  })
+  .refine((schema) => schema.password === schema.passwordConfirmation, {
+    message: "As senhas estão diferentes",
+  });
+
+const loginSchemaInfo: FormFactoryInfo<typeof loginSchema> = {
+  schema: loginSchema,
+  fields: {
+    email: {
+      label: "email",
+      required: true,
+      inputAtrr: { type: "email" },
+    },
+    password: {
+      label: "password",
+      required: true,
+      inputAtrr: { type: "password" },
+    },
+  },
 };
 
-const registerSchema: FormField[] = [
-  {
-    fieldName: "name",
-    placeholder: "name",
-    type: "text", // input type, could be image, etc
-    required: true,
-  },
-  {
-    fieldName: "email",
-    placeholder: "email",
-    type: "email",
-    required: true,
-  },
-  {
-    fieldName: "age",
-    placeholder: "age",
-    type: "number",
-    required: false,
-  },
-  {
-    fieldName: "password",
-    placeholder: "password",
-    type: "password",
-    required: true,
-    customValidation: ({ formInfo }) => {
-      // eslint-disable-next-line no-console
-      if (formInfo.password?.length && formInfo.password?.length > 5) {
-        return { valid: true };
-      }
-      return { error: "a senha deve possuir mais de 5 caracteres" };
+const registerSchemaInfo: FormFactoryInfo<typeof registerSchema> = {
+  schema: registerSchema,
+  fields: {
+    name: {
+      label: "name",
+      required: true,
+      inputAtrr: { type: "text" },
+    },
+    email: {
+      label: "email",
+      required: true,
+      inputAtrr: { type: "email" },
+    },
+    age: {
+      label: "age",
+      required: false,
+      inputAtrr: { type: "number" },
+    },
+    password: {
+      label: "password",
+      required: true,
+      inputAtrr: { type: "password" },
+    },
+    passwordConfirmation: {
+      label: "repeat password",
+      required: true,
+      inputAtrr: { type: "password" },
     },
   },
-  {
-    fieldName: "passwordConfirmation",
-    placeholder: "repeat password",
-    type: "password",
-    required: true,
-    customValidation: ({ formInfo }) => {
-      if (formInfo.password === formInfo.passwordConfirmation) {
-        return { valid: true };
-      }
-      return { error: "por favor, repita a senha corretamente" };
-    },
-  },
-];
+};
 
-const loginSchema = registerSchema.filter((field) =>
-  ["email", "password"].includes(field.fieldName)
-);
-
-const RegisterForm = FormFactory(registerSchema);
-const LoginForm = FormFactory(loginSchema);
+const RegisterForm = FormFactory(registerSchemaInfo);
+const LoginForm = FormFactory(loginSchemaInfo);
 export { RegisterForm, LoginForm };
