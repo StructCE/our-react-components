@@ -22,9 +22,9 @@ export function FormFactoryExample() {
           <h1>Registre-se</h1>
           <FormStyled>
             <RegisterForm
-              onValidSubmit={(formInfo) => {
+              onValidSubmit={(user) => {
                 api
-                  .post("/users/create", { user: formInfo })
+                  .post("/users/create", user)
                   // eslint-disable-next-line no-alert
                   .then(() => alert("registrado com sucesso"))
                   // eslint-disable-next-line no-alert
@@ -49,9 +49,9 @@ export function FormFactoryExample() {
           <h1>Entrar</h1>
           <FormStyled>
             <LoginForm
-              onValidSubmit={(formInfo) => {
+              onValidSubmit={(user) => {
                 api
-                  .get("/users/login", { user: formInfo })
+                  .get("/users/login", user)
                   // eslint-disable-next-line no-alert
                   .then(() => alert("logado com sucesso"))
                   // eslint-disable-next-line no-alert

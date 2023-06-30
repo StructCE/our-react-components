@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { type registerSchema } from "./forms";
+import { registerSchema } from "./forms";
 import { type z } from "zod";
 
-type current_user = z.infer<typeof registerSchema>;
+type current_user = z.output<typeof registerSchema>;
 
 export function useApiSimulator() {
   const [users, setUsers] = useState<current_user[]>([] as current_user[]);
   const api = {
-    post: (route: string, data: current_user) =>
+    post: (route: string, data: unknown) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
           if (route === "/users/create") {
-            const user: current_user = data;
+            const user = registerSchema.parse(data);
             if (users.find((u: current_user) => u.email === user.email)) {
               reject(new Error("Este email já está cadastrado"));
             } else {
@@ -24,11 +24,11 @@ export function useApiSimulator() {
         }, 1000);
       }),
 
-    get: (route: string, data: current_user) =>
+    get: (route: string, data: unknown) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
           if (route === "/users/login") {
-            const user: current_user = data;
+            const user = registerSchema.parse(data);
             if (
               users.find(
                 (u: current_user) =>

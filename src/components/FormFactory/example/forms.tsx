@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { FormFactory, type FormFactoryInfo } from "..";
 
-const loginSchema = z.object({
+export const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
@@ -21,12 +21,12 @@ const loginSchemaInfo: FormFactoryInfo<typeof loginSchema> = {
   fields: {
     email: {
       label: "email",
-      required: true,
+      defaultValue: "batata",
       inputAtrr: { type: "email" },
     },
     password: {
       label: "password",
-      required: true,
+      defaultValue: "batata",
       inputAtrr: { type: "password" },
     },
   },
@@ -37,27 +37,27 @@ const registerSchemaInfo: FormFactoryInfo<typeof registerSchema> = {
   fields: {
     name: {
       label: "name",
-      required: true,
+      defaultValue: "batata",
       inputAtrr: { type: "text" },
     },
     email: {
       label: "email",
-      required: true,
+      defaultValue: "batata",
       inputAtrr: { type: "email" },
     },
     age: {
       label: "age",
-      required: false,
+      defaultValue: 0,
       inputAtrr: { type: "number" },
     },
     password: {
       label: "password",
-      required: true,
+      defaultValue: "",
       inputAtrr: { type: "password" },
     },
     passwordConfirmation: {
       label: "repeat password",
-      required: true,
+      defaultValue: "",
       inputAtrr: { type: "password" },
     },
   },

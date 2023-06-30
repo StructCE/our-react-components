@@ -48,20 +48,21 @@ import {
 } from "react";
 import { type ZodError, type ZodType, type z } from "zod";
 
-type OnValidSubmitFn<SchemaType> = (formInfo: SchemaType) => void;
+type OnValidSubmitFn<SchemaType extends ZodType> = (
+  formInfo: z.output<SchemaType>
+) => void;
 
 type OnInvalidSubmitFn = (error: ZodError) => void;
 
 export type FormFactoryInfo<SchemaType extends ZodType> = {
   schema: SchemaType;
-  fields: FieldsInfo<z.infer<SchemaType>>;
+  fields: FieldsInfo<SchemaType>;
 };
 
-type FieldsInfo<SchemaType> = {
-  // rever se apenas label existe
-  [key in keyof SchemaType]: {
+type FieldsInfo<SchemaType extends ZodType> = {
+  [key in keyof z.output<SchemaType>]: {
     label: string;
-    required: boolean;
+    defaultValue: z.output<SchemaType>[key];
     inputAtrr?: HTMLProps<HTMLInputElement>;
   };
 };
@@ -71,7 +72,7 @@ export function FormFactory<SchemaType extends ZodType>(
 ) {
   const handleSubmit = (
     event: FormEvent<HTMLFormElement>,
-    formInfo: z.infer<SchemaType>,
+    formInfo: z.output<SchemaType>,
     onValidSubmit: OnValidSubmitFn<SchemaType>,
     onInvalidSubmit: OnInvalidSubmitFn
   ) => {
@@ -94,13 +95,20 @@ export function FormFactory<SchemaType extends ZodType>(
     onInvalidSubmit: OnInvalidSubmitFn;
     buttonContent?: string;
   }) {
-    const [formInfo, setFormInfo] = useState<SchemaType>(
-      {} as z.infer<SchemaType>
+    const defaultFormInfo = Object.entries(schemaInfo.fields).reduce(
+      (acc, [key, fieldInfo]) => ({
+        ...acc,
+        [key as keyof z.output<SchemaType>]: fieldInfo.defaultValue,
+      }),
+      {}
     );
+
+    const [formInfo, setFormInfo] =
+      useState<z.output<SchemaType>>(defaultFormInfo);
 
     const handleChange = (
       event: ChangeEvent<HTMLInputElement>,
-      key: string
+      key: keyof z.output<SchemaType>
     ) => {
       setFormInfo({ ...formInfo, [key]: event.target.value });
     };
@@ -112,14 +120,13 @@ export function FormFactory<SchemaType extends ZodType>(
         }
       >
         {Object.entries(schemaInfo.fields).map(([key, fieldInfo]) => {
-          const { label, required, inputAtrr } = fieldInfo;
+          const { label, inputAtrr } = fieldInfo;
           return (
             <div key={key}>
-              {label && <label htmlFor={label}>{label}</label>}
+              {label && <label htmlFor={key}>{label}</label>}
               <input
                 id={key}
-                required={required}
-                value={formInfo[key] || ""}
+                value={formInfo[key as keyof z.output<SchemaType>]}
                 onChange={(event) => handleChange(event, key)}
                 {...inputAtrr}
               />
