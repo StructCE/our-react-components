@@ -2,19 +2,37 @@
 //  -> construa um schema para a FormFactory. Será um array de objetos, onde cada
 //  objeto será um label + input do form. Lembre-se que o formInfo são os dados
 //  do form construídos dentro da própria FormFactory:
-//    const schema = {
-//      {
-//        fieldName,
-//        required,
-//        label,
-//        placeholder,
-//        customValidation: function ({ formInfo }),
-//        ...attributes,
-//      },
-//      {...}
-//    }
+//      ->Lugar para passar suas validações:
+//        const Schema = z
+//          .object({
+//            username: z.string().min(3).max(15),
+//            password: z.string().min(6),
+//            passwordConfirmation: z.string().min(6),
+//          })
+//          .refine((schema) => schema.password === schema.passwordConfirmation, {
+//            message: "As senhas estão diferentes",
+//          });
+// 
+// 
+//        const SchemaInfo: FormFactoryInfo<typeof Schema> = {
+//          schema: Schema,
+//          fields: {
+//            username: {
+//              label: "Nome de usuário",
+//              required: true
+//            },
+//            password: {
+//              label: "Senha",
+//              required: true
+//            },
+//            passwordConfirmation: {
+//              label: "ava",
+//              required: true
+//            },
+//          },
+//        };
 //  -> chame a função FormFactory, passando como argumento o schema:
-//      const SeuForm = FormFactory(schema)
+//      const SeuForm = FormFactory(SchemaInfo)
 //  -> agora basta chamar o componente SeuForm na sua página:
 //      <SeuForm
 //        buttonContent=""
@@ -23,40 +41,34 @@
 //      />
 
 import { useState, type ChangeEvent, type FormEvent, HTMLAttributes  } from "react";
-import { ZodError, ZodObject, ZodType, z } from "zod";
+import { ZodError, ZodType, z } from "zod";
 
-const Schema = z.object({
-  fieldName: z.string(),
-  required: z.boolean(),
-  label: z.string().optional(),
-  key: z.string(),
-})
+type OnValidSubmitFn<SchemaType> = (formInfo: SchemaType) => void;
 
-type OnValidSubmitFn<schemaT> = (formInfo: schemaT) => void;
-
-type OnInvalidSubmitFn<schemaT> = (
-  formInfo: schemaT,
+type OnInvalidSubmitFn<SchemaType> = (
+  formInfo: SchemaType,
   error: ZodError
 ) => void;
 
-type FormFactoryInfo<SchemaType extends ZodType<any, any, any>> = {
+export type FormFactoryInfo<SchemaType extends ZodType<any, any, any>> = {
   schema: SchemaType;
   fields: FieldsInfo<z.infer<SchemaType>>;
-}
+};
 
-type FieldsInfo<SchemaType> = { // rever se apenas label e Atrr existe
+type FieldsInfo<SchemaType> = { // rever se apenas label existe
   [key in keyof SchemaType]: {
-    label: string;
-    inputAtrr?: HTMLAttributes<HTMLInputElement>;
+    label: string
+    required: boolean
+    inputAtrr?: HTMLAttributes<HTMLInputElement>
   }
 };
 
-export function FormFactory<schemaT extends ZodType>(schemaInfo: FormFactoryInfo<schemaT>) {
+export function FormFactory<SchemaType extends ZodType>(schemaInfo: FormFactoryInfo<SchemaType>) {
   const handleSubmit = (
     event: FormEvent<HTMLFormElement>,
-    formInfo: z.infer<schemaT>,
-    onValidSubmit: OnValidSubmitFn<schemaT>,
-    onInvalidSubmit: OnInvalidSubmitFn<schemaT>
+    formInfo: z.infer<SchemaType>,
+    onValidSubmit: OnValidSubmitFn<SchemaType>,
+    onInvalidSubmit: OnInvalidSubmitFn<SchemaType>
   ) => {
     event.preventDefault();
 
@@ -73,11 +85,11 @@ export function FormFactory<schemaT extends ZodType>(schemaInfo: FormFactoryInfo
     onInvalidSubmit,
     buttonContent,
   }: {
-    onValidSubmit: OnValidSubmitFn<schemaT>;
-    onInvalidSubmit: OnInvalidSubmitFn<schemaT>;
+    onValidSubmit: OnValidSubmitFn<SchemaType>;
+    onInvalidSubmit: OnInvalidSubmitFn<SchemaType>;
     buttonContent?: string;
   }) {
-    const [formInfo, setFormInfo] = useState<schemaT>({} as schemaT);
+    const [formInfo, setFormInfo] = useState<z.infer<SchemaType>>({} as z.infer<SchemaType>);
 
     const handleChange = (
       event: ChangeEvent<HTMLInputElement>,
@@ -92,8 +104,24 @@ export function FormFactory<schemaT extends ZodType>(schemaInfo: FormFactoryInfo
           handleSubmit(event, formInfo, onValidSubmit, onInvalidSubmit)
         }
       >
-      {schemaInfo.fields}
-        {schemaInfo.fields.map((item) => {
+      {Object.entries(schemaInfo.fields).map(([key, fieldInfo]) => {
+        const { label, required, ...atributes} = fieldInfo
+
+        return (
+          <div key={key}>
+              {label && <label htmlFor={key}>{label}</label>}
+              <input
+                id={key}
+                required={required}
+                value={formInfo[key] || ""}
+                onChange={(event) => handleChange(event, key)}
+                {...atributes}
+              />
+            </div>
+        )
+        })
+      }
+        {/* {schemaInfo.fields.map((item) => {
           const { fieldName, required, label, ...attributes } = schemaInfo.fields;
 
           return (
@@ -108,7 +136,7 @@ export function FormFactory<schemaT extends ZodType>(schemaInfo: FormFactoryInfo
               />
             </div>
           );
-        })}
+        })} */}
         <button type="submit">{buttonContent || "Enviar"}</button>
       </form>
     );
