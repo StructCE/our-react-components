@@ -1,8 +1,8 @@
 // Forma de uso:
-//  -> construa um schema para a FormFactory. Será um array de objetos, onde cada
-//  objeto será um label + input do form. Lembre-se que o formInfo são os dados
-//  do form construídos dentro da própria FormFactory:
+//  -> primeiro faça um ZodObject que vai gerenciar as validações:
+//    -> a partir desse tópico há várias formas de validações: https://zod.dev/?id=strings
 //      ->Lugar para passar suas validações:
+//
 //        const Schema = z
 //          .object({
 //            username: z.string().min(3).max(15),
@@ -13,32 +13,48 @@
 //            message: "As senhas estão diferentes",
 //          });
 //
+//  -> depois, crie um objecto do tipo FormFactoryInfo que recebe o Schema acima e passa pro parametro schema. No parâmetro
+//      fields, passe um objeto em que cada chave foi declarada no Schema acima. Nos valores temos:
+//        *label -> string
+//        *defaultValue -> mesmo tipo declarado no Schema acima
+//        *inputAtrr -> um objeto com quaisqueres parâmetros de da tag input e seus reespectivos valores
+//
 //
 //        const SchemaInfo: FormFactoryInfo<typeof Schema> = {
 //          schema: Schema,
 //          fields: {
-//            username: {
-//              label: "Nome de usuário",
-//              required: true
+//            name: {
+//              label: "name",
+//              defaultValue: "seu nome",
 //            },
-//            password: {
-//              label: "Senha",
-//              required: true
+//            email: {
+//              label: "email",
+//              defaultValue: "email.com",
+//              inputAtrr: { type: "email", required: true },
 //            },
-//            passwordConfirmation: {
-//              label: "ava",
-//              required: true
+//            age: {
+//              label: "age",
+//              defaultValue: 0,
+//              inputAtrr: { type: "number" },
 //            },
-//          },
-//        };
+//          };
 //  -> chame a função FormFactory, passando como argumento o schema:
 //      const SeuForm = FormFactory(SchemaInfo)
 //  -> agora basta chamar o componente SeuForm na sua página:
-//      <SeuForm
-//        buttonContent=""
-//        onValidSubmit={ function ({ formInfo }) }
-//        onInvalidSubmit={ function ({ formInfo, errors }) }
-//      />
+{/*     
+        <SeuForm
+          onValidSubmit={(data) => {
+            api
+              .post("/", data)
+              .then(() => alert("sucesso"))
+              .catch((e) => alert(e));
+          }}
+          onInvalidSubmit={(error) => {
+            alert(error);
+          }}
+          buttonContent="Enviar"
+        /> 
+*/}
 
 import {
   useState,
