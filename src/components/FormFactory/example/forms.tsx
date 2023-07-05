@@ -22,12 +22,12 @@ const loginSchemaInfo: FormFactoryInfo<typeof loginSchema> = {
     email: {
       label: "email",
       defaultValue: "batata",
-      inputAtrr: { type: "email" },
+      inputAtrr: { type: "email", required: true },
     },
     password: {
       label: "password",
       defaultValue: "batata",
-      inputAtrr: { type: "password" },
+      inputAtrr: { type: "password", required: true },
     },
   },
 };
@@ -43,7 +43,7 @@ const registerSchemaInfo: FormFactoryInfo<typeof registerSchema> = {
     email: {
       label: "email",
       defaultValue: "batata",
-      inputAtrr: { type: "email" },
+      inputAtrr: { type: "email", required: true },
     },
     age: {
       label: "age",
@@ -53,12 +53,12 @@ const registerSchemaInfo: FormFactoryInfo<typeof registerSchema> = {
     password: {
       label: "password",
       defaultValue: "",
-      inputAtrr: { type: "password" },
+      inputAtrr: { type: "password", required: true },
     },
     passwordConfirmation: {
       label: "repeat password",
       defaultValue: "",
-      inputAtrr: { type: "password" },
+      inputAtrr: { type: "password", required: true },
     },
   },
 };
