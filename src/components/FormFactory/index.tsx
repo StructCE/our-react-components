@@ -41,7 +41,8 @@
 //  -> chame a função FormFactory, passando como argumento o schema:
 //      const SeuForm = FormFactory(SchemaInfo)
 //  -> agora basta chamar o componente SeuForm na sua página:
-{/*     
+{
+  /*     
         <SeuForm
           onValidSubmit={(data) => {
             api
@@ -54,7 +55,8 @@
           }}
           buttonContent="Enviar"
         /> 
-*/}
+*/
+}
 
 import {
   useState,
@@ -112,9 +114,14 @@ export function FormFactory<SchemaType extends ZodType>(
     buttonContent?: string;
   }) {
     const defaultFormInfo = Object.entries(schemaInfo.fields).reduce(
-      (acc, [key, fieldInfo]) => ({
+      (
+        acc,
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
+        [key, fieldInfo]: [keyof z.output<typeof schemaInfo.schema>, any]
+      ) => ({
         ...acc,
-        [key as keyof z.output<SchemaType>]: fieldInfo.defaultValue,
+        //eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        [key]: fieldInfo.defaultValue, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
       }),
       {}
     );
@@ -136,7 +143,8 @@ export function FormFactory<SchemaType extends ZodType>(
         }
       >
         {Object.entries(schemaInfo.fields).map(([key, fieldInfo]) => {
-          const { label, inputAtrr } = fieldInfo;
+          const { label, inputAtrr } =
+            fieldInfo as (typeof schemaInfo.fields)[typeof key];
           return (
             <div key={key}>
               {label && <label htmlFor={key}>{label}</label>}

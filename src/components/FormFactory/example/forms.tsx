@@ -7,7 +7,8 @@ export const loginSchema = z.object({
 });
 
 export const registerSchema = loginSchema
-  .extend({ // extend gera um novo objeto com os valores antigos(nesse caso: email, password) e os novos abaixo
+  .extend({
+    // extend gera um novo objeto com os valores antigos(nesse caso: email, password) e os novos abaixo
     name: z.string().min(3).max(15),
     age: z.number().optional(),
     passwordConfirmation: z.string().min(6),
