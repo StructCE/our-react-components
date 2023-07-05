@@ -1,7 +1,7 @@
-import { DropdownMenuDemo } from "./components/ui/Dropdawn/dropdown-menu-exemple";
+import { DropdownMenuExample } from "./components/DropdownMenu/example";
 
 function App() {
-  return <DropdownMenuDemo />;
+  return <DropdownMenuExample />;
 }
 
 export default App;
