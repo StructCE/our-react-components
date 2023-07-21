@@ -1,4 +1,4 @@
-export const Users = [
+export const users = [
   {
     id: 1,
     nome: "Artur",
@@ -37,7 +37,7 @@ export const Users = [
   },
 ];
 
-export const Media = [
+export const medias = [
   {
     id: 1,
     nome: "Mieruko Chan",

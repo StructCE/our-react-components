@@ -1,19 +1,16 @@
-import React, { useState } from "react";
-import { Users } from "../data";
+import React from "react";
+import { users } from "../data";
 
-type Props = {
-  nome: string;
-  sobrenome: string;
-  diretoria: string;
-  id: number;
-};
+type Users = (typeof users)[number];
 
-export function FilterBySearch() {
-  const [query, setQuery] = useState("");
+interface Props {
+  query: string;
+}
 
-  const search = (data: Props[]): Props[] => {
+export function FilterBySearch({ query }: Props) {
+  const search = (data: Users[]) => {
     return data.filter(
-      (item: Props) =>
+      (item) =>
         item.nome.toLowerCase().includes(query.toLowerCase()) ||
         item.sobrenome.toLowerCase().includes(query.toLowerCase()) ||
         item.diretoria.toLowerCase().includes(query.toLowerCase())
@@ -22,30 +19,13 @@ export function FilterBySearch() {
 
   return (
     <>
-      <input
-        className="m-auto mt-11 flex text-center"
-        placeholder="Busca"
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <br />
-      <table className="flex flex-col items-center m-auto">
-        <thead className="w-[80%]">
-          <tr className="flex text-[30px]">
-            <th className="flex flex-1">Nome</th>
-            <th className="flex flex-1">Sobrenome</th>
-            <th className="flex flex-1">Diretoria</th>
-          </tr>
-        </thead>
-        <tbody className="w-[80%]">
-          {search(Users).map((item) => (
-            <tr className="flex text-[20px]" key={item.id}>
-              <td className="flex-1">{item.nome}</td>
-              <td className="flex-1">{item.sobrenome}</td>
-              <td className="flex-1">{item.diretoria}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {search(users).map((item) => (
+        <div className="flex ml-[350px]" key={item.id}>
+          <p className="flex-1">{item.nome}</p>
+          <p className="flex-1">{item.sobrenome}</p>
+          <p className="flex-1">{item.diretoria}</p>
+        </div>
+      ))}
     </>
   );
 }
