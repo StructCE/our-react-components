@@ -1,7 +1,7 @@
-import { TableExample2 } from "./components/Table/example2/index";
+import { DropdownMenuExample } from "./components/DropdownMenu/example";
 
 function App() {
-  return <TableExample2 />;
+  return <DropdownMenuExample />;
 }
 
 export default App;

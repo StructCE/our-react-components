@@ -3,25 +3,13 @@
 // botões de navegação encontrados na parte inferior.
 
 import React from "react";
-import styled from "styled-components";
 import { Carousel } from "..";
 import { images } from "./images";
 
-const PageLayout = styled.section`
-  height: 100vh;
-  width: 100%;
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 export function CarouselExample() {
   return (
-    <PageLayout>
+    <section className="h-screen w-full relative flex flex-col justify-center items-center">
       <Carousel images={images} />
-    </PageLayout>
+    </section>
   );
 }
