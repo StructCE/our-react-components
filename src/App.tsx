@@ -1,7 +1,7 @@
-import { DropdownMenuExample } from "./components/DropdownMenu/example";
+import { FormFactoryExample } from "./components/FormFactory/example";
 
 function App() {
-  return <DropdownMenuExample />;
+  return <FormFactoryExample />;
 }
 
 export default App;

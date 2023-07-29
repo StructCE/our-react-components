@@ -4,7 +4,6 @@
 // obs.: a lista de usuários reseta ao reiniciar a página
 
 import { useState } from "react";
-import { FormStyled, PageLayout } from "./styles";
 import { RegisterForm, LoginForm } from "./forms";
 import { useApiSimulator } from "./utils";
 
@@ -16,58 +15,64 @@ export function FormFactoryExample() {
   const [isRegistering, setIsRegistering] = useState(true);
 
   return (
-    <PageLayout>
+    <div className="min-h-screen w-full flex flex-col items-center pt-10 bg-zinc-800 text-white">
       {isRegistering && (
-        <section>
-          <h1>Registre-se</h1>
-          <FormStyled>
+        <section className="w-max flex flex-col">
+          <h1 className="text-3xl px-4 py-2">Registre-se</h1>
+          <div className="w-max">
             <RegisterForm
-              onValidSubmit={({ formInfo }) => {
+              onValidSubmit={(user) => {
                 api
-                  .post("/users/create", { user: formInfo })
+                  .post("/users/create", user)
                   // eslint-disable-next-line no-alert
                   .then(() => alert("registrado com sucesso"))
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={({ errors }) => {
-                // eslint-disable-next-line no-alert
-                errors.map((error) => alert(error));
+              onInvalidSubmit={() => {
+                // opa
               }}
               buttonContent="Registrar"
             />
-          </FormStyled>
-          <button type="button" onClick={() => setIsRegistering(false)}>
+          </div>
+          <button
+            className="text-emerald-500 underline ml-auto"
+            type="button"
+            onClick={() => setIsRegistering(false)}
+          >
             Já tenho registro
           </button>
         </section>
       )}
 
       {!isRegistering && (
-        <section>
-          <h1>Entrar</h1>
-          <FormStyled>
+        <section className="w-max flex flex-col">
+          <h1 className="text-3xl px-4 py-2">Entrar</h1>
+          <div className="w-max">
             <LoginForm
-              onValidSubmit={({ formInfo }) => {
+              onValidSubmit={(user) => {
                 api
-                  .get("/users/login", { user: formInfo })
+                  .get("/users/login", user)
                   // eslint-disable-next-line no-alert
                   .then(() => alert("logado com sucesso"))
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={({ errors }) => {
-                // eslint-disable-next-line no-alert
-                errors.map((error) => alert(error));
+              onInvalidSubmit={() => {
+                // opa
               }}
               buttonContent="Entrar"
             />
-          </FormStyled>
-          <button type="button" onClick={() => setIsRegistering(true)}>
+          </div>
+          <button
+            className="text-emerald-500 underline ml-auto"
+            type="button"
+            onClick={() => setIsRegistering(true)}
+          >
             Ainda não sou registrado
           </button>
         </section>
       )}
-    </PageLayout>
+    </div>
   );
 }
