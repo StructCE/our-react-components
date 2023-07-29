@@ -3,7 +3,7 @@
 //    -> a partir desse tópico há várias formas de validações: https://zod.dev/?id=strings
 //      ->Lugar para passar suas validações:
 //
-//        const Schema = z
+//        const schema = z
 //          .object({
 //            username: z.string().min(3).max(15),
 //            password: z.string().min(6),
@@ -82,28 +82,34 @@ type FieldsInfo<SchemaType extends ZodType> = {
     label: string;
     defaultValue: z.output<SchemaType>[key];
     inputAtrr?: HTMLProps<HTMLInputElement>;
-  };
+  } & (z.output<SchemaType>[key] extends string
+    ? { transform?: (arg: string) => string }
+    : { transform: (arg: string) => z.output<SchemaType>[key] });
 };
 
-export function FormFactory<SchemaType extends ZodType>(
-  schemaInfo: FormFactoryInfo<SchemaType>
-) {
+export function FormFactory<SchemaType extends ZodType>({
+  fields,
+  schema,
+}: FormFactoryInfo<SchemaType>) {
   const handleSubmit = (
     event: FormEvent<HTMLFormElement>,
     formInfo: z.output<SchemaType>,
     onValidSubmit: OnValidSubmitFn<SchemaType>,
-    onInvalidSubmit: OnInvalidSubmitFn
+    onInvalidSubmit: OnInvalidSubmitFn,
+    setErrors: (error: ZodError | null) => void
   ) => {
     event.preventDefault();
 
-    const response = schemaInfo.schema.safeParse(formInfo);
+    const response = schema.safeParse(formInfo);
     if (response.success) {
       onValidSubmit(formInfo);
     } else {
+      setErrors(response.error);
       onInvalidSubmit(response.error);
     }
   };
 
+  // É comum HOC (High Order Components) dar problema com fast refresh/hot reload
   return function FormComponent({
     onValidSubmit,
     onInvalidSubmit,
@@ -113,11 +119,11 @@ export function FormFactory<SchemaType extends ZodType>(
     onInvalidSubmit: OnInvalidSubmitFn;
     buttonContent?: string;
   }) {
-    const defaultFormInfo = Object.entries(schemaInfo.fields).reduce(
+    const defaultFormInfo = Object.entries(fields).reduce(
       (
         acc,
         //eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [key, fieldInfo]: [keyof z.output<typeof schemaInfo.schema>, any]
+        [key, fieldInfo]: [keyof z.output<typeof schema>, any]
       ) => ({
         ...acc,
         //eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -126,6 +132,8 @@ export function FormFactory<SchemaType extends ZodType>(
       {}
     );
 
+    const [errors, setErrors] = useState<ZodError | null>(null);
+
     const [formInfo, setFormInfo] =
       useState<z.output<SchemaType>>(defaultFormInfo);
 
@@ -133,33 +141,67 @@ export function FormFactory<SchemaType extends ZodType>(
       event: ChangeEvent<HTMLInputElement>,
       key: keyof z.output<SchemaType>
     ) => {
-      setFormInfo({ ...formInfo, [key]: event.target.value });
+      const transf = fields[key].transform;
+      setFormInfo({
+        ...formInfo,
+        [key]: transf ? transf(event.target.value) : event.target.value,
+      });
     };
 
     return (
       <form
+        className="bg-zinc-900 text-white p-4 rounded-md"
         onSubmit={(event) =>
-          handleSubmit(event, formInfo, onValidSubmit, onInvalidSubmit)
+          handleSubmit(
+            event,
+            formInfo,
+            onValidSubmit,
+            onInvalidSubmit,
+            setErrors
+          )
         }
       >
-        {Object.entries(schemaInfo.fields).map(([key, fieldInfo]) => {
-          const { label, inputAtrr } =
-            fieldInfo as (typeof schemaInfo.fields)[typeof key];
+        {Object.entries(fields).map(([key, fieldInfo]) => {
+          const { label, inputAtrr } = fieldInfo as (typeof fields)[typeof key];
           return (
-            <div key={key}>
-              {label && <label htmlFor={key}>{label}</label>}
-              <br />
+            <div key={key} className="flex flex-col">
+              <label
+                className="text-opacity-80 text-white pt-4 pb-1"
+                htmlFor={key}
+              >
+                {label}
+              </label>
               <input
+                key={key}
+                className="bg-zinc-800 text-white rounded-sm p-2 focus-visible:outline focus-visible:outline-neutral-300"
                 id={key}
                 value={formInfo[key as keyof z.output<SchemaType>]}
                 onChange={(event) => handleChange(event, key)}
                 {...inputAtrr}
               />
-              a
+              <span className="text-red-400 p-1">
+                {errors?.flatten().fieldErrors[key]?.map((error) => (
+                  <p className="max-w-[25ch]" key={error}>
+                    {error}
+                  </p>
+                ))}
+              </span>
             </div>
           );
         })}
-        <button type="submit">{buttonContent || "Enviar"}</button>
+        <span className="text-red-400 p-1">
+          {errors?.flatten().formErrors?.map((error) => (
+            <p className="max-w-[25ch]" key={error}>
+              {error}
+            </p>
+          ))}
+        </span>
+        <button
+          className="mt-6 w-full bg-zinc-800 p-2 rounded-md"
+          type="submit"
+        >
+          {buttonContent || "Enviar"}
+        </button>
       </form>
     );
   };

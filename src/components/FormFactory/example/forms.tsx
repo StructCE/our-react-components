@@ -1,34 +1,42 @@
 import { z } from "zod";
-import { FormFactory, type FormFactoryInfo } from "..";
+import type { FormFactoryInfo } from "..";
+import { FormFactory } from "..";
 
 export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z.string().email({ message: "Email inválido!" }),
+  password: z
+    .string()
+    .min(6, { message: "Senha deve ter pelo menos 6 caracteres!" }),
 });
 
 export const registerSchema = loginSchema
   .extend({
     // extend gera um novo objeto com os valores antigos(nesse caso: email, password) e os novos abaixo
-    name: z.string().min(3).max(15),
+    name: z
+      .string()
+      .min(2, { message: "Nome deve ter pelo menos 6 caracteres" })
+      .max(15, { message: "Nome deve ter no máximo 15 caracteres!" }),
     age: z.number().optional(),
-    passwordConfirmation: z.string().min(6),
+    passwordConfirmation: z
+      .string()
+      .min(6, { message: "Senha deve ter pelo menos 6 caracteres!" }),
   })
   .refine((schema) => schema.password === schema.passwordConfirmation, {
-    message: "As senhas estão diferentes",
+    message: "A senha e sua confirmação devem ser iguais!",
   });
 
 const loginSchemaInfo: FormFactoryInfo<typeof loginSchema> = {
   schema: loginSchema,
   fields: {
     email: {
-      label: "email",
-      defaultValue: "batata",
-      inputAtrr: { type: "email", required: true },
+      label: "Email *",
+      defaultValue: "",
+      inputAtrr: { type: "email" },
     },
     password: {
-      label: "password",
-      defaultValue: "batata",
-      inputAtrr: { type: "password", required: true },
+      label: "Senha *",
+      defaultValue: "",
+      inputAtrr: { type: "password" },
     },
   },
 };
@@ -37,29 +45,29 @@ const registerSchemaInfo: FormFactoryInfo<typeof registerSchema> = {
   schema: registerSchema,
   fields: {
     name: {
-      label: "name",
-      defaultValue: "batata",
-      inputAtrr: { type: "text" },
+      label: "Nome *",
+      defaultValue: "",
     },
     email: {
-      label: "email",
-      defaultValue: "batata",
-      inputAtrr: { type: "email", required: true },
+      label: "Email *",
+      defaultValue: "",
+      inputAtrr: { type: "email" },
     },
     age: {
-      label: "age",
+      label: "Idade",
       defaultValue: 0,
-      inputAtrr: { type: "number" },
+      transform: Number,
+      inputAtrr: { type: "number", min: 0 },
     },
     password: {
-      label: "password",
+      label: "Senha *",
       defaultValue: "",
-      inputAtrr: { type: "password", required: true },
+      inputAtrr: { type: "password" },
     },
     passwordConfirmation: {
-      label: "repeat password",
+      label: "Repita sua senha *",
       defaultValue: "",
-      inputAtrr: { type: "password", required: true },
+      inputAtrr: { type: "password" },
     },
   },
 };

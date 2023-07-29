@@ -15,10 +15,10 @@ export function FormFactoryExample() {
   const [isRegistering, setIsRegistering] = useState(true);
 
   return (
-    <div className="min-h-screen w-full flex items-center align-center">
+    <div className="min-h-screen w-full flex flex-col items-center pt-10 bg-zinc-800 text-white">
       {isRegistering && (
-        <section className="w-max block">
-          <h1>Registre-se</h1>
+        <section className="w-max flex flex-col">
+          <h1 className="text-3xl px-4 py-2">Registre-se</h1>
           <div className="w-max">
             <RegisterForm
               onValidSubmit={(user) => {
@@ -29,23 +29,25 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={(error) => {
-                // eslint-disable-next-line no-alert
-                // error.issues.map((error) => alert(error.message)); // pode-se personalizar a msg de erro no schema
-                alert(error);
+              onInvalidSubmit={() => {
+                // opa
               }}
               buttonContent="Registrar"
             />
           </div>
-          <button type="button" onClick={() => setIsRegistering(false)}>
+          <button
+            className="text-emerald-500 underline ml-auto"
+            type="button"
+            onClick={() => setIsRegistering(false)}
+          >
             Já tenho registro
           </button>
         </section>
       )}
 
       {!isRegistering && (
-        <section className="w-max block">
-          <h1>Entrar</h1>
+        <section className="w-max flex flex-col">
+          <h1 className="text-3xl px-4 py-2">Entrar</h1>
           <div className="w-max">
             <LoginForm
               onValidSubmit={(user) => {
@@ -56,15 +58,17 @@ export function FormFactoryExample() {
                   // eslint-disable-next-line no-alert
                   .catch((er) => alert(er));
               }}
-              onInvalidSubmit={(error) => {
-                // eslint-disable-next-line no-alert
-                // error.issues.map((error) => alert(error.message)); // pode-se personalizar a msg de erro no schema
-                alert(error);
+              onInvalidSubmit={() => {
+                // opa
               }}
               buttonContent="Entrar"
             />
           </div>
-          <button type="button" onClick={() => setIsRegistering(true)}>
+          <button
+            className="text-emerald-500 underline ml-auto"
+            type="button"
+            onClick={() => setIsRegistering(true)}
+          >
             Ainda não sou registrado
           </button>
         </section>
