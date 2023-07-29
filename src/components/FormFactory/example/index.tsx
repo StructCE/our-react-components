@@ -4,7 +4,6 @@
 // obs.: a lista de usuários reseta ao reiniciar a página
 
 import { useState } from "react";
-import { FormStyled, PageLayout } from "./styles";
 import { RegisterForm, LoginForm } from "./forms";
 import { useApiSimulator } from "./utils";
 
@@ -16,11 +15,11 @@ export function FormFactoryExample() {
   const [isRegistering, setIsRegistering] = useState(true);
 
   return (
-    <PageLayout>
+    <div className="min-h-screen w-full flex items-center align-center">
       {isRegistering && (
-        <section>
+        <section className="w-max block">
           <h1>Registre-se</h1>
-          <FormStyled>
+          <div className="w-max">
             <RegisterForm
               onValidSubmit={(user) => {
                 api
@@ -37,7 +36,7 @@ export function FormFactoryExample() {
               }}
               buttonContent="Registrar"
             />
-          </FormStyled>
+          </div>
           <button type="button" onClick={() => setIsRegistering(false)}>
             Já tenho registro
           </button>
@@ -45,9 +44,9 @@ export function FormFactoryExample() {
       )}
 
       {!isRegistering && (
-        <section>
+        <section className="w-max block">
           <h1>Entrar</h1>
-          <FormStyled>
+          <div className="w-max">
             <LoginForm
               onValidSubmit={(user) => {
                 api
@@ -64,12 +63,12 @@ export function FormFactoryExample() {
               }}
               buttonContent="Entrar"
             />
-          </FormStyled>
+          </div>
           <button type="button" onClick={() => setIsRegistering(true)}>
             Ainda não sou registrado
           </button>
         </section>
       )}
-    </PageLayout>
+    </div>
   );
 }

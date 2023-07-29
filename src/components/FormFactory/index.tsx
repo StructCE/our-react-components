@@ -148,12 +148,14 @@ export function FormFactory<SchemaType extends ZodType>(
           return (
             <div key={key}>
               {label && <label htmlFor={key}>{label}</label>}
+              <br />
               <input
                 id={key}
                 value={formInfo[key as keyof z.output<SchemaType>]}
                 onChange={(event) => handleChange(event, key)}
                 {...inputAtrr}
               />
+              a
             </div>
           );
         })}
