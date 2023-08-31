@@ -4,7 +4,7 @@ O componente Alert permite que você crie facilmente caixas de diálogo de alert
 
 ## Instalação
 
-Lembre-se de instalar a biblioteca '@radix-ui/react-alert-dialog' pelo comando : 'npm install @radix-ui/react-alert-dialog'
+Lembre-se de instalar a biblioteca '@radix-ui/react-alert-dialog' pelo comando : `npm install @radix-ui/react-alert-dialog`
 
 ## Utilização 
 
@@ -54,19 +54,19 @@ import { Alert, alertCall } from './alert/stylizedAlerts';
 ## Exemplo:
 
 ```js
-<Alert
-              onConfirm={() => setResponse(true)}
-              onCancel={() => setResponse(false)}
-              title="Alert"
-              content="Deseja prosseguir?"
-            >
-              <button
-                type="button"
-                className="px-4 py-2 mt-4 mb-6 w-32 shadow-md shadow-cyan-800 justify-center hover:bg-cyan-100 border border-cyan-400 font-medium rounded-lg text-sm inline-flex dark:bg-cyan-800 dark:border-cyan-700 dark:text-white dark:hover:bg-cyan-700"
-              >
-                Emitir status
-              </button>
-            </Alert>
+    <Alert
+      onConfirm={() => setResponse(true)}
+      onCancel={() => setResponse(false)}
+      title="Alert"
+      content="Deseja prosseguir?"
+    >
+      <button
+        type="button"
+        className="px-4 py-2 mt-4 mb-6 w-32 shadow-md shadow-cyan-800 justify-center hover:bg-cyan-100 border border-cyan-400 font-medium rounded-lg text-sm inline-flex dark:bg-cyan-800 dark:border-cyan-700 dark:text-white dark:hover:bg-cyan-700"
+      >
+        Emitir status
+      </button>
+    </Alert>
 
 ```
 

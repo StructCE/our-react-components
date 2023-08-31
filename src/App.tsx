@@ -1,6 +1,7 @@
-import { AlertExample2 } from "./components/Alert/example2";
+
+import { ButtonExample } from "./components/Button/example";
 function App() {
-  return <AlertExample2 />;
+  return <ButtonExample />;
 }
 
 export default App;
