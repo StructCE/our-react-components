@@ -34,13 +34,21 @@ import { Alert, alertCall } from './alert/stylizedAlerts';
 ### Atributos do componente Alert
 
 -title: O título da caixa de alerta.
+
 -content: O conteúdo da mensagem de alerta.
+
 -cancelText: Texto para o botão de cancelamento (padrão: "Cancelar").
+
 -confirmText: Texto para o botão de confirmação (padrão: "Confirmar").
+
 -onCancel: Função a ser chamada quando o botão de cancelamento é clicado.
+
 -onConfirm: Função a ser chamada quando o botão de confirmação é clicado.
+
 -children: gatilho para abrir a caixa de diálogo.
+
 -defaultOpen: Define se o componente deve iniciar aberto ou não (padrão: false).
+
 -canOpen: Controla se o Alert pode ser aberto (padrão: true).
 
 ## Exemplo:
