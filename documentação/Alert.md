@@ -1,6 +1,6 @@
 # Documentação: Componente de Alert em ReactJS
 
-O componente Alert permite que você crie facilmente caixas de diálogo de alerta personalizadas para interações do usuário em aplicações React.Oferecendo controle sobre o conteúdo, títulos, botões de confirmação , cancelamento, e capacidade de definir o comportamento padrão da caixa de diálogo.
+O componente Alert permite que você crie caixas de alerta personalizadas para interações do usuário em aplicações React.Oferecendo controle sobre o conteúdo, títulos, botões de confirmação , cancelamento, e capacidade de definir o comportamento padrão da caixa de diálogo.
 
 ## Instalação
 
