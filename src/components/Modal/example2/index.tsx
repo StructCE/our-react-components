@@ -4,50 +4,41 @@
 // validações de requisições antes de fechá-lo.
 import React, { useState } from "react";
 import { Modal } from "..";
-import { ModalStyled } from "../example/styles";
-import { CloseX } from "../example/svgs";
-import { UsersForm } from "../example/users";
-import { useApiSimulator } from "../example/utils";
 
 export function ModalExample2() {
   // simulando api
-  const api = useApiSimulator();
 
-  const [open, setOpen] = useState(false);
+  const [cookiePermitted, setCookiePermitted] = useState(false);
 
   return (
-    <Modal.Root open={open} onOpenChange={setOpen}>
-      <Modal.Trigger>Open Modal</Modal.Trigger>
-      <Modal.Content>
-        <ModalStyled>
-          <h1>Edit Profile</h1>
-          <h2>
-            Make changes to your profile here. Click save when you are done.
-          </h2>
-          <UsersForm
-            onValidSubmit={(user) => {
-              api
-                .patch("/users/update/:email", { user })
-                // eslint-disable-next-line no-alert
-                .then(() => {
-                  setOpen(false);
-                  alert("Usuário atualizado com sucesso");
-                })
-                .catch((e) => alert(e));
-            }}
-            onInvalidSubmit={({ errors }) => {
-              // eslint-disable-next-line no-alert
-              errors.map((error) => alert(error));
-            }}
-            buttonContent="Save"
-          />
-          <Modal.Close asChild>
-            <button type="button" aria-label="Close" className="IconButton">
-              <CloseX />
-            </button>
-          </Modal.Close>
-        </ModalStyled>
-      </Modal.Content>
-    </Modal.Root>
+    <>
+      {cookiePermitted ? (
+        "Está sendo personalizada"
+      ) : (
+        <Modal.Root>
+          <Modal.Trigger>Personalize sua experiência</Modal.Trigger>
+          <Modal.Content className="bg-zinc-700 flex flex-col p-6 gap-2">
+            <span className="text-xl font-semibold text-neutral-300">
+              Gostaria de deixar a gente fazer as{" "}
+              <strong className="text-neutral-200 underline">
+                melhores ofertas
+              </strong>
+              ?
+            </span>
+            <div className="flex justify-between">
+              <Modal.Close className="bg-red-400 p-4 w-max mx-auto rounded-sm">
+                Não quero
+              </Modal.Close>
+              <button
+                className="bg-green-400 p-4 w-max mx-auto rounded-sm"
+                onClick={() => setCookiePermitted(true)}
+              >
+                Aceito ter meus dados coletados neste site
+              </button>
+            </div>
+          </Modal.Content>
+        </Modal.Root>
+      )}
+    </>
   );
 }
