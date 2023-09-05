@@ -25,9 +25,9 @@ export function ModalExample2() {
             Make changes to your profile here. Click save when you are done.
           </h2>
           <UsersForm
-            onValidSubmit={({ formInfo }) => {
+            onValidSubmit={(user) => {
               api
-                .patch("/users/update/:email", { user: formInfo })
+                .patch("/users/update/:email", { user })
                 // eslint-disable-next-line no-alert
                 .then(() => {
                   setOpen(false);

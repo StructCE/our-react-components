@@ -1,19 +1,26 @@
 import { useState } from "react";
+import type { z } from "zod";
+import { userSchema } from "./users";
+
+type User = z.output<typeof userSchema>;
+
+const initialUsers = [
+  {
+    username: "Jessica",
+    email: "teste@teste.com",
+    role: "Membro",
+    age: 18,
+  },
+] satisfies User[];
 
 export function useApiSimulator() {
-  const [users, setUsers] = useState([
-    {
-      username: "Jessica",
-      email: "teste@teste",
-      status: "active",
-    },
-  ]);
+  const [users, setUsers] = useState<User[]>(initialUsers);
   const api = {
-    post: (route, data) =>
+    post: (route: string, data: unknown) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
           if (route === "/users/create") {
-            const { user } = data;
+            const user = userSchema.parse(data);
             if (users.find((u) => u.email === user.email)) {
               reject(new Error("Este email já está cadastrado"));
             } else {
@@ -26,11 +33,11 @@ export function useApiSimulator() {
         }, 1000);
       }),
 
-    patch: (route, data) =>
+    patch: (route: string, data: unknown) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
           if (route === "/users/update/:email") {
-            const { user } = data;
+            const user = userSchema.parse(data);
             if (users.find((u) => u.email === user.email)) {
               resolve(data);
             } else {
