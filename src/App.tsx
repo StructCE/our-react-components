@@ -1,7 +1,7 @@
-import { FormFactoryExample } from "./components/FormFactory/example";
+import { ModalExample2 } from "./components/Modal/example2";
 
 function App() {
-  return <FormFactoryExample />;
+  return <ModalExample2 />;
 }
 
 export default App;
