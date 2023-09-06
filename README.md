@@ -19,7 +19,7 @@ Talvez seja necessário instalar as bibliotecas do RadixUI ou react-aria para os
 
 #### Começar pelo exemplo
 
-Quando se está fazendo features mais complexas, vale a pena começar por como se usa o componente. Por exemplo, você pode idealizar uma fábrica de formulário da seguinte maneira (provavelmente consegue fazer melhor do que isto, inclusive):
+Quando se está fazendo features mais complexas, vale a pena começar por como se usa o componente. Por exemplo, você pode idealizar uma fábrica de formulário da seguinte maneira (já foi alterado/melhorado):
 
 ```js
 import { FormFactory } from "";
