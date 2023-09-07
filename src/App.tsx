@@ -1,6 +1,6 @@
-import { CarouselExample } from "./components/Carousel/example";
+import { FormFactoryExample } from "./components/FormFactory/example";
 function App() {
-  return <CarouselExample />;
+  return <FormFactoryExample />;
 }
 
 export default App;
