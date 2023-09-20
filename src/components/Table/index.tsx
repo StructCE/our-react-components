@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { useWindowWidth } from "./example2/utils/useWindowWidth";
+import { useWindowWidth } from "./utils/useWindowWidth";
 
 export type GenericFields<Rows extends object[]> = readonly {
   readonly title: string;
