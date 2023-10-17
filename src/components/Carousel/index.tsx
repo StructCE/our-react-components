@@ -56,7 +56,9 @@ export function Carousel({ images }: Props) {
       </button>
       {images.map((image, index) => (
         <div key={image.id}>
-          {index === currentPosition && <img src={image.url} alt={image.alt} />}
+          {index === currentPosition && (
+            <img draggable="false" src={image.url} alt={image.alt} />
+          )}
         </div>
       ))}
       <div className="absolute top-full h-4 flex">
