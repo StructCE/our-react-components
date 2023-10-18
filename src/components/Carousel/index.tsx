@@ -11,6 +11,7 @@ type Image = {
   id: number;
   url: string;
   alt: string;
+  link: string;
 };
 
 type Props = {
@@ -69,6 +70,10 @@ export function Carousel({
     setCurrentPosition(changePosition(toPosition));
   };
 
+  const handleClick = (link: string) => {
+    window.open(link, "_blank");
+  };
+
   return (
     <div className="flex w-[200px] flex-col justify-center items-center relative mb-4 text-black">
       {arrows ? (
@@ -92,7 +97,13 @@ export function Carousel({
       {images.map((image, index) => (
         <div key={image.id}>
           {index === currentPosition && (
-            <img draggable={false} src={image.url} alt={image.alt} />
+            <img
+              draggable={false}
+              src={image.url}
+              alt={image.alt}
+              onClick={() => image.link && handleClick(image.link)}
+              style={{ cursor: image.link ? "pointer" : "default" }}
+            />
           )}
         </div>
       ))}
