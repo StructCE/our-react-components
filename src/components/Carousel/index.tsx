@@ -16,12 +16,15 @@ type Image = {
 type Props = {
   images: Image[];
   autoplay: boolean;
+  infinite: boolean;
 };
 
-export function Carousel({ images, autoplay }: Props) {
+export function Carousel({ images, autoplay, infinite }: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
   const [isAutoplay, setIsAutoplay] = useState(autoplay);
   let interval: NodeJS.Timeout;
+
+  infinite = true; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
 
   useEffect(() => {
     setIsAutoplay(true); // Define se o autoplay sera utilizado ou nao
@@ -41,21 +44,27 @@ export function Carousel({ images, autoplay }: Props) {
 
   function changePosition(nextPosition: number) {
     if (nextPosition >= images.length) {
-      return;
+      return infinite ? 0 : currentPosition;
     }
 
     if (nextPosition < 0) {
-      return;
+      return infinite ? images.length - 1 : currentPosition;
     }
 
-    setCurrentPosition(nextPosition);
+    return nextPosition;
   }
 
-  const nextIndex = () => changePosition(currentPosition + 1);
+  const nextIndex = () => {
+    setCurrentPosition(changePosition(currentPosition + 1));
+  };
 
-  const prevIndex = () => changePosition(currentPosition - 1);
+  const prevIndex = () => {
+    setCurrentPosition(changePosition(currentPosition - 1));
+  };
 
-  const moveDot = (toPosition: number) => changePosition(toPosition);
+  const moveDot = (toPosition: number) => {
+    setCurrentPosition(changePosition(toPosition));
+  };
 
   return (
     <div className="flex w-[200px] flex-col justify-center items-center relative mb-4 text-black">
