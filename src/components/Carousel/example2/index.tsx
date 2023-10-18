@@ -6,6 +6,9 @@
 // - Swipe: define se as imagens podem ser passadas ao arrasta-las
 // - Navgation: define se os botoes da navegacao irao aparecer embaixo das imagens
 
+// O exemplo abaixo é um carrossel sem controle, as imagens passam sozinha
+// e quando chegam a ultima volta para primeira
+
 import React from "react";
 import { Carousel } from "..";
 import { images } from "./images";
@@ -17,8 +20,8 @@ export function CarouselExample() {
         images={images}
         autoplay={true}
         infinite={true}
-        arrows={true}
-        navigation={true}
+        arrows={false}
+        navigation={false}
       />
     </section>
   );
