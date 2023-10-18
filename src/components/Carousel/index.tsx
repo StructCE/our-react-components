@@ -18,9 +18,16 @@ type Props = {
   autoplay: boolean; // Define se o autoplay sera utilizado ou nao
   infinite: boolean; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
   arrows: boolean; // Define se as setas serao utilizadas ou nao
+  navigation: boolean; // Define se os botoes da navegacao irao aparecer embaixo das imagens
 };
 
-export function Carousel({ images, autoplay, infinite, arrows }: Props) {
+export function Carousel({
+  images,
+  autoplay,
+  infinite,
+  arrows,
+  navigation,
+}: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
   let interval: NodeJS.Timeout;
 
@@ -89,18 +96,22 @@ export function Carousel({ images, autoplay, infinite, arrows }: Props) {
           )}
         </div>
       ))}
-      <div className="absolute top-full h-4 flex">
-        {images.map((image, index) => (
-          <button
-            onClick={() => moveDot(index)}
-            className={`rounded-full border-solid border-[3px] bg-opacity-90
+      {navigation ? (
+        <div className="absolute top-full h-4 flex">
+          {images.map((image, index) => (
+            <button
+              onClick={() => moveDot(index)}
+              className={`rounded-full border-solid border-[3px] bg-opacity-90
             ${currentPosition === index ? "bg-black" : "bg-white"}
              w-4 h-4 mx-[5px] cursor-pointer`}
-            aria-label={`show ${image.alt}`}
-            key={image.id}
-          />
-        ))}
-      </div>
+              aria-label={`show ${image.alt}`}
+              key={image.id}
+            />
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
