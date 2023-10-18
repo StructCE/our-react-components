@@ -4,7 +4,7 @@
 // -> Chame a função Carousel, passando como argumento seu array criado.
 // -> Agora basta estilizar o carrosel do seu jeito.
 
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "./svgs";
 
 type Image = {
@@ -15,10 +15,29 @@ type Image = {
 
 type Props = {
   images: Image[];
+  autoplay: boolean;
 };
 
-export function Carousel({ images }: Props) {
+export function Carousel({ images, autoplay }: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
+  const [isAutoplay, setIsAutoplay] = useState(autoplay);
+  let interval: NodeJS.Timeout;
+
+  useEffect(() => {
+    setIsAutoplay(true); // Define se o autoplay sera utilizado ou nao
+
+    if (isAutoplay) {
+      interval = setInterval(() => {
+        nextIndex();
+      }, 5000); // Define o intervalo entre as imagens (em ms)
+    } else {
+      clearInterval(interval);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isAutoplay, currentPosition]);
 
   function changePosition(nextPosition: number) {
     if (nextPosition >= images.length) {
@@ -57,7 +76,7 @@ export function Carousel({ images }: Props) {
       {images.map((image, index) => (
         <div key={image.id}>
           {index === currentPosition && (
-            <img draggable="false" src={image.url} alt={image.alt} />
+            <img draggable={false} src={image.url} alt={image.alt} />
           )}
         </div>
       ))}
