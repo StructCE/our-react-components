@@ -9,7 +9,7 @@ import { images } from "./images";
 export function CarouselExample() {
   return (
     <section className="h-screen w-full relative flex flex-col justify-center items-center">
-      <Carousel images={images} />
+      <Carousel images={images} autoplay={true} infinite={true} arrows={true} />
     </section>
   );
 }

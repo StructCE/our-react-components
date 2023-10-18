@@ -15,23 +15,17 @@ type Image = {
 
 type Props = {
   images: Image[];
-  autoplay: boolean;
-  infinite: boolean;
-  arrows: boolean;
+  autoplay: boolean; // Define se o autoplay sera utilizado ou nao
+  infinite: boolean; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
+  arrows: boolean; // Define se as setas serao utilizadas ou nao
 };
 
 export function Carousel({ images, autoplay, infinite, arrows }: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
-  const [isAutoplay, setIsAutoplay] = useState(autoplay);
   let interval: NodeJS.Timeout;
 
-  infinite = true; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
-  arrows = true; // Define se as setas serao utilizadas ou nao
-
   useEffect(() => {
-    setIsAutoplay(true); // Define se o autoplay sera utilizado ou nao
-
-    if (isAutoplay) {
+    if (autoplay) {
       interval = setInterval(() => {
         nextIndex();
       }, 5000); // Define o intervalo entre as imagens (em ms)
@@ -42,7 +36,7 @@ export function Carousel({ images, autoplay, infinite, arrows }: Props) {
     return () => {
       clearInterval(interval);
     };
-  }, [isAutoplay, currentPosition]);
+  }, [autoplay, currentPosition]);
 
   function changePosition(nextPosition: number) {
     if (nextPosition >= images.length) {
