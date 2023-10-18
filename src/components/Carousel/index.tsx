@@ -17,14 +17,16 @@ type Props = {
   images: Image[];
   autoplay: boolean;
   infinite: boolean;
+  arrows: boolean;
 };
 
-export function Carousel({ images, autoplay, infinite }: Props) {
+export function Carousel({ images, autoplay, infinite, arrows }: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
   const [isAutoplay, setIsAutoplay] = useState(autoplay);
   let interval: NodeJS.Timeout;
 
   infinite = true; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
+  arrows = true; // Define se as setas serao utilizadas ou nao
 
   useEffect(() => {
     setIsAutoplay(true); // Define se o autoplay sera utilizado ou nao
@@ -68,20 +70,24 @@ export function Carousel({ images, autoplay, infinite }: Props) {
 
   return (
     <div className="flex w-[200px] flex-col justify-center items-center relative mb-4 text-black">
-      <button
-        className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 right-[105%]"
-        type="button"
-        onClick={prevIndex}
-      >
-        <ArrowLeft />
-      </button>
-      <button
-        className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 left-[105%]"
-        type="button"
-        onClick={nextIndex}
-      >
-        <ArrowRight />
-      </button>
+      {arrows ? (
+        <>
+          <button
+            className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 right-[105%]"
+            onClick={prevIndex}
+          >
+            <ArrowLeft />
+          </button>
+          <button
+            className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 left-[105%]"
+            onClick={nextIndex}
+          >
+            <ArrowRight />
+          </button>
+        </>
+      ) : (
+        <></>
+      )}
       {images.map((image, index) => (
         <div key={image.id}>
           {index === currentPosition && (
@@ -96,7 +102,6 @@ export function Carousel({ images, autoplay, infinite }: Props) {
             className={`rounded-full border-solid border-[3px] bg-opacity-90
             ${currentPosition === index ? "bg-black" : "bg-white"}
              w-4 h-4 mx-[5px] cursor-pointer`}
-            type="button"
             aria-label={`show ${image.alt}`}
             key={image.id}
           />
