@@ -17,12 +17,20 @@ const ExampleToast: React.FC = () => {
   return (
     <div>
       {/* Botão para exibir o Toast */}
-      <button onClick={() => mostraToast("Isso é um Toast!")}>
-        Exibir Toast
+      <button
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 bg-rose-500 rounded-full p-2"
+        onClick={() => mostraToast("Isso é um Toast!")}
+      >
+        Click me UwU
       </button>
 
       {/* Renderize o Toast condicionalmente com base no estado showToast */}
-      <Toast message={toastMessage} show={showToast} onClose={closeToast} />
+      <Toast
+        message={toastMessage}
+        show={showToast}
+        position="topr"
+        onClose={closeToast}
+      />
     </div>
   );
 };
