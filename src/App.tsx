@@ -1,7 +1,7 @@
-import { ModalExample2 } from "./components/Modal/example2";
+import ExampleToast from "./components/Toast/examples/example";
 
 function App() {
-  return <ModalExample2 />;
+  return <ExampleToast />;
 }
 
 export default App;
