@@ -1,32 +1,25 @@
-// Cor do component, título e texto do campo
-// Extra: posição
-
-// EMBAIXO : bottom-1 left-1/2 transform -translate-x-1/2
-// TOPO    : top-1 left-1/2 transform -translate-x-1/2
-// SUP ESQ : top-0 left-0
-// SUP DIR : top-0 right-0
-// INF ESQ : bottom-0 left-0
-// INF DIR : bottom-0 right-0
+// Cor do component, {FEITO título} e {FEITO texto do campo}
+// Extras:
+// FEITO Posição
+// Botão de dispensar a toast
 
 import React, { useEffect } from "react";
 
-// type Position = {
-//   top: "bottom-1 left-1/2 transform -translate-x-1/2";
-//   bottom: "top-1 left-1/2 transform -translate-x-1/2";
-//   topl: "top-0 left-0";
-//   topr: "top-0 right-0";
-//   botl: "bottom-0 left-0";
-//   botr: "bottom-0 right-0";
-// };
-
 interface ToastProps {
+  title: string;
   message: string;
   show: boolean;
   position: "top" | "bottom" | "topr" | "topl" | "botr" | "botl";
   onClose: () => void;
 }
 
-const Toast: React.FC<ToastProps> = ({ message, show, position, onClose }) => {
+const Toast: React.FC<ToastProps> = ({
+  title,
+  message,
+  show,
+  position,
+  onClose,
+}) => {
   useEffect(() => {
     if (show) {
       const timeoutId = setTimeout(onClose, 3000); // Feche o Toast após 3 segundos (3000 ms)
@@ -61,7 +54,7 @@ const Toast: React.FC<ToastProps> = ({ message, show, position, onClose }) => {
         show ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
-      <h2 className="text-cyan-400">olamigos</h2>
+      <h2 className="text-cyan-400"> {title} </h2>
       {message}
     </div>
   );
