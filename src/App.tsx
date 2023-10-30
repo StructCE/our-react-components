@@ -1,7 +1,7 @@
-import { ModalExample2 } from "./components/Modal/example2";
+import { NavbarExample } from "./components/Navbar/example/example";
 
 function App() {
-  return <ModalExample2 />;
+  return <NavbarExample />;
 }
 
 export default App;
