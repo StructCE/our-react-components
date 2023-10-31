@@ -1,8 +1,7 @@
 import { Navbar } from "../index";
 import imagePath from "./logo_struct.png";
 
-
-export function NavbarExample(){
+export function NavbarExample() {
     let items = ["Home","Produtos", "Serviços","Sobre"];
     return (
         <div>
