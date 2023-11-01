@@ -3,8 +3,8 @@
 // - Autoplay: as imagens passam sozinhas apos 5s (valor pode ser alterado)
 // - Infinite: apos a ultima imagem volta para primeira
 // - Arrows: define se as setas serao utilizadas ou nao
-// - Swipe: define se as imagens podem ser passadas ao arrasta-las
 // - Navgation: define se os botoes da navegacao irao aparecer embaixo das imagens
+// - Swipe: define se as imagens podem ser passadas ao arrasta-las
 
 // O exemplo abaixo é um carrossel sem controle, as imagens passam sozinha
 // e quando chegam a ultima volta para primeira
@@ -22,6 +22,7 @@ export function CarouselExample() {
         infinite={true}
         arrows={false}
         navigation={false}
+        swipe={false}
       />
     </section>
   );

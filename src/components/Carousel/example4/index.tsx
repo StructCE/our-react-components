@@ -3,10 +3,10 @@
 // - Autoplay: as imagens passam sozinhas apos 5s (valor pode ser alterado)
 // - Infinite: apos a ultima imagem volta para primeira
 // - Arrows: define se as setas serao utilizadas ou nao
-// - Swipe: define se as imagens podem ser passadas ao arrasta-las
 // - Navgation: define se os botoes da navegacao irao aparecer embaixo das imagens
+// - Swipe: define se as imagens podem ser passadas ao arrasta-las
 
-// O exemplo abaixo é um carrossel que as imagens passam sozinhas ou ao clicar nos botoes de navegacao
+// O exemplo abaixo é um carrossel que as imagens são passadas ao serem arrastadas ou usando os botoes de navegacao
 
 import React from "react";
 import { Carousel } from "..";
@@ -17,11 +17,11 @@ export function CarouselExample() {
     <section className="h-screen w-full relative flex flex-col justify-center items-center bg-slate-50">
       <Carousel
         images={images}
-        autoplay={true}
-        infinite={true}
+        autoplay={false}
+        infinite={false}
         arrows={false}
         navigation={true}
-        swipe={false}
+        swipe={true}
       />
     </section>
   );
