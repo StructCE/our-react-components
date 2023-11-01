@@ -4,7 +4,7 @@
 // -> Chame a função Carousel, passando como argumento seu array criado.
 // -> Agora basta estilizar o carrosel do seu jeito.
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "./svgs";
 
 type Image = {
@@ -20,6 +20,7 @@ type Props = {
   infinite: boolean; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
   arrows: boolean; // Define se as setas serao utilizadas ou nao
   navigation: boolean; // Define se os botoes da navegacao irao aparecer embaixo das imagens
+  swipe: boolean; // Define se as imagens podem ser passadas ao arrasta-las
 };
 
 export function Carousel({
@@ -28,8 +29,11 @@ export function Carousel({
   infinite,
   arrows,
   navigation,
+  swipe,
 }: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [mouseStartX, setMouseStartX] = useState(0);
   let interval: NodeJS.Timeout;
 
   useEffect(() => {
@@ -75,7 +79,57 @@ export function Carousel({
   };
 
   return (
-    <div className="flex w-[200px] flex-col justify-center items-center relative mb-4 text-black">
+    <div
+      className="flex w-[200px] flex-col justify-center items-center relative mb-4 text-black"
+      onTouchStart={(event) => {
+        if (swipe && event.touches[0]) {
+          setTouchStartX(event.touches[0].clientX);
+        }
+      }}
+      onTouchMove={(event) => {
+        if (swipe) {
+          event.preventDefault();
+        }
+      }}
+      onTouchEnd={(event) => {
+        if (swipe && event.changedTouches[0]) {
+          const touchEndX = event.changedTouches[0].clientX;
+          if (touchEndX < touchStartX) {
+            nextIndex();
+          } else if (touchEndX > touchStartX) {
+            prevIndex();
+          }
+        }
+      }}
+      onMouseDown={(event) => {
+        if (swipe) {
+          setMouseStartX(event.clientX);
+        }
+      }}
+      onMouseMove={(event) => {
+        if (swipe) {
+          event.preventDefault();
+        }
+      }}
+      onMouseUp={(event) => {
+        if (swipe) {
+          let mouseEndX = event.clientX;
+          const diff = mouseEndX - mouseStartX;
+          const threshold = 50; // Define o intervalo entre a posicao inicial e final do mouse para arrastar
+
+          if (Math.abs(diff) > threshold) {
+            if (diff < 0) {
+              nextIndex();
+            } else {
+              prevIndex();
+            }
+          }
+
+          setMouseStartX(0);
+          mouseEndX = 0;
+        }
+      }}
+    >
       {arrows ? (
         <>
           <button
@@ -103,6 +157,7 @@ export function Carousel({
               alt={image.alt}
               onClick={() => image.link && handleClick(image.link)}
               style={{ cursor: image.link ? "pointer" : "default" }}
+              className="select-none"
             />
           )}
         </div>
