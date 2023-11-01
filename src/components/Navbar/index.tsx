@@ -1,29 +1,28 @@
 import { useState } from "react";
 
 interface NavBarProps {
-    Nome: string;
-    imgPath: string;
-    itensNav: string[];
-  }
+  Nome: string;
+  imgPath: string;
+  itensNav: string[];
+}
 
-export function Navbar({Nome, imgPath, itensNav}: NavBarProps){
-
-    const [selectedIndex, setSelectedIndex] = useState(-1);
-    return(
-        <nav className="navbar navbar-expand-md navbar-light bg-white shadow">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+export function Navbar({ Nome, imgPath, itensNav }: NavBarProps) {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  return (
+    <nav className="navbar bg-blue-950 shadow">
+      <div className="flex h-24">
+        <a className="space-x-4 items-center flex" href="#">
           <img
             src={imgPath}
             width="60"
             height="60"
-            className="d-inline-block align-center"
+            className="mt-5 ml-4"
             alt=""
           />
-          <span className="fw-bolder fs-4">{Nome}</span>
+          <span className=" font-serif text-2xl text-slate-300">{Nome}</span>
         </a>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler "
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -36,7 +35,8 @@ export function Navbar({Nome, imgPath, itensNav}: NavBarProps){
         <div
           className="collapse
          navbar-collapse"
-        id="navbarSupportedContent">
+          id="navbarSupportedContent"
+        >
           <ul className="navbar-nav me-auto mb-2 mb-md-1">
             {itensNav.map((items, index) => (
               <li
@@ -73,4 +73,3 @@ export function Navbar({Nome, imgPath, itensNav}: NavBarProps){
     </nav>
   );
 }
-    
