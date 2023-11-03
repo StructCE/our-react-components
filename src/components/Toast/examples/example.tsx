@@ -20,10 +20,10 @@ const ExampleToast: React.FC = () => {
     <div>
       {/* Botão para exibir o Toast */}
       <button
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 bg-rose-500 rounded-full p-2"
+        className="fixed top-1/2 left-1/2 bg-rose-500 rounded-full p-2 hover:scale-105 duration-150"
         onClick={() => mostraToast("O que é isso?", "Isso é um Toast!")}
       >
-        Click me UwU
+        Show All Toasts
       </button>
 
       {/* Renderize o Toast condicionalmente com base no estado showToast */}
@@ -32,6 +32,47 @@ const ExampleToast: React.FC = () => {
         message={toastMessage}
         show={showToast}
         position="topr"
+        color="light"
+        onClose={closeToast}
+      />
+      <Toast
+        title={toastTitle}
+        message={toastMessage}
+        show={showToast}
+        position="topl"
+        color="dark"
+        onClose={closeToast}
+      />
+      <Toast
+        title={toastTitle}
+        message={toastMessage}
+        show={showToast}
+        position="top"
+        color="slate"
+        onClose={closeToast}
+      />
+      <Toast
+        title={toastTitle}
+        message={toastMessage}
+        show={showToast}
+        position="botr"
+        color="blue"
+        onClose={closeToast}
+      />
+      <Toast
+        title={toastTitle}
+        message={toastMessage}
+        show={showToast}
+        position="botl"
+        color="red"
+        onClose={closeToast}
+      />
+      <Toast
+        title={toastTitle}
+        message={toastMessage}
+        show={showToast}
+        position="bottom"
+        color="dark"
         onClose={closeToast}
       />
     </div>
