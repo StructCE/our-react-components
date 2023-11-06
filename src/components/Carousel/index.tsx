@@ -16,7 +16,7 @@ type Image = {
 
 type Props = {
   images: Image[];
-  autoplay: boolean; // Define se o autoplay sera utilizado ou nao
+  autoplayTime: number; // Define a quantidade de segundos para as imagens passarem sozinhas (0 para nao passarem)
   infinite: boolean; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
   arrows: boolean; // Define se as setas serao utilizadas ou nao
   navigation: boolean; // Define se os botoes da navegacao irao aparecer embaixo das imagens
@@ -25,7 +25,7 @@ type Props = {
 
 export function Carousel({
   images,
-  autoplay,
+  autoplayTime,
   infinite,
   arrows,
   navigation,
@@ -37,10 +37,10 @@ export function Carousel({
   let interval: NodeJS.Timeout;
 
   useEffect(() => {
-    if (autoplay) {
+    if (autoplayTime > 0) {
       interval = setInterval(() => {
         nextIndex();
-      }, 5000); // Define o intervalo entre as imagens (em ms)
+      }, autoplayTime * 1000);
     } else {
       clearInterval(interval);
     }
@@ -48,7 +48,7 @@ export function Carousel({
     return () => {
       clearInterval(interval);
     };
-  }, [autoplay, currentPosition]);
+  }, [autoplayTime, currentPosition]);
 
   function changePosition(nextPosition: number) {
     if (nextPosition >= images.length) {

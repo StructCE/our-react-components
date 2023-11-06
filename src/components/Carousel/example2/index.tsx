@@ -1,6 +1,6 @@
 // Proposta do exemplo: Mostrar o clássico funcionamento de um carrosel.
 // O codigo pode ser alterado para definir quais das propriedades abaixo sera utilizadas:
-// - Autoplay: as imagens passam sozinhas apos 5s (valor pode ser alterado)
+// - AutoplayTime: as imagens passam sozinhas apos a quantidade de segundos indicada (0 para nao utilizar)
 // - Infinite: apos a ultima imagem volta para primeira
 // - Arrows: define se as setas serao utilizadas ou nao
 // - Navgation: define se os botoes da navegacao irao aparecer embaixo das imagens
@@ -18,7 +18,7 @@ export function CarouselExample() {
     <section className="h-screen w-full relative flex flex-col justify-center items-center">
       <Carousel
         images={images}
-        autoplay={true}
+        autoplayTime={5}
         infinite={true}
         arrows={false}
         navigation={false}
