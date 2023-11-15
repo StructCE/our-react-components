@@ -1,3 +1,7 @@
+/*
+Propsta do exemplo: Mostrar Todas as opções de Cor e Posição da Toast, além de que
+  é possível adicionar TailwindCSS opcional à Toast, que é um botão.
+*/
 import Toast from "..";
 
 export function Example() {

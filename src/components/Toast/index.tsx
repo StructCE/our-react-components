@@ -1,7 +1,11 @@
-// {FEITO Cor do component}, {FEITO título} e {FEITO texto do campo}
-// Extras:
-// FEITO Posição
-// FEITO Botão de dispensar a toast
+/*
+Explicação:
+  Essa Toast é formada por um botão que, no clique, mostra a toast em si. A Toast dura 5
+    segundos e possui um botão X para fechá-la antes desse tempo.
+  Esse componente possui os atributos mostrados em ToastProps. Posição e Cor possuem opções
+    limitadas. O atributo 'tailwind' permite que, ao instanciar Toast, seja escrito código
+    Tailwind para customizar o botão da Toast diretamente.
+*/
 
 import { useState } from "react";
 
