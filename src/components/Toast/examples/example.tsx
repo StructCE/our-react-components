@@ -1,82 +1,73 @@
-import React, { useState } from "react";
-import Toast from "../index";
+import Toast from "..";
 
-const ExampleToast: React.FC = () => {
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastTitle, setToastTitle] = useState("");
-  const [showToast, setShowToast] = useState(false);
-
-  const mostraToast = (title: string, message: string) => {
-    setToastTitle(title);
-    setToastMessage(message);
-    setShowToast(true);
-  };
-
-  const closeToast = () => {
-    setShowToast(false);
-  };
-
+export function Example() {
   return (
-    <div>
-      {/* Botão para exibir o Toast */}
-      <button
-        className="fixed top-1/2 left-1/2 bg-rose-500 rounded-full p-2 hover:scale-105 duration-150"
-        onClick={() => mostraToast("O que é isso?", "Isso é um Toast!")}
-      >
-        Show All Toasts
-      </button>
+    <div className="grid grid-cols-3 grid-rows-2 gap-40 p-5 justify-center">
+      <div className="rounded-lg bg-gray-400 p-2">
+        TOP
+        <Toast
+          title="Um ezemplo"
+          message="Ipsim lorem ou algo assim, n sei"
+          color="dark"
+          position="top"
+          tailwind="rounded-lg p-2 bg-gray-700 text-slate-200"
+        />
+      </div>
 
-      {/* Renderize o Toast condicionalmente com base no estado showToast */}
-      <Toast
-        title={toastTitle}
-        message={toastMessage}
-        show={showToast}
-        position="topr"
-        color="light"
-        onClose={closeToast}
-      />
-      <Toast
-        title={toastTitle}
-        message={toastMessage}
-        show={showToast}
-        position="topl"
-        color="dark"
-        onClose={closeToast}
-      />
-      <Toast
-        title={toastTitle}
-        message={toastMessage}
-        show={showToast}
-        position="top"
-        color="slate"
-        onClose={closeToast}
-      />
-      <Toast
-        title={toastTitle}
-        message={toastMessage}
-        show={showToast}
-        position="botr"
-        color="blue"
-        onClose={closeToast}
-      />
-      <Toast
-        title={toastTitle}
-        message={toastMessage}
-        show={showToast}
-        position="botl"
-        color="red"
-        onClose={closeToast}
-      />
-      <Toast
-        title={toastTitle}
-        message={toastMessage}
-        show={showToast}
-        position="bottom"
-        color="dark"
-        onClose={closeToast}
-      />
+      <div className="rounded-lg bg-gray-400 p-2">
+        BOTTOM
+        <Toast
+          title="Um ezemplo"
+          message="Ipsim lorem ou algo assim, n sei"
+          color="light"
+          position="bottom"
+          tailwind="rounded-lg p-2 bg-slate-200"
+        />
+      </div>
+
+      <div className="rounded-lg bg-gray-400 p-2">
+        TOP RIGHT
+        <Toast
+          title="Um ezemplo"
+          message="Ipsim lorem ou algo assim, n sei"
+          color="blue"
+          position="topr"
+          tailwind="rounded-lg p-2 bg-blue-500"
+        />
+      </div>
+
+      <div className="rounded-lg bg-gray-400 p-2">
+        TOP LEFT
+        <Toast
+          title="Um ezemplo"
+          message="Ipsim lorem ou algo assim, n sei"
+          color="red"
+          position="topl"
+          tailwind="rounded-lg p-2 bg-red-500"
+        />
+      </div>
+
+      <div className="rounded-lg bg-gray-400 p-2">
+        BOTTOM RIGHT
+        <Toast
+          title="Um ezemplo"
+          message="Ipsim lorem ou algo assim, n sei"
+          color="slate"
+          position="botr"
+          tailwind="rounded-lg p-2 bg-slate-500"
+        />
+      </div>
+
+      <div className="rounded-lg bg-gray-400 p-2">
+        BOTTOM LEFT
+        <Toast
+          title="Um ezemplo"
+          message="Ipsim lorem ou algo assim, n sei"
+          color="dark"
+          position="botl"
+          tailwind="rounded-lg p-2 bg-gray-700 text-slate-200"
+        />
+      </div>
     </div>
   );
-};
-
-export default ExampleToast;
+}

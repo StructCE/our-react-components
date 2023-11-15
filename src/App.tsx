@@ -1,7 +1,7 @@
-import ExampleToast from "./components/Toast/examples/example";
+import { Example } from "./components/Toast/examples/example";
 
 function App() {
-  return <ExampleToast />;
+  return <Example />;
 }
 
 export default App;

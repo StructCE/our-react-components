@@ -3,34 +3,40 @@
 // FEITO Posição
 // FEITO Botão de dispensar a toast
 
-import React, { useEffect } from "react";
+import { useState } from "react";
 
 type ToastProps = {
   title: string;
   message: string;
-  show: boolean;
   position: "top" | "bottom" | "topr" | "topl" | "botr" | "botl";
   color: "light" | "dark" | "slate" | "red" | "blue";
-  onClose: () => void;
+  tailwind?: string;
 };
 
 const Toast: React.FC<ToastProps> = ({
   title,
   message,
-  show,
   position,
   color,
-  onClose,
+  tailwind,
 }) => {
-  useEffect(() => {
-    if (!show) return;
+  const [showToast, setShowToast] = useState(false);
 
+  const handleToastClick = () => {
+    // Ao clicar no botão, mostra Toast:
+    setShowToast(true);
+    // Após 3 segundos, fecha Toast:
     const timer = setTimeout(() => {
-      onClose();
-    }, 30000); // Fecha após 3 segundos
-    return () => clearTimeout(timer); // Botão de fechar
-  }, [onClose, show]);
+      setShowToast(false);
+    }, 5000); // Fecha após 5 segundos
+    return () => clearTimeout(timer);
+  };
 
+  const handleCloseToast = () => {
+    setShowToast(false);
+  };
+
+  // Adiciona opções para a posição da Toast:
   const positionClass = (position: string) => {
     switch (position) {
       case "top":
@@ -50,6 +56,7 @@ const Toast: React.FC<ToastProps> = ({
     }
   };
 
+  // Adiciona opções para a cor da Toast:
   const backgroundColor = (color: string) => {
     switch (color) {
       case "light":
@@ -68,20 +75,31 @@ const Toast: React.FC<ToastProps> = ({
   };
 
   return (
-    <div
-      className={`fixed ${positionClass(position)} ${backgroundColor(
-        color
-      )} duration-200 w-60 border-2 border-slate-500 p-3 rounded-md ${
-        show ? "opacity-100" : "opacity-0 pointer-events-none"
-      } `}
-    >
-      <div className="grid grid-cols-2 justify-items-center">
-        <h2 className="font-semibold"> {title} </h2>
-        <button className="justify-self-end pr-2" onClick={onClose}>
-          X
-        </button>
-      </div>
-      {message}
+    <div>
+      <button
+        onClick={handleToastClick}
+        className={`close-button ${tailwind || ""}`}
+      >
+        Show Toast
+      </button>
+      {showToast && (
+        <div
+          className={`fixed ${positionClass(position)} ${backgroundColor(
+            color
+          )} duration-200 w-60 border-2 border-slate-500 p-3 rounded-md`}
+        >
+          <div className="grid grid-cols-2 justify-items-center">
+            <strong className="mr-auto">{title}</strong>
+            <button
+              onClick={handleCloseToast}
+              className="justify-self-end px-2"
+            >
+              X
+            </button>
+          </div>
+          <div>{message}</div>
+        </div>
+      )}
     </div>
   );
 };
