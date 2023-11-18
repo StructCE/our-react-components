@@ -6,9 +6,10 @@ export function DatePickerExample() {
     <section className="h-96 w-full relative flex flex-col justify-center items-center">
       <DatePicker
         corfundo={"#12191d"}
-        cortexto="white"
+        cortexto={"white"}
         corhover={"#1d272c"}
-        corselecionado={"#2e95c5"}
+        corselecionado={"#03a9f4"}
+        userange={true}
       />
     </section>
   );

@@ -1,0 +1,20 @@
+.rangeCalendarCell {
+  &[data-outside-month] {
+    opacity: 30%;
+  }
+
+  &[data-selected] {
+    background: #03a9f4;
+    border-radius: 0;
+  }
+
+  &[data-selection-start] {
+    border-start-start-radius: 5px;
+    border-end-start-radius: 5px;
+  }
+
+  &[data-selection-end] {
+    border-start-end-radius: 5px;
+    border-end-end-radius: 5px;
+  }
+}
