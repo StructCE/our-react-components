@@ -18,3 +18,18 @@
     border-end-end-radius: 5px;
   }
 }
+
+.calendarCell {
+  &[data-outside-month] {
+    opacity: 30%;
+  }
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
+  display: none;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}

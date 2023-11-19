@@ -1,4 +1,4 @@
-import { getLocalTimeZone } from "@internationalized/date";
+import { getLocalTimeZone, isToday } from "@internationalized/date";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { I18nProvider } from "@react-aria/i18n";
 import React from "react";
@@ -17,9 +17,19 @@ type Props = {
   corfundo: string;
   cortexto: string;
   corhover: string;
+  corselecionado: string;
+  horainicio: string;
+  horafim: string;
 };
 
-export function RangeCalendario({ corfundo, cortexto, corhover }: Props) {
+export function RangeCalendario({
+  corfundo,
+  cortexto,
+  corhover,
+  corselecionado,
+  horainicio,
+  horafim,
+}: Props) {
   const [range, setRange] = React.useState<DateRange | null>(null);
   const formatter = useDateFormatter({ dateStyle: "full" });
 
@@ -50,19 +60,30 @@ export function RangeCalendario({ corfundo, cortexto, corhover }: Props) {
           {(date) => (
             <CalendarCell
               date={date}
-              className={`rangeCalendarCell px-2 py-[4px] flex flex-col justify-center items-center`}
+              className={`${
+                isToday(date, "America/Sao_Paulo") ? `bg-[#1d272c]` : ""
+              } ${
+                date
+                  ? `focus:bg-[${corselecionado}] hover:bg-[${corhover}]`
+                  : ""
+              } rangeCalendarCell rounded px-2 py-[4px] flex flex-col justify-center items-center `}
             />
           )}
         </CalendarGrid>
         {range ? (
           <>
             <p>
-              Data Inicio:{" "}
-              {formatter.format(range.start.toDate(getLocalTimeZone()))}
+              {`Data Início: ${formatter.format(
+                range.start.toDate(getLocalTimeZone())
+              )}`}
             </p>
             <p>
-              Data Fim: {formatter.format(range.end.toDate(getLocalTimeZone()))}
+              {`Data Fim: ${formatter.format(
+                range.end.toDate(getLocalTimeZone())
+              )}`}
             </p>
+            <p>{`Hora Início: ${horainicio}`}</p>
+            <p>{`Hora Fim: ${horafim}`}</p>
           </>
         ) : (
           <></>
