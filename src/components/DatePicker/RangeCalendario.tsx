@@ -14,29 +14,60 @@ import {
 import "./DatePicker.css";
 
 type Props = {
+  formatoData: string;
+  formatoAno: boolean;
   corfundo: string;
   cortexto: string;
   corhover: string;
   corselecionado: string;
   horainicio: string;
   horafim: string;
+  tempototal: string;
 };
 
 export function RangeCalendario({
+  formatoData,
+  formatoAno,
   corfundo,
   cortexto,
   corhover,
   corselecionado,
   horainicio,
   horafim,
+  tempototal,
 }: Props) {
   const [range, setRange] = React.useState<DateRange | null>(null);
-  const formatter = useDateFormatter({ dateStyle: "full" });
+  let formatter;
+  formatoAno
+    ? (formatter = useDateFormatter({
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        // dateStyle: "full",
+      }))
+    : (formatter = useDateFormatter({
+        year: "2-digit",
+        month: "2-digit",
+        day: "2-digit",
+        // dateStyle: "full",
+      }));
+
+  function formatarData(data: string) {
+    const dia = data.substring(0, 2);
+    const mes = data.substring(3, 5);
+    const ano = data.substring(6, data.length);
+
+    if (formatoData == "d/m") {
+      return `${dia}/${mes}/${ano}`;
+    } else if (formatoData == "m/d") {
+      return `${mes}/${dia}/${ano}`;
+    }
+  }
 
   return (
     <I18nProvider locale="br-BR">
       <RangeCalendar
-        className={`flex flex-col rounded-md px-3 py-1 text-${cortexto}`}
+        className={`flex flex-col rounded-[12px] px-3 py-1 text-${cortexto}`}
         style={{ backgroundColor: corfundo }}
         value={range}
         onChange={setRange}
@@ -61,7 +92,7 @@ export function RangeCalendario({
             <CalendarCell
               date={date}
               className={`${
-                isToday(date, "America/Sao_Paulo") ? `bg-[#1d272c]` : ""
+                isToday(date, "America/Sao_Paulo") ? `bg-[${corhover}]` : ""
               } ${
                 date
                   ? `focus:bg-[${corselecionado}] hover:bg-[${corhover}]`
@@ -73,17 +104,24 @@ export function RangeCalendario({
         {range ? (
           <>
             <p>
-              {`Data Início: ${formatter.format(
-                range.start.toDate(getLocalTimeZone())
-              )}`}
+              {`Data Inicial: ${
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                formatarData(
+                  formatter.format(range.start.toDate(getLocalTimeZone()))
+                )
+              }`}
             </p>
             <p>
-              {`Data Fim: ${formatter.format(
-                range.end.toDate(getLocalTimeZone())
-              )}`}
+              {`Data Final: ${
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                formatarData(
+                  formatter.format(range.end.toDate(getLocalTimeZone()))
+                )
+              }`}
             </p>
-            <p>{`Hora Início: ${horainicio}`}</p>
-            <p>{`Hora Fim: ${horafim}`}</p>
+            <p>{`Hora Inicial: ${horainicio}`}</p>
+            <p>{`Hora Final: ${horafim}`}</p>
+            <p>{`Tempo Total: ${tempototal}`}</p>
           </>
         ) : (
           <></>

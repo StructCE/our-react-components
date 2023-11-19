@@ -1,4 +1,4 @@
-// Proposta do exemplo: Calendario para selecionar uma data e horário, a data está no formato brasileiro - dd/mm/aaaa
+// Proposta do exemplo: Calendario para selecionar uma data inicial, uma data final e horário, a data está no formato americano - mm/dd/aa
 // O codigo pode ser alterado para definir propriedas a serem utilizadas e personalizar as cores
 // useRange: define se o calendario define apenas uma data ou um alcance com data inicial e data final
 // Formato Data: define o formato da data, opcoes: ("d/m" ou "m/d"), alternativamente a data pode ser escrita por exetenso descomentando o codigo {// dateStyle: "full"} nos arquivos Calendario e RangeCalendario
@@ -26,9 +26,9 @@ export function DatePickerExample() {
     <section className="h-96 w-full relative flex flex-col justify-center items-center">
       <div className="flex bg-[#1d272c] gap-4 p-2">
         <DatePicker
-          useRange={false}
-          formatoData={"d/m"}
-          formatoAno={true}
+          useRange={true}
+          formatoData={"m/d"}
+          formatoAno={false}
           corfundo={"#12191d"}
           cortexto={"white"}
           corhover={"#1d272c"}

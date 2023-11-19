@@ -6,12 +6,13 @@ import "./DatePicker.css";
 import { RangeCalendario } from "./RangeCalendario";
 
 type Props = {
+  useRange: boolean;
+  formatoData: string;
+  formatoAno: boolean;
   corfundo: string;
   cortexto: string;
   corhover: string;
   corselecionado: string;
-  useRange: boolean;
-  formato: string;
 };
 
 function calculateTotalTime(startTime: string, endTime: string): string {
@@ -34,21 +35,21 @@ function calculateTotalTime(startTime: string, endTime: string): string {
 }
 
 export function DatePicker({
+  useRange,
+  formatoData,
+  formatoAno,
   corfundo,
   cortexto,
   corhover,
   corselecionado,
-  useRange,
-  formato,
 }: Props) {
   const [startTime, setStartTime] = useState("00:00");
   const [endTime, setEndTime] = useState("00:00");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const totalTime = calculateTotalTime(startTime, endTime);
 
   return (
     <>
-      <div className={`flex gap-2 text-${cortexto}`}>
+      <div className={`flex gap-1 text-${cortexto}`}>
         <input
           autoComplete="off"
           spellCheck="false"
@@ -84,32 +85,48 @@ export function DatePicker({
           </button>
         </Popover.Trigger>
         <Popover.Portal>
-          <Popover.Content>
+          <Popover.Content
+            style={{
+              filter: `drop-shadow(0 0 1px ${cortexto})`,
+            }}
+          >
             {useRange ? (
               <>
                 <RangeCalendario
+                  formatoData={formatoData}
+                  formatoAno={formatoAno}
                   corfundo={corfundo}
                   cortexto={cortexto}
                   corhover={corhover}
                   corselecionado={corselecionado}
                   horainicio={startTime}
                   horafim={endTime}
+                  tempototal={totalTime}
                 />
               </>
             ) : (
               <>
                 <Calendario
+                  formatoData={formatoData}
+                  formatoAno={formatoAno}
                   corfundo={corfundo}
                   cortexto={cortexto}
                   corhover={corhover}
                   corselecionado={corselecionado}
                   horainicio={startTime}
                   horafim={endTime}
-                  formato={formato}
+                  tempototal={totalTime}
                 />
               </>
             )}
-            <Popover.Arrow fill={corfundo} width="12" height="6" />
+            <Popover.Arrow
+              fill={corfundo}
+              width="12"
+              height="6"
+              style={{
+                filter: `drop-shadow(0 0 0 ${cortexto})`,
+              }}
+            />
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>

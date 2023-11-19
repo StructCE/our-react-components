@@ -7,6 +7,10 @@
     background: #03a9f4;
     border-radius: 0;
   }
+  
+  &[data-selected]:hover {
+    background: #03a9f4;
+  }
 
   &[data-selection-start] {
     border-start-start-radius: 5px;

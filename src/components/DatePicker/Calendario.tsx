@@ -14,69 +14,77 @@ import {
 import "./DatePicker.css";
 
 type Props = {
+  formatoData: string;
+  formatoAno: boolean;
   corfundo: string;
   cortexto: string;
   corhover: string;
   corselecionado: string;
   horainicio: string;
   horafim: string;
-  formato: string;
+  tempototal: string;
 };
 
 export function Calendario({
+  formatoData,
+  formatoAno,
   corfundo,
   cortexto,
   corhover,
   corselecionado,
   horainicio,
   horafim,
-  formato,
+  tempototal,
 }: Props) {
   const [selectedDate, setSelectedDate] = React.useState<DateValue | null>(
     null
   );
-  const formatter = useDateFormatter({
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
+  let formatter;
+  formatoAno
+    ? (formatter = useDateFormatter({
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        // dateStyle: "full",
+      }))
+    : (formatter = useDateFormatter({
+        year: "2-digit",
+        month: "2-digit",
+        day: "2-digit",
+        // dateStyle: "full",
+      }));
 
   function formatarData(data: string) {
     const dia = data.substring(0, 2);
     const mes = data.substring(3, 5);
     const ano = data.substring(6, data.length);
 
-    if (formato == "d/m/a") {
+    if (formatoData == "d/m") {
       return `${dia}/${mes}/${ano}`;
-    } else if (formato == "m/d/a") {
+    } else if (formatoData == "m/d") {
       return `${mes}/${dia}/${ano}`;
     }
   }
 
-  const corFundo = corfundo;
-  const corTexto = cortexto;
-  const corHover = corhover;
-  const corSelecionado = corselecionado;
-
   return (
     <I18nProvider locale="en-US">
       <Calendar
-        className={`flex flex-col rounded-md px-3 py-1 text-${corTexto}`}
-        style={{ backgroundColor: corFundo }}
+        className={`flex flex-col rounded-[12px] px-3 py-1 text-${cortexto}`}
+        style={{ backgroundColor: corfundo }}
         value={selectedDate}
         onChange={setSelectedDate}
       >
         <header className="flex m-2 justify-center items-center">
           <Button
             slot="previous"
-            className={`m-2 p-1 rounded absolute left-1 hover:bg-[${corHover}]`}
+            className={`m-2 p-1 rounded absolute left-1 hover:bg-[${corhover}]`}
           >
             <ChevronLeftIcon width="22" height="22" />
           </Button>
           <Heading className="m-2 first-letter:uppercase" />
           <Button
             slot="next"
-            className={`m-2 p-1 rounded absolute right-1 hover:bg-[${corHover}]`}
+            className={`m-2 p-1 rounded absolute right-1 hover:bg-[${corhover}]`}
           >
             <ChevronRightIcon width="22" height="22" />
           </Button>
@@ -89,7 +97,7 @@ export function Calendario({
                 isToday(data, "America/Sao_Paulo") ? `bg-[#1d272c]` : ""
               } ${
                 data
-                  ? `focus:bg-[${corSelecionado}] hover:bg-[${corHover}]`
+                  ? `focus:bg-[${corselecionado}] hover:bg-[${corhover}]`
                   : ""
               } calendarCell rounded px-2 py-[4px] flex flex-col justify-center items-center `}
             />
@@ -107,8 +115,9 @@ export function Calendario({
                   : ""
               }`}
             </p>
-            <p>{`Hora Início: ${horainicio}`}</p>
-            <p>{`Hora Fim: ${horafim}`}</p>
+            <p>{`Hora Inicial: ${horainicio}`}</p>
+            <p>{`Hora Final: ${horafim}`}</p>
+            <p>{`Tempo Total: ${tempototal}`}</p>
           </>
         ) : (
           <></>
@@ -117,5 +126,3 @@ export function Calendario({
     </I18nProvider>
   );
 }
-// 25/12/2023
-// 0123456789
