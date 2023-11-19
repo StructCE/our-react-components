@@ -7,6 +7,7 @@ import { RangeCalendario } from "./RangeCalendario";
 
 type Props = {
   useRange: boolean;
+  useHorario: boolean;
   formatoData: string;
   formatoAno: boolean;
   corfundo: string;
@@ -36,6 +37,7 @@ function calculateTotalTime(startTime: string, endTime: string): string {
 
 export function DatePicker({
   useRange,
+  useHorario,
   formatoData,
   formatoAno,
   corfundo,
@@ -49,35 +51,39 @@ export function DatePicker({
 
   return (
     <>
-      <div className={`flex gap-1 text-${cortexto}`}>
-        <input
-          autoComplete="off"
-          spellCheck="false"
-          type="time"
-          min="00:00"
-          max="23:59"
-          tabIndex={0}
-          className={`w-18 items-center p-1 bg-[${corhover}] rounded`}
-          defaultValue={startTime}
-          onChange={(e) => {
-            setStartTime(e.target.value);
-          }}
-        ></input>
-        <p className={`flex justify-center items-center`}>{" - "}</p>
-        <input
-          autoComplete="off"
-          spellCheck="false"
-          type="time"
-          min="00:00"
-          max="23:59"
-          tabIndex={0}
-          className={`w-18 items-center p-1 bg-[${corhover}] rounded`}
-          defaultValue={endTime}
-          onChange={(e) => {
-            setEndTime(e.target.value);
-          }}
-        ></input>
-      </div>
+      {useHorario ? (
+        <div className={`flex gap-1 text-${cortexto}`}>
+          <input
+            autoComplete="off"
+            spellCheck="false"
+            type="time"
+            min="00:00"
+            max="23:59"
+            tabIndex={0}
+            className={`w-18 items-center p-1 bg-[${corhover}] rounded`}
+            defaultValue={startTime}
+            onChange={(e) => {
+              setStartTime(e.target.value);
+            }}
+          ></input>
+          <p className={`flex justify-center items-center`}>{" - "}</p>
+          <input
+            autoComplete="off"
+            spellCheck="false"
+            type="time"
+            min="00:00"
+            max="23:59"
+            tabIndex={0}
+            className={`w-18 items-center p-1 bg-[${corhover}] rounded`}
+            defaultValue={endTime}
+            onChange={(e) => {
+              setEndTime(e.target.value);
+            }}
+          ></input>
+        </div>
+      ) : (
+        <></>
+      )}
       <Popover.Root>
         <Popover.Trigger>
           <button className="flex justify-center items-center">
@@ -93,6 +99,7 @@ export function DatePicker({
             {useRange ? (
               <>
                 <RangeCalendario
+                  useHorario={useHorario}
                   formatoData={formatoData}
                   formatoAno={formatoAno}
                   corfundo={corfundo}
@@ -107,6 +114,7 @@ export function DatePicker({
             ) : (
               <>
                 <Calendario
+                  useHorario={useHorario}
                   formatoData={formatoData}
                   formatoAno={formatoAno}
                   corfundo={corfundo}

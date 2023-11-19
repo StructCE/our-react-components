@@ -14,6 +14,7 @@ import {
 import "./DatePicker.css";
 
 type Props = {
+  useHorario: boolean;
   formatoData: string;
   formatoAno: boolean;
   corfundo: string;
@@ -26,6 +27,7 @@ type Props = {
 };
 
 export function Calendario({
+  useHorario,
   formatoData,
   formatoAno,
   corfundo,
@@ -115,9 +117,15 @@ export function Calendario({
                   : ""
               }`}
             </p>
-            <p>{`Hora Inicial: ${horainicio}`}</p>
-            <p>{`Hora Final: ${horafim}`}</p>
-            <p>{`Tempo Total: ${tempototal}`}</p>
+            {useHorario ? (
+              <>
+                <p>{`Hora Inicial: ${horainicio}`}</p>
+                <p>{`Hora Final: ${horafim}`}</p>
+                <p>{`Tempo Total: ${tempototal}`}</p>
+              </>
+            ) : (
+              <></>
+            )}
           </>
         ) : (
           <></>

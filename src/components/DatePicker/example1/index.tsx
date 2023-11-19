@@ -1,6 +1,7 @@
 // Proposta do exemplo: Calendario para selecionar uma data e horário, a data está no formato brasileiro - dd/mm/aaaa
 // O codigo pode ser alterado para definir propriedas a serem utilizadas e personalizar as cores
-// useRange: define se o calendario define apenas uma data ou um alcance com data inicial e data final
+// Use Range: define se o calendario define apenas uma data ou um alcance com data inicial e data final
+// Use Horario: define se o horario (inicial e final) sera utilizado
 // Formato Data: define o formato da data, opcoes: ("d/m" ou "m/d"), alternativamente a data pode ser escrita por exetenso descomentando o codigo {// dateStyle: "full"} nos arquivos Calendario e RangeCalendario
 // Formato Ano: define a parte do ano no formato da data, opcoes ("true" = 2023 ou "false" = 23)
 // Cor fundo: define a cor do fundo do calendario, aceita apenas cores no formato hex ("#ffffff")
@@ -14,7 +15,7 @@
 // Tempo total: pode ser acessado pela variavel 'totalTime' que calcula (endTime - startTime)
 
 // Para manipular os dados da data deve-se acessar os arquivos Calendario ou RangeCalendario
-// Data única: pode ser acessada pela variavel 'selectedDate' e formatada usando a sintaxe {formatarData(formatter.format(selectedDate.toDate(getLocalTimeZone())))}
+// Data unica: pode ser acessada pela variavel 'selectedDate' e formatada usando a sintaxe {formatarData(formatter.format(selectedDate.toDate(getLocalTimeZone())))}
 // Data inicial (range): pode ser acessada pela variavel 'range.start' e formatada usando a sintaxe {formatarData(formatter.format(range.start.toDate(getLocalTimeZone())))}
 // Data final (range): pode ser acessada pela variavel 'range.end' e formatada usando a sintaxe {formatarData(formatter.format(range.end.toDate(getLocalTimeZone())))}
 
@@ -27,6 +28,7 @@ export function DatePickerExample() {
       <div className="flex bg-[#1d272c] gap-4 p-2">
         <DatePicker
           useRange={false}
+          useHorario={true}
           formatoData={"d/m"}
           formatoAno={true}
           corfundo={"#12191d"}
