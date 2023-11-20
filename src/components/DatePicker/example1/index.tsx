@@ -19,10 +19,12 @@
 // Data inicial (range): pode ser acessada pela variavel 'range.start' e formatada usando a sintaxe {formatarData(formatter.format(range.start.toDate(getLocalTimeZone())))}
 // Data final (range): pode ser acessada pela variavel 'range.end' e formatada usando a sintaxe {formatarData(formatter.format(range.end.toDate(getLocalTimeZone())))}
 
-import React from "react";
-import { DatePicker } from "../DatePicker";
+import React, { useContext } from "react";
+import { DatePicker, StartTimeContext } from "../DatePicker";
 
-export function DatePickerExample() {
+export function DatePickerExample1() {
+  const startTime = useContext(StartTimeContext);
+
   return (
     <section className="h-96 w-full relative flex flex-col justify-center items-center">
       <div className="flex bg-[#1d272c] gap-4 p-2">
@@ -37,6 +39,7 @@ export function DatePickerExample() {
           corselecionado={"#03a9f4"}
         />
       </div>
+      <div>{startTime}</div> {/* Display startTime value */}
     </section>
   );
 }

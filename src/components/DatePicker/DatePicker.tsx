@@ -1,6 +1,6 @@
 import { CalendarIcon } from "@radix-ui/react-icons";
 import * as Popover from "@radix-ui/react-popover";
-import React, { useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Calendario } from "./Calendario";
 import "./DatePicker.css";
 import { RangeCalendario } from "./RangeCalendario";
@@ -35,6 +35,8 @@ function calculateTotalTime(startTime: string, endTime: string): string {
   return totalTime;
 }
 
+export const StartTimeContext = createContext("00:00");
+
 export function DatePicker({
   useRange,
   useHorario,
@@ -49,23 +51,27 @@ export function DatePicker({
   const [endTime, setEndTime] = useState("00:00");
   const totalTime = calculateTotalTime(startTime, endTime);
 
+  useEffect(() => {
+    //
+  }, [startTime]);
+
   return (
     <>
       {useHorario ? (
         <div className={`flex gap-1 text-${cortexto}`}>
-          <input
-            autoComplete="off"
-            spellCheck="false"
-            type="time"
-            min="00:00"
-            max="23:59"
-            tabIndex={0}
-            className={`w-18 items-center p-1 bg-[${corhover}] rounded`}
-            defaultValue={startTime}
-            onChange={(e) => {
-              setStartTime(e.target.value);
-            }}
-          ></input>
+          <StartTimeContext.Provider value={startTime}>
+            <input
+              autoComplete="off"
+              type="time"
+              min="00:00"
+              max="23:59"
+              className={`w-18 items-center p-1 bg-[${corhover}] rounded`}
+              defaultValue={startTime}
+              onChange={(e) => {
+                setStartTime(e.target.value);
+              }}
+            ></input>
+          </StartTimeContext.Provider>
           <p className={`flex justify-center items-center`}>{" - "}</p>
           <input
             autoComplete="off"

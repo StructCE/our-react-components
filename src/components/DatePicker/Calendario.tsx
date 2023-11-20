@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { getLocalTimeZone, isToday } from "@internationalized/date";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { I18nProvider } from "@react-aria/i18n";
@@ -69,7 +73,7 @@ export function Calendario({
   }
 
   return (
-    <I18nProvider locale="en-US">
+    <I18nProvider locale="br-BR">
       <Calendar
         className={`flex flex-col rounded-[12px] px-3 py-1 text-${cortexto}`}
         style={{ backgroundColor: corfundo }}

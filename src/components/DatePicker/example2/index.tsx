@@ -22,7 +22,7 @@
 import React from "react";
 import { DatePicker } from "../DatePicker";
 
-export function DatePickerExample() {
+export function DatePickerExample2() {
   return (
     <section className="h-96 w-full relative flex flex-col justify-center items-center">
       <div className="flex bg-[#1d272c] gap-4 p-2">
