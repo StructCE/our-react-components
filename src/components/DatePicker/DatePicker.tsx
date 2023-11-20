@@ -77,11 +77,7 @@ export function DatePicker({
           </a>
         </Popover.Trigger>
         <Popover.Portal>
-          <Popover.Content
-            style={{
-              filter: `drop-shadow(0 0 1px corTexto)`,
-            }}
-          >
+          <Popover.Content className="popoverContent">
             {useRange ? (
               <>
                 <RangeCalendario
@@ -105,14 +101,7 @@ export function DatePicker({
                 />
               </>
             )}
-            <Popover.Arrow
-              fill={`corFundo`}
-              width="12"
-              height="6"
-              style={{
-                filter: `drop-shadow(0 0 0 corTexto)`,
-              }}
-            />
+            <Popover.Arrow width="12" height="6" className="popoverArrow" />
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>

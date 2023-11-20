@@ -1,21 +1,21 @@
-// Proposta do exemplo: Calendario para selecionar uma data inicial, uma data final e horário, a data está no formato americano - mm/dd/aa
+// Proposta do exemplo: Calendario para selecionar uma data e horário, a data está no formato brasileiro - dd/mm/aaaa
+
 // O codigo pode ser alterado para definir propriedas a serem utilizadas e personalizar as cores
 // Use Range: define se o calendario define apenas uma data ou um alcance com data inicial e data final
 // Use Horario: define se o horario (inicial e final) sera utilizado
 // Formato Data: define o formato da data, opcoes: ("d/m" ou "m/d"), alternativamente a data pode ser escrita por exetenso descomentando o codigo {// dateStyle: "full"} nos arquivos Calendario e RangeCalendario
 // Formato Ano: define a parte do ano no formato da data, opcoes ("true" = 2023 ou "false" = 23)
-// Cor fundo: define a cor do fundo do calendario, aceita apenas cores no formato hex ("#ffffff")
-// Cor texto: define a cor do texto de do icone do calendario, aceita aoenas cores no formato extenso do tailwind css ("white", "black")
-// Cor hover: define a cor do fundo do texto ao passar o mouse sobre, aceita apenas cores no formato hex ("#ffffff")
-// Cor selecionado: define a cor do fundo do texto ao selecionar uma data ou um range de datas., aceita apenas cores no formato hex ("#ffffff")
 
-// Para manipular os dados do horario deve-se acessar o arquivo DatePicker Calendario ou RangeCalendario
+// Para alterar a estilizacao deve-se acessar o arquivo 'DatePicker.css' modificar as cores no comeco do codigo
+// Para uma estilizacao mais personalizada e necessario acessar os arquivos DatePicker, Calendario ou RangeCalendario e modificar o que desejar nas className's
+
+// Para manipular os dados do *horario* deve-se acessar o arquivo DatePicker
 // Hora inicial: pode ser acessada pela variavel 'startTime'
 // Hora final: pode ser acessada pela variavel 'endTime'
 // Tempo total: pode ser acessado pela variavel 'totalTime' que calcula (endTime - startTime)
 
-// Para manipular os dados da data deve-se acessar os arquivos Calendario ou RangeCalendario
-// Data única: pode ser acessada pela variavel 'selectedDate' e formatada usando a sintaxe {formatarData(formatter.format(selectedDate.toDate(getLocalTimeZone())))}
+// Para manipular os dados da *data* deve-se acessar os arquivos Calendario ou RangeCalendario
+// Data unica: pode ser acessada pela variavel 'selectedDate' e formatada usando a sintaxe {formatarData(formatter.format(selectedDate.toDate(getLocalTimeZone())))}
 // Data inicial (range): pode ser acessada pela variavel 'range.start' e formatada usando a sintaxe {formatarData(formatter.format(range.start.toDate(getLocalTimeZone())))}
 // Data final (range): pode ser acessada pela variavel 'range.end' e formatada usando a sintaxe {formatarData(formatter.format(range.end.toDate(getLocalTimeZone())))}
 
@@ -38,5 +38,6 @@ export function DatePickerExample2() {
 }
 
 // Considerações:
-// Quando roda a primeira vez, algumas cores podem bugar, tendo que colocar o código hex no lugar da var, depois pode colocar a var de volta
 // A varáveis de hora e data não podem ser acessadas nesse arquivo.
+// Organizacao Arquivos?
+// Bibliotecas?

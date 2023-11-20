@@ -33,6 +33,15 @@ textarea:focus, input:focus{
   background-color: var(--cor-hover);
 }
 
+.popoverArrow {
+  fill: var(--cor-fundo);
+  filter: drop-shadow(0 0 0 var(--cor-texto));
+}
+
+.popoverContent {
+  filter: drop-shadow(0 0 1px var(--cor-texto));
+}
+
 /* ===== Calendarios ===== */
 
 .calendar {
