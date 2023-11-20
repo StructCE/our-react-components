@@ -10,10 +10,6 @@ type Props = {
   useHorario: boolean;
   formatoData: string;
   formatoAno: boolean;
-  corfundo: string;
-  cortexto: string;
-  corhover: string;
-  corselecionado: string;
 };
 
 function calculateTotalTime(startTime: string, endTime: string): string {
@@ -40,10 +36,6 @@ export function DatePicker({
   useHorario,
   formatoData,
   formatoAno,
-  corfundo,
-  cortexto,
-  corhover,
-  corselecionado,
 }: Props) {
   const [startTime, setStartTime] = useState("00:00");
   const [endTime, setEndTime] = useState("00:00");
@@ -52,12 +44,12 @@ export function DatePicker({
   return (
     <>
       {useHorario ? (
-        <div className={`flex gap-1 text-${cortexto}`}>
+        <div className={`flex gap-1 corTexto`}>
           <input
             type="time"
             min="00:00"
             max="23:59"
-            className={`w-18 items-center p-1 bg-[${corhover}] rounded`}
+            className={`w-18 items-center p-1 rounded inputTime`}
             defaultValue={startTime}
             onChange={(e) => {
               setStartTime(e.target.value);
@@ -68,7 +60,7 @@ export function DatePicker({
             type="time"
             min="00:00"
             max="23:59"
-            className={`w-18 items-center p-1 bg-[${corhover}] rounded`}
+            className={`w-18 items-center p-1 rounded inputTime`}
             defaultValue={endTime}
             onChange={(e) => {
               setEndTime(e.target.value);
@@ -81,13 +73,13 @@ export function DatePicker({
       <Popover.Root>
         <Popover.Trigger>
           <a className="flex justify-center items-center">
-            <CalendarIcon width="28" height="28" color={`${cortexto}`} />
+            <CalendarIcon width="28" height="28" className="corTexto" />
           </a>
         </Popover.Trigger>
         <Popover.Portal>
           <Popover.Content
             style={{
-              filter: `drop-shadow(0 0 1px ${cortexto})`,
+              filter: `drop-shadow(0 0 1px corTexto)`,
             }}
           >
             {useRange ? (
@@ -96,10 +88,6 @@ export function DatePicker({
                   useHorario={useHorario}
                   formatoData={formatoData}
                   formatoAno={formatoAno}
-                  corfundo={corfundo}
-                  cortexto={cortexto}
-                  corhover={corhover}
-                  corselecionado={corselecionado}
                   horainicio={startTime}
                   horafim={endTime}
                   tempototal={totalTime}
@@ -111,10 +99,6 @@ export function DatePicker({
                   useHorario={useHorario}
                   formatoData={formatoData}
                   formatoAno={formatoAno}
-                  corfundo={corfundo}
-                  cortexto={cortexto}
-                  corhover={corhover}
-                  corselecionado={corselecionado}
                   horainicio={startTime}
                   horafim={endTime}
                   tempototal={totalTime}
@@ -122,11 +106,11 @@ export function DatePicker({
               </>
             )}
             <Popover.Arrow
-              fill={corfundo}
+              fill={`corFundo`}
               width="12"
               height="6"
               style={{
-                filter: `drop-shadow(0 0 0 ${cortexto})`,
+                filter: `drop-shadow(0 0 0 corTexto)`,
               }}
             />
           </Popover.Content>

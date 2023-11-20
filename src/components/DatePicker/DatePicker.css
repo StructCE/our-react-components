@@ -1,39 +1,106 @@
-.rangeCalendarCell {
-  &[data-outside-month] {
-    opacity: 30%;
-  }
-
-  &[data-selected] {
-    background: #03a9f4;
-    border-radius: 0;
-  }
-  
-  &[data-selected]:hover {
-    background: #03a9f4;
-  }
-
-  &[data-selection-start] {
-    border-start-start-radius: 5px;
-    border-end-start-radius: 5px;
-  }
-
-  &[data-selection-end] {
-    border-start-end-radius: 5px;
-    border-end-end-radius: 5px;
-  }
+/* ===== Cores ===== */
+:root {
+  --cor-fundo: #12191d;
+  --cor-texto: white;
+  --cor-hover: #1d272c;
+  --cor-selecionado: #03a9f4;
 }
 
-.calendarCell {
-  &[data-outside-month] {
-    opacity: 30%;
-  }
+.corTexto{
+  color: var(--cor-texto);
 }
 
+::selection {
+  background-color: var(--cor-selecionado);
+}
+
+/* ===== Geral ===== */
+
+/* Remove o icone do relogio do lado do input */
 input[type="time"]::-webkit-calendar-picker-indicator {
   background: none;
   display: none;
 }
 
+/* Remove a borda do input */
 textarea:focus, input:focus{
   outline: none;
+}
+
+/* ===== Date Picker ===== */
+
+.inputTime {
+  background-color: var(--cor-hover);
+}
+
+/* ===== Calendarios ===== */
+
+.calendar {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.button {
+  &:hover {
+    background-color: var(--cor-hover);
+  }
+}
+
+.calendarCellToday {
+  background-color: var(--cor-hover);
+}
+
+/* ===== Calendario sem Range ===== */
+
+.calendarCell {
+  &[data-outside-month] {
+    opacity: 30%;
+  }
+
+  &[data-selected] {
+    background: var(--cor-selecionado);
+  }
+
+  &:focus {
+    background-color: var(--cor-selecionado);
+  }
+
+  &:hover {
+    background-color: var(--cor-hover);
+  }
+}
+
+/* ===== Calendario com Range ===== */
+
+.rangeCalendarCell {
+  &[data-outside-month] {
+    opacity: 30%;
+  }
+  
+  &[data-selected] {
+    background: var(--cor-selecionado);
+    border-radius: 0;
+  }
+  
+  &[data-selected]:hover {
+    background: var(--cor-selecionado);
+  }
+  
+  &[data-selection-start] {
+    border-start-start-radius: 5px;
+    border-end-start-radius: 5px;
+  }
+  
+  &[data-selection-end] {
+    border-start-end-radius: 5px;
+    border-end-end-radius: 5px;
+  }
+  
+  &:focus {
+    background-color: var(--cor-selecionado);
+  }
+  
+  &:hover {
+    background-color: var(--cor-hover);
+  }
 }

@@ -17,10 +17,6 @@ type Props = {
   useHorario: boolean;
   formatoData: string;
   formatoAno: boolean;
-  corfundo: string;
-  cortexto: string;
-  corhover: string;
-  corselecionado: string;
   horainicio: string;
   horafim: string;
   tempototal: string;
@@ -30,10 +26,6 @@ export function Calendario({
   useHorario,
   formatoData,
   formatoAno,
-  corfundo,
-  cortexto,
-  corhover,
-  corselecionado,
   horainicio,
   horafim,
   tempototal,
@@ -71,22 +63,21 @@ export function Calendario({
   return (
     <I18nProvider locale="br-BR">
       <Calendar
-        className={`flex flex-col rounded-[12px] px-3 py-1 text-${cortexto}`}
-        style={{ backgroundColor: corfundo }}
+        className={`flex flex-col rounded-[12px] px-3 py-1 calendar`}
         value={selectedDate}
         onChange={setSelectedDate}
       >
         <header className="flex m-2 justify-center items-center">
           <Button
             slot="previous"
-            className={`m-2 p-1 rounded absolute left-1 hover:bg-[${corhover}]`}
+            className={`m-2 p-1 rounded absolute left-1 button`}
           >
             <ChevronLeftIcon width="22" height="22" />
           </Button>
           <Heading className="m-2 first-letter:uppercase" />
           <Button
             slot="next"
-            className={`m-2 p-1 rounded absolute right-1 hover:bg-[${corhover}]`}
+            className={`m-2 p-1 rounded absolute right-1 button`}
           >
             <ChevronRightIcon width="22" height="22" />
           </Button>
@@ -96,12 +87,8 @@ export function Calendario({
             <CalendarCell
               date={data}
               className={`${
-                isToday(data, "America/Sao_Paulo") ? `bg-[#1d272c]` : ""
-              } ${
-                data
-                  ? `focus:bg-[${corselecionado}] hover:bg-[${corhover}]`
-                  : ""
-              } calendarCell rounded px-2 py-[4px] flex flex-col justify-center items-center `}
+                isToday(data, "America/Sao_Paulo") ? `calendarCellToday` : ""
+              } rounded px-2 py-[4px] flex flex-col justify-center items-center calendarCell`}
             />
           )}
         </CalendarGrid>

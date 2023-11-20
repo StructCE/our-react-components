@@ -31,10 +31,6 @@ export function DatePickerExample2() {
           useHorario={false}
           formatoData={"m/d"}
           formatoAno={false}
-          corfundo={"#12191d"}
-          cortexto={"white"}
-          corhover={"#1d272c"}
-          corselecionado={"#03a9f4"}
         />
       </div>
     </section>

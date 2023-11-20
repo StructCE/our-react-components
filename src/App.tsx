@@ -1,7 +1,7 @@
-import { ModalExample2 } from "./components/Modal/example2";
+import { DatePickerExample1 } from "./components/DatePicker/example1";
 
 function App() {
-  return <ModalExample2 />;
+  return <DatePickerExample1 />;
 }
 
 export default App;

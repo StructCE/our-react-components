@@ -17,10 +17,6 @@ type Props = {
   useHorario: boolean;
   formatoData: string;
   formatoAno: boolean;
-  corfundo: string;
-  cortexto: string;
-  corhover: string;
-  corselecionado: string;
   horainicio: string;
   horafim: string;
   tempototal: string;
@@ -30,10 +26,6 @@ export function RangeCalendario({
   useHorario,
   formatoData,
   formatoAno,
-  corfundo,
-  cortexto,
-  corhover,
-  corselecionado,
   horainicio,
   horafim,
   tempototal,
@@ -69,22 +61,21 @@ export function RangeCalendario({
   return (
     <I18nProvider locale="br-BR">
       <RangeCalendar
-        className={`flex flex-col rounded-[12px] px-3 py-1 text-${cortexto}`}
-        style={{ backgroundColor: corfundo }}
+        className={`flex flex-col rounded-[12px] px-3 py-1 calendar`}
         value={range}
         onChange={setRange}
       >
         <header className="flex m-2 justify-center items-center">
           <Button
             slot="previous"
-            className={`m-2 p-1 rounded absolute left-1 hover:bg-[${corhover}]`}
+            className={`m-2 p-1 rounded absolute left-1 button`}
           >
             <ChevronLeftIcon width="22" height="22" />
           </Button>
           <Heading className="m-2 first-letter:uppercase" />
           <Button
             slot="next"
-            className={`m-2 p-1 rounded absolute right-1 hover:bg-[${corhover}]`}
+            className={`m-2 p-1 rounded absolute right-1 button`}
           >
             <ChevronRightIcon width="22" height="22" />
           </Button>
@@ -94,12 +85,8 @@ export function RangeCalendario({
             <CalendarCell
               date={date}
               className={`${
-                isToday(date, "America/Sao_Paulo") ? `bg-[${corhover}]` : ""
-              } ${
-                date
-                  ? `focus:bg-[${corselecionado}] hover:bg-[${corhover}]`
-                  : ""
-              } rangeCalendarCell rounded px-2 py-[4px] flex flex-col justify-center items-center `}
+                isToday(date, "America/Sao_Paulo") ? `calendarCellToday` : ""
+              } rounded px-2 py-[4px] flex flex-col justify-center items-center rangeCalendarCell`}
             />
           )}
         </CalendarGrid>
