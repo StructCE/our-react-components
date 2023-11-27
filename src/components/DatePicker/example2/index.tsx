@@ -36,8 +36,3 @@ export function DatePickerExample2() {
     </section>
   );
 }
-
-// Considerações:
-// A varáveis de hora e data não podem ser acessadas nesse arquivo.
-// Organizacao Arquivos?
-// Bibliotecas?
