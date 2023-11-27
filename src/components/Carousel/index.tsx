@@ -17,19 +17,19 @@ type Image = {
 type Props = {
   images: Image[];
   autoplayTime: number; // Define a quantidade de segundos para as imagens passarem sozinhas (0 para nao passarem)
-  infinite: boolean; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
-  arrows: boolean; // Define se as setas serao utilizadas ou nao
-  navigation: boolean; // Define se os botoes da navegacao irao aparecer embaixo das imagens
-  swipe: boolean; // Define se as imagens podem ser passadas ao arrasta-las
+  infiniteLoop: boolean; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
+  showArrows: boolean; // Define se as setas serao utilizadas ou nao
+  showNavigation: boolean; // Define se os botoes da navegacao irao aparecer embaixo das imagens
+  enableSwipe: boolean; // Define se as imagens podem ser passadas ao arrasta-las
 };
 
 export function Carousel({
   images,
   autoplayTime,
-  infinite,
-  arrows,
-  navigation,
-  swipe,
+  infiniteLoop,
+  showArrows,
+  showNavigation,
+  enableSwipe,
 }: Props) {
   const [currentPosition, setCurrentPosition] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
@@ -52,11 +52,11 @@ export function Carousel({
 
   function changePosition(nextPosition: number) {
     if (nextPosition >= images.length) {
-      return infinite ? 0 : currentPosition;
+      return infiniteLoop ? 0 : currentPosition;
     }
 
     if (nextPosition < 0) {
-      return infinite ? images.length - 1 : currentPosition;
+      return infiniteLoop ? images.length - 1 : currentPosition;
     }
 
     return nextPosition;
@@ -82,17 +82,17 @@ export function Carousel({
     <div
       className="flex w-[200px] flex-col justify-center items-center relative mb-4 text-black"
       onTouchStart={(event) => {
-        if (swipe && event.touches[0]) {
+        if (enableSwipe && event.touches[0]) {
           setTouchStartX(event.touches[0].clientX);
         }
       }}
       onTouchMove={(event) => {
-        if (swipe) {
+        if (enableSwipe) {
           event.preventDefault();
         }
       }}
       onTouchEnd={(event) => {
-        if (swipe && event.changedTouches[0]) {
+        if (enableSwipe && event.changedTouches[0]) {
           const touchEndX = event.changedTouches[0].clientX;
           if (touchEndX < touchStartX) {
             nextIndex();
@@ -102,17 +102,17 @@ export function Carousel({
         }
       }}
       onMouseDown={(event) => {
-        if (swipe) {
+        if (enableSwipe) {
           setMouseStartX(event.clientX);
         }
       }}
       onMouseMove={(event) => {
-        if (swipe) {
+        if (enableSwipe) {
           event.preventDefault();
         }
       }}
       onMouseUp={(event) => {
-        if (swipe) {
+        if (enableSwipe) {
           let mouseEndX = event.clientX;
           const diff = mouseEndX - mouseStartX;
           const threshold = 50; // Define o intervalo entre a posicao inicial e final do mouse para arrastar
@@ -130,7 +130,7 @@ export function Carousel({
         }
       }}
     >
-      {arrows ? (
+      {showArrows ? (
         <>
           <button
             className="border-none bg-transparent absolute top-1/2 -translate-y-2/4 right-[105%]"
@@ -162,7 +162,7 @@ export function Carousel({
           )}
         </div>
       ))}
-      {navigation ? (
+      {showNavigation ? (
         <div className="absolute top-full h-4 flex">
           {images.map((image, index) => (
             <button

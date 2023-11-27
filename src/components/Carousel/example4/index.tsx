@@ -1,10 +1,10 @@
 // Proposta do exemplo: Mostrar o clássico funcionamento de um carrosel.
 // O codigo pode ser alterado para definir quais das propriedades abaixo sera utilizadas:
 // - AutoplayTime: as imagens passam sozinhas apos a quantidade de segundos indicada (0 para nao utilizar)
-// - Infinite: apos a ultima imagem volta para primeira
-// - Arrows: define se as setas serao utilizadas ou nao
+// - infiniteLoop: apos a ultima imagem volta para primeira
+// - showArrows: define se as setas serao utilizadas ou nao
 // - Navgation: define se os botoes da navegacao irao aparecer embaixo das imagens
-// - Swipe: define se as imagens podem ser passadas ao arrasta-las
+// - enableSwipe: define se as imagens podem ser passadas ao arrasta-las
 
 // O exemplo abaixo é um carrossel que as imagens são passadas ao serem arrastadas ou usando os botoes de navegacao
 
@@ -18,10 +18,10 @@ export function CarouselExample() {
       <Carousel
         images={images}
         autoplayTime={0}
-        infinite={false}
-        arrows={false}
-        navigation={true}
-        swipe={true}
+        infiniteLoop={false}
+        showArrows={false}
+        showNavigation={true}
+        enableSwipe={true}
       />
     </section>
   );
