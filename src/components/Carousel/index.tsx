@@ -16,7 +16,7 @@ type Image = {
 
 type Props = {
   images: Image[];
-  autoplayTime: number; // Define a quantidade de segundos para as imagens passarem sozinhas (0 para nao passarem)
+  autoplayTime?: number; // Define a quantidade de segundos para as imagens passarem sozinhas (0 para nao passarem)
   infiniteLoop: boolean; // Define se o ciclo infinito sera utilizado ou nao (volta para primeira imagem, apos a ultima)
   showArrows: boolean; // Define se as setas serao utilizadas ou nao
   showNavigation: boolean; // Define se os botoes da navegacao irao aparecer embaixo das imagens
@@ -25,7 +25,7 @@ type Props = {
 
 export function Carousel({
   images,
-  autoplayTime,
+  autoplayTime = 0,
   infiniteLoop,
   showArrows,
   showNavigation,

@@ -1,9 +1,9 @@
 // Proposta do exemplo: Mostrar o clássico funcionamento de um carrosel.
 // O codigo pode ser alterado para definir quais das propriedades abaixo sera utilizadas:
-// - AutoplayTime: as imagens passam sozinhas apos a quantidade de segundos indicada (0 para nao utilizar)
+// - autoplayTime: as imagens passam sozinhas apos a quantidade de segundos indicada, para nao utilizar basta nao passar o prop
 // - infiniteLoop: apos a ultima imagem volta para primeira
 // - showArrows: define se as setas serao utilizadas ou nao
-// - Navgation: define se os botoes da navegacao irao aparecer embaixo das imagens
+// - showNavgation: define se os botoes da navegacao irao aparecer embaixo das imagens
 // - enableSwipe: define se as imagens podem ser passadas ao arrasta-las
 
 // O exemplo abaixo é um carrossel sem controle, as imagens passam sozinha
