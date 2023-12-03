@@ -1,7 +1,10 @@
-import { ModalExample2 } from "./components/Modal/example2";
+// import { HotToastExample } from "./components/HotToast/Example/ExampleTest";
+import { ToastExample } from "./components/HotToast/Test/Toast";
 
 function App() {
-  return <ModalExample2 />;
+  // return <HotToastExample2 />;
+  // return <HotToastExample />;
+  return <ToastExample />;
 }
 
 export default App;

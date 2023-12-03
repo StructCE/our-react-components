@@ -11,8 +11,8 @@
     "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx,.cjs"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.0.3",
     "@radix-ui/react-alert-dialog": "^1.0.3",
+    "@radix-ui/react-dialog": "^1.0.3",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-radio-group": "^1.1.2",
     "class-variance-authority": "^0.6.0",
@@ -23,11 +23,12 @@
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "styled-components": "^5.3.8",
-    "vite-plugin-checker": "^0.5.6",
-    "zod": "^3.21.4",
     "tailwind-merge": "^1.13.2",
-    "tailwindcss-animate": "^1.0.6"
+    "tailwindcss-animate": "^1.0.6",
+    "vite-plugin-checker": "^0.5.6",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/eslint": "^8.37.0",
@@ -45,8 +46,8 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "sass": "^1.62.1",
     "postcss": "^8.4.24",
+    "sass": "^1.62.1",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.4",
     "vite": "^4.1.0"
